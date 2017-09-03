@@ -257,6 +257,244 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/24/数组（2）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谦恒">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="谦恒-个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/24/数组（2）/" itemprop="url">数组(二)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-24T09:23:15+08:00">
+                2017-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-8-数组方法"><a href="#1-8-数组方法" class="headerlink" title="1.8 数组方法"></a>1.8 数组方法</h3><blockquote>
+<p>ECMAScript 3在Array.prototype中定义了一些很有用的操作数组的函数，这意味着这些函数作为任何数组的方法都是可用的。下面将先介绍ECMAScript 3中的这些方法。然后还涉及到ECMAScript 5中新增的一些数组遍历方法。</p>
+</blockquote>
+<h3 id="1-8-1-join"><a href="#1-8-1-join" class="headerlink" title="1.8.1 join()"></a>1.8.1 join()</h3><p><br>    Array.join()方法将数组中的所有元素都转化为字符串并连接在一起，返回最后生成的字符串。可以指定一个可选在生成的字符串中来分隔数组的各个元素。如果不指定分隔符，默认使用逗号。如以下代码所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var a = [1, 2, 3];	// 创建一个包含三个元素的数组</div><div class="line">a.join();			// =&gt; &quot;1, 2, 3&quot;</div><div class="line">a.join(&quot; &quot;);		// =&gt; &quot;1 2 3&quot;</div><div class="line">a.join(&quot;&quot;);			// =&gt; &quot;123&quot;</div><div class="line">var b = new Array(10);	// 长度为10的空数组</div><div class="line">b.join(&apos;-&apos;)			// =&gt; &apos;----------&apos;：9个连字号组成的字符串</div></pre></td></tr></table></figure>
+<p><br>    Array.join()方法是String.split()方法的逆向操作，后者是将字符串分割成若干块来创建一个数组。<br></p>
+
+<h3 id="1-8-2-reverse"><a href="#1-8-2-reverse" class="headerlink" title="1.8.2 reverse()"></a>1.8.2 reverse()</h3><p><br>    Array.reverse()方法将数组中的元素颠倒顺序，返回逆序的数组。它采取了替换，换句话说，它不通过重新排列的元素创建新的数组，而是在原先的数组中重新排列它们。例如，下面的代码使用reverse()和join()方法生成字符串“3, 2, 1”：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a = [1, 2, 3];</div><div class="line">a.reverse().join()	// =&gt; &quot;3, 2, 1&quot;,并且现在的a是[3, 2, 1]</div></pre></td></tr></table></figure>
+<h3 id="1-8-3-sort"><a href="#1-8-3-sort" class="headerlink" title="1.8.3 sort()"></a>1.8.3 sort()</h3><p><br>    Array.sort()方法将数组中的元素排序并返回排序后的数组。当不带参数调用sort()时，数组元素以字母表顺序排序(如果有必要将临时转化为字符串进行比较):<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var a = new Array(&quot;banana&quot;, &quot;cherry&quot;, &quot;apple&quot;);</div><div class="line">a.sort();</div><div class="line">var s = a.join(&quot;, &quot;);	// s == &quot;apple, banana, cherry&quot;</div></pre></td></tr></table></figure>
+<p><br>    如果数组包含undefined元素，它们会被排到数组的尾部。为了按照其他方式而非字母表顺序进行数组排序，必须给sort()方法传递一个比较函数。该函数决定了它的两个参数在排好序的数组中的先后顺序。假设第一个参数应该在前，比较函数应该返回一个小于0的数组。反之，假设第一个参数在后，函数应该返回一个大于0的数值。并且，假设两个值相等(也就是说，它们的顺序无关紧要),函数应该返回0.因此，用数值大小而非字母表顺序进行数组排序，代码如下：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var a = [33, 4, 1111, 222];</div><div class="line">a.sort();	// 字母表顺序： 1111, 222, 33, 4</div><div class="line">a.sort(function(a, b) &#123;	// 数值顺序：4, 33, 222, 1111</div><div class="line">    return a-b;		// 根据顺序，返回负数、0、正数</div><div class="line">&#125;);</div><div class="line">a.sort(function(a, b) &#123; return b-a &#125;);	// 数值大小相反的顺序</div></pre></td></tr></table></figure>
+<p><br>    注意，这里使用匿名函数表达式非常方便。既然比较函数只是用一次，就没必要给它们命名了。<br></p>
+
+<p><br>    另外一个数组元素排序的例子，也许需要对一个字符串数组执行不区分大小写的字母表顺序，比较函数首先将参数都转化为小写字符串(使用toLowerCase()方法)，再开始比较：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">a = [&apos;ant&apos;, &apos;Bug&apos;, &apos;cat&apos;, &apos;Dog&apos;]</div><div class="line">a.sort();	// 区分大小写的排序：[&apos;Bug&apos;, &apos;Dog&apos;, &apos;ant&apos;, &apos;cat&apos;]</div><div class="line">a.sort(function(s, t) &#123;	// 不区分大小写的排序</div><div class="line">    var a = s.toLowerCase();</div><div class="line">    var b = t.toLowerCase();</div><div class="line">    if (a &lt; b) return -1;</div><div class="line">    if (a &gt; b) return 1;</div><div class="line">    return 0;</div><div class="line">&#125;);		// =&gt; [&apos;ant&apos;, &apos;Bug&apos;, &apos;cat&apos;, &apos;Dog&apos;]</div></pre></td></tr></table></figure>
+<h3 id="1-8-4-concat"><a href="#1-8-4-concat" class="headerlink" title="1.8.4 concat()"></a>1.8.4 concat()</h3><p><br>    Array.concat()方法创建并返回一个新数组，它的元素包括调用concat()的原始数组的元素和concat()的每个参数。如果这些参数中的任何一个自身是数组，则连续的是数组的元素，而非数组本身。但要注意，concat()不会递归扁平化数组的数组。concat()也不会修改调用的数组。下面有一些示例：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a = [1, 2, 3];</div><div class="line">a.concat(4, 5)		// 返回[1, 2, 3, 4, 5]</div><div class="line">a.concat([4, 5]);	// 返回[1, 2, 3, 4, 5]</div><div class="line">a.concat([4, 5], [6, 7])	// 返回[1, 2, 3, 4, 5, 6, 7]</div><div class="line">a.concat(4, [5, [6, 7]])	// 返回[1, 2, 3, 4, 5, [6, 7]]</div></pre></td></tr></table></figure>
+<h3 id="1-8-5-slice"><a href="#1-8-5-slice" class="headerlink" title="1.8.5 slice()"></a>1.8.5 slice()</h3><p><br>    Array.slice()方法返回指定数组的一个片段或子数组。它的两个参数分别指定了片段的开始和结束的位置。返回的数组包含第一个参数指定的位置和所有到但不包含第二个参数指定的位置之间的所有数组元素。如果只指定一个参数，返回的数组将包含从开始位置到数组结尾的所有元素。如果参数中出现负数，它表示相对于数组中最后一个元素的位置。例如，参数-1指定了最后一个元素，而-3指定了倒数第三个元素。注意，slice()不会修改调用的数组。下面有一些示例：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a = [1, 2, 3, 4, 5];</div><div class="line">a.slice(0, 3);		// 返回[1, 2, 3]</div><div class="line">a.slice(3);			// 返回[4, 5]</div><div class="line">a.slice(1, -1);		// 返回[2, 3, 4]</div><div class="line">a.slice(-3, -2);	// 返回[3]</div></pre></td></tr></table></figure>
+<h3 id="1-8-6-splice"><a href="#1-8-6-splice" class="headerlink" title="1.8.6 splice()"></a>1.8.6 splice()</h3><p><br>    Array.splice()方法是在数组中插入或删除元素的通用方法。不同于slice()和concat()，splice()会修改调用的数组。注意，splice()和slice()拥有非常相似的名字，但它们的功能却有本质的区别。<br></p>
+
+<p><br>    splice()能够从数组中删除元素、插入元素到数组中或者同事完成这两种操作。在插入或删除点之后的数组元素会根据需要增加或减少它们的索引值，因此数组的其他部分仍然保持连续的。splice()的第一个参数指定了插入和(或)删除的起始位置。第二个参数指定了应该从数组中删除的元素的个数。如果省略第二个参数，从起始点开始到数组结尾的所有元素都将被删除。splice()返回一个由删除元素组成的数组，或者如果没有删除元素就返回一个空数组。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a = [1, 2, 3, 4, 5, 6, 7, 8];</div><div class="line">a.splice(4);	// 返回[5, 6, 7, 8]; a是[1, 2, 3, 4]</div><div class="line">a.splice(1, 2);	// 返回[2, 3]; a是[1, 4]</div><div class="line">a.splice(1, 1);	// 返回[4]; a是[1]</div></pre></td></tr></table></figure>
+<p><br>    splice()的前两个参数指定了需要删除的数组元素。紧随其后的任意个数的参数指定了需要插入到数组中的元素，从第一个参数指定的位置开始插入。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var a = [1, 2, 3, 4, 5];</div><div class="line">a.splice(2, 0, &apos;a&apos;, &apos;b&apos;);	// 返回[]; a是[1, 2, &apos;a&apos;, &apos;b&apos;, 3, 4, 5]</div><div class="line">a.splice(2, 2, [1, 2], 3);	// 返回[&apos;a&apos;, &apos;b&apos;]; a是[1, 2, [1, 2], 3, 4, 5]</div></pre></td></tr></table></figure>
+<p><br>    注意，区别于concat(),splice()会插入数组本身而非数组的元素。<br></p>
+
+<h3 id="1-8-7-push-和pop"><a href="#1-8-7-push-和pop" class="headerlink" title="1.8.7 push()和pop()"></a>1.8.7 push()和pop()</h3><p><br>    push()和pop()方法允许将数组当做栈来调用。push()方法在数组的尾部添加一个或多个元素，并返回数组新的长度。pop()方法则相反：它删除数组的最后一个元素，减少数组长度并返回它删除的值。注意，这两个方法都修改并替换原始数组而非生成一个修改版的新数组。组合使用push()和pop()能够用JavaScript数组实现先进后出的栈。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var stack = [];		// stack：[]</div><div class="line">stack.push(1, 2);	// stack: [1, 2]	返回2</div><div class="line">stack.pop();		// stack: [1]		返回2</div><div class="line">stack.push(3);		// stack: [1, 3]	返回2</div><div class="line">stack.pop();		// stack: [1]		返回3</div><div class="line">stack.push([4, 5])	// stack: [1, [4, 5]] 返回2</div><div class="line">stack.pop() 		// stack: [1]		返回[4, 5]</div><div class="line">stack.pop();		// stack: []		返回1</div></pre></td></tr></table></figure>
+<h3 id="1-8-8-unshift-和shift"><a href="#1-8-8-unshift-和shift" class="headerlink" title="1.8.8 unshift()和shift()"></a>1.8.8 unshift()和shift()</h3><p><br>    unshift()和shift()方法的行为非常类似于push()和pop(),不一样的是前者是在数组的头部而非尾部进行元素的插入和删除操作。unshift()在数组的头部添加一个或多个元素，并将已存在的元素移动到更高索引的位置来获得足够的空间，最后返回数组新的长度。shift()删除数组的第一个元素并将其返回，然后把所有随后的元素下移一个位置来填补数组头部的空缺。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var a = [];				// a: []</div><div class="line">a.unshift(1);			// a: [1]				返回：1</div><div class="line">a.unshift(22);			// a: [22, 1]			返回：2</div><div class="line">a.shift();				// a: [1]				返回22</div><div class="line">a.unshift(3, [4, 5]);	// a: [3, [4, 5], 1]	返回3</div><div class="line">a.shift();				// a: [[4, 5], 1]		返回3</div><div class="line">a.shift();				// a: [1]				返回：[4, 5]</div><div class="line">a.shift();				// a: []				返回： 1</div></pre></td></tr></table></figure>
+<p><br>    注意，当使用多个参数调用unshift()时它的行为令人惊讶。参数是一次性插入的(就像splice()方法)而非一次一个地插入。这意味着最终的数组中插入的元素的顺序和它们在参数列表中的顺序一致。而假如元素是一次一个地插入，它们的顺序应该是反过来的。<br></p>
+
+<h3 id="1-8-9-toString-和toLocaleString"><a href="#1-8-9-toString-和toLocaleString" class="headerlink" title="1.8.9 toString()和toLocaleString()"></a>1.8.9 toString()和toLocaleString()</h3><p><br>    数组和其他JavaScript对象一样拥有toString()方法。针对数组，该方法将其每个元素转换为字符串(如有必要将调用元素的toString()方法)并且输出用逗号分隔的字符串列表。注意，输出不包括方括号或其他任何形式的包裹数组值的分隔符。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[1, 2, 3].toString()		// 生成&apos;1, 2, 3&apos;</div><div class="line">[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;].toString()	// 生成&apos;a, b, c&apos;</div><div class="line">[1, [2, &apos;c&apos;]].toString()	// 生成&apos;1, 2, c&apos;</div></pre></td></tr></table></figure>
+<p><br>    注意，这里与不使用任何参数调用join()方法返回的字符串是一样的。<br></p>
+
+<p><br>    toLocaleString()是toString()方法的本地化版本。它调用元素的toLocaleString()方法将每个数组元素转化为字符串，并且使用本地化(和自定义实现的)分隔符将这些字符串连接起来生成最终的字符串。<br></p>
+
+<h3 id="1-9-ECMAScript-5中的数组方法"><a href="#1-9-ECMAScript-5中的数组方法" class="headerlink" title="1.9 ECMAScript 5中的数组方法"></a>1.9 ECMAScript 5中的数组方法</h3><p><br>    ECMAScript 5定义了9个新的数组方法来遍历、映射、过滤、检测、简化和搜索数组，下面将分别介绍这些方法。<br></p>
+
+<p><br>    但在开始详细介绍之前，很有必要对ECMAScript 5中的数组方法做一个概述。首先，大多数方法的第一个参数接收一个函数，并且对数组的每个元素（或一些元素）调用一次该函数。如果是稀疏数组，对不存在的元素不调用传递的函数。在大多数情况下，调用提供的函数使用三个参数：数组元素、元素的索引和数组本身。通常，只需要第一个参数值，可以忽略后两个参数。大多数ECMAScript 5数组方法的第一个参数是一个函数，第二个参数是可选的。如果有第二个参数，则调用的函数被看做是第二个参数的方法。也就是说，在调用的函数时传递进去的第二个参数作为它的this关键字的值来使用。被调用的函数的返回值非常重要，但是不同的方法处理返回值的方式也不一样。ECMAScript 5中的数组方法都不会修改它们调用的原始数组。当然，传递给这些方法的函数是可以修改这些数组的。<br></p>
+
+<h3 id="1-9-1-forEach"><a href="#1-9-1-forEach" class="headerlink" title="1.9.1 forEach()"></a>1.9.1 forEach()</h3><p><br>    forEach()方法从头至尾遍历数组，为每个元素调用指定的函数。如上所述，传递的函数作为forEach()的第一个参数。然后forEach()使用三个参数调用该函数：数组元素、元素的索引和数组本身。如果只关心数组元素的值，可以编写只有一个参数的函数——额外的参数将忽略：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var data = [1, 2, 3, 4, 5];		// 要求和的数组</div><div class="line">// 计算数组元素和值</div><div class="line">var sum = 0;		// 初始为0</div><div class="line">data.forEach(function(value) &#123; sum += value; &#125;);	// 将每个值累加到sum上</div><div class="line">sum 				// =&gt; 15</div><div class="line">// 每个数组元素的值自加1</div><div class="line">data.forEach(function(v, i, a) &#123; a[i] = v + 1; &#125;);</div><div class="line">data 				// =&gt; [2, 3, 4, 5, 6]</div></pre></td></tr></table></figure>
+<p><br>    注意，forEach()无法在所有元素都传递给调用的函数之前终止遍历。也就是说，没有像for循环中使用的相应的break语句。如果要提前终止，必须把forEach方法放到一个try块中，并能抛出一个异常。如果forEach()调用的函数抛出foreach.break异常，循环会提前终止：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function foreach(a, f, t) &#123;</div><div class="line">    try &#123;</div><div class="line">        a.forEach(f, t);</div><div class="line">    &#125; catch(e) &#123;</div><div class="line">        if (e === foreach.break) return;</div><div class="line">        else throw e;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">foreach.break = new Error(&quot;StopInteration&quot;);</div></pre></td></tr></table></figure>
+<h3 id="1-9-2-map"><a href="#1-9-2-map" class="headerlink" title="1.9.2 map()"></a>1.9.2 map()</h3><p><br>    map()方法将调用的数组的每个元素传递给指定的函数，并返回一个数组，它包含该函数的返回值。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a = [1, 2, 3];</div><div class="line">b = a.map(function(x) &#123; return x*x; &#125;);		// b是[1, 4, 9]</div></pre></td></tr></table></figure>
+<p><br>    传递给map()的函数的调用方式和传递给forEach()的函数的调用方式一样。但传递给map()的函数应该有返回值。注意，map()返回的是新数组：它不修改调用的数组。如果是稀疏数组，返回的也是相同方式的稀疏数组：它具有相同的长度，相同的缺失元素/<br></p>
+
+<h3 id="1-9-3-filter"><a href="#1-9-3-filter" class="headerlink" title="1.9.3 filter()"></a>1.9.3 filter()</h3><p><br>    filter()方法返回的数组元素的一个子集。传递的函数是用来逻辑判定的：该函数返回true或false。调用判定函数就像调用forEach()和map()一样。如果返回值为true或能转化为true的值，那么传递给判定函数的元素就是这个子集的成员，它将被添加到一个作为返回值的数组中。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a = [5, 4, 3, 2, 1];</div><div class="line">smallvalues = a.filter(function(x) &#123; return x &lt; 3 &#125;);	// [2, 1]</div><div class="line">everyother = a.filter(function(x, i) &#123; return i % 2 &#125;);	// [5, 3, 1]</div></pre></td></tr></table></figure>
+<p><br>    注意，filter()会跳过稀疏数组中缺少的元素，它的返回数组总是稠密的。为了压缩稀疏数组的空缺，代码如下：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var dense = sparse.filter(function() &#123; return true; &#125;);</div></pre></td></tr></table></figure>
+<p><br>    甚至，压缩空缺并删除undefined和null元素，可以这样使用filter():<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a = a.filter(function(x) &#123; return x !== undefined &amp;&amp; x != null; &#125;);</div></pre></td></tr></table></figure>
+<h3 id="1-9-4-every-和some"><a href="#1-9-4-every-和some" class="headerlink" title="1.9.4 every()和some()"></a>1.9.4 every()和some()</h3><p><br>    every()和some()方法是数组的逻辑判定：它们对数组应用指定的函数进行判定，返回true或false。<br></p>
+
+<p><br>    every()方法就像数学中的“针对所有”的量词：当且仅当针对数组中的所有元素调用判定函数都返回ture，它才返回true：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a = [1, 2, 3, 4, 5];</div><div class="line">a.every(function(x) &#123; return x &lt; 10; &#125;)	// =&gt; true：所有的值小于10</div><div class="line">a.every(function(x) &#123; return x % 2 === 0; &#125;)	// =&gt; false：不是所有的值都是偶数</div></pre></td></tr></table></figure>
+<p><br>    some()方法就像数学中的“存在”量词：当数组中至少有一个元素调用判定函数返回true，它就返回true；并且仅当数值中的所有元素调用判定函数都返回false，它才返回false：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a = [1, 2, 3, 4, 5];</div><div class="line">a.some(function(x) &#123; return x%2 === 0; &#125;)	// =&gt; true：a含有偶数值</div><div class="line">a.some(isNaN)		// false：a不包含非数值元素</div></pre></td></tr></table></figure>
+<p><br>    注意，一旦every()和some()确认该返回什么值时它们就会停止遍历数组元素。some()在判定函数第一次返回true就返回true，但如果判定函数一直返回false，它将会遍历整个数组。every()恰好相反：它在判定函数第一次返回false后就返回false，但如果判定函数一直返回true，它将遍历整个数组。注意，根据数学上的惯例，在空数组上调用时，every()返回true，some()返回false.<br></p>
+
+<h3 id="1-9-5-reduce-和reduceRight"><a href="#1-9-5-reduce-和reduceRight" class="headerlink" title="1.9.5 reduce()和reduceRight()"></a>1.9.5 reduce()和reduceRight()</h3><p><br>    reduce()和reduceRight()方法使用指定的函数将数组元素进行组合，生成单个值。这在函数式编程中是常见的操作，也可以称为“注入”和“折叠”。举例来说它是如何工作的：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a = [1, 2, 3, 4, 5];</div><div class="line">var sum = a.reduce(function(x, y) &#123; return x+y &#125;, 0);		// 数组求和</div><div class="line">var product = a.reduce(function(x, y) &#123; return x*y &#125;, 1);	// 数组求积</div><div class="line">var max = a.reduce(function(x, y) &#123; return (x&gt;y)?x:y &#125;);	// 求最大值</div></pre></td></tr></table></figure>
+<p><br>    reduce()需要两个参数。第一个是执行化简操作的函数。化简函数的任务就是用某种方法把两个值组合或化简为一个值，并返回化简后的值。在上述例子中，函数通过加法、乘法或取最大值的方法组合两个值。第二个（可选）的参数是一个传递给函数的初始值。<br></p>
+
+<p><br>    reduce()使用的函数与forEach()和map()使用的函数不同。比较熟悉的是，数组元素、元素索引和数组本身将作为第2~4个参数传递给函数。第一个参数是到目前为止化简操作累积的结果。第一次调用函数时，第一个参数是一个初始值，它就是传递给reduce()的第二个参数。在接下来的调用中，这个值就是上一次化简函数的返回值。在上面的第一个例子中，第一次调用化简函数时的参数是0和1.将两者相加并返回1.再次调用时的参数是1和2，它返回3.然后它计算3+3=6、6+4=10，最后计算10+5=15.最后的值是15.reduce()返回这个值。<br></p>
+
+<p><br>    可能已经注意到了，上面第三次调用reduce()时只有一个参数：没有指定初始值。当不指定初始值调用reduce()时，它将使用数组的第一个元素作为其初始值。这意味着第一次调用化简函数就使用了第一个和第二个数组元素作为其第一个和第二个数组参数。在上面求和与求积的例子中，可以省略初始值参数。<br></p>
+
+<p><br>    在空数组上，不带初始值参数调用reduce()将导致类型错误异常。如果调用它的时候只有一个值——数组只有一个元素并且没有指定初始值，或者有一个空数组并且指定一个初始值——reduce()只是简单地返回那个值而不会调用化简函数。<br></p>
+
+<p><br>    reduceRight()的工作原理和reduce()一样，不同的是它按照数组索引从高到低(从右到左)处理数组，而不是从低到高。如果化简操作的优先顺序是从右到左，你可能想使用它，例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var a = [1, 2, 3, 4];</div><div class="line">// 计算2^(3^4)。乘方操作的优先顺序是从右到左</div><div class="line">var big = a.reduceRight(function(accumulator, value) &#123;</div><div class="line">    return Math.pow(value, accumulator);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><br>    注意，reduce()和reduceRight()都能接收一个可选的参数，它指定了化简函数调用时this关键字的值。可选的初始值参数仍然需要占一个位置。如果想让化简函数作为一个特殊对象的方法调用，请参看Function.bind()方法。<br></p>
+
+<p><br>    值得注意的是，上面描述的every()和some()方法是一种类型的数组化简操作。但是不同的是，它们会尽早终止遍历而不总是访问每一个数组元素。<br></p>
+
+<p><br>    为了简单起见，到目前位置所展示的例子都是数值的，但数学计算不是reduce()和reduceRight()的唯一意图。union()函数。它计算两个对象的“并集”，并返回另一个新对象，新对象具有二者的属性。该函数期待两个对象并返回另一个对象，所以它的工作原理和化简函数一样，并且可以使用reduce()来把它一般化，计算任意数目的对象的“并集”。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var objects = [&#123;x: 1&#125;, &#123;y: 2&#125;, &#123;z: 3&#125;];</div><div class="line">var merged = objects.reduce(union);	// =&gt; &#123;x: 1, y: 2, z: 3&#125;</div></pre></td></tr></table></figure>
+<p><br>    回想一下，当两个对象拥有同名的属性时，union()函数使用第一个参数的属性值。这样，reduce()和reduceRight()在使用union()时给出了不同的结果：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var objects = [&#123;x: 1, a: 1&#125;, &#123;y: 2, a: 2&#125;, &#123;z: 3, a: 3&#125;];</div><div class="line">var leftunion = objects.reduce(union);	// &#123;x: 1, y: 2, z: 3, a: 1&#125;</div><div class="line">var rightunion = objects.reduceRIght(union);	// &#123;x: 1, y: 2, z: 3, a: 3&#125;</div></pre></td></tr></table></figure>
+<h3 id="1-9-6-indexOf-和lastIndexOf"><a href="#1-9-6-indexOf-和lastIndexOf" class="headerlink" title="1.9.6 indexOf()和lastIndexOf()"></a>1.9.6 indexOf()和lastIndexOf()</h3><p><br>    indexOf()和lastIndexOf()搜索整个数组中具有给定值的元素，返回找到的第一个元素的索引或者如果没有找到就返回-1.indexOf()从头至尾搜索，而lastIndexOf()则反向搜索。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">a = [0, 1, 2, 1, 0];</div><div class="line">a.indexOf(1)	// =&gt; 1：a[1]是1</div><div class="line">a.lastIndexOf(1)	// =&gt; 3：a[3]是1</div><div class="line">a.indexOf(3)		// =&gt; -1：没有值为3的元素</div></pre></td></tr></table></figure>
+<p><br>    不同于本节描述的其他方法，indexOf()和lastIndexOf()方法不接收一个函数作为其参数。第一个参数是需要搜索的值，第二个参数是可选的：它指定数组中的一个索引，从那里开始搜索。如果省略该参数，indexOf()从头开始搜索，而lastIndexOf()从末尾开始搜索。第二个参数也可以是负数，它代表相对数组末尾的偏移量，对于splice()方法：例如，-1指定数组的最后一个元素。<br></p>
+
+<p><br>    如下函数在第一个数组中搜索指定的值并返回包含所有匹配的数组索引的一个数组。它展示了如何运用indexOf()的第二个参数来查找除了第一个以外匹配的值。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// 在数组中查找所有出现的x，并返回一个包含匹配索引的数组</div><div class="line">function findall(a, x) &#123;</div><div class="line">    var results = [],</div><div class="line">        len = a.length,</div><div class="line">        pos = 0;</div><div class="line">    while(pos &lt; len) &#123;</div><div class="line">        pos = a.indexOf(x, pos);</div><div class="line">        if (pos === -1) break;</div><div class="line">        results.push(pos);</div><div class="line">        pos = pos + 1;</div><div class="line"> &#125;</div><div class="line"> return results;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br>    注意，字符串也有indexOf()和lastIndexOf()方法，它们和数组方法的功能类似。<br></p>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/23/数组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2046,226 +2284,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/18/弟子规-总叙/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="谦恒">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="谦恒-个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/18/弟子规-总叙/" itemprop="url">弟子规 （一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-18T21:19:31+08:00">
-                2017-08-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>以弟子规作为我学习传统文化的基础，首先树立良好的道德及情操，再去深入经藏，以期与古人神交。之前谈到《弟子规》总是不屑一顾，那都是小孩学的，我一个20多岁的人，是否太幼稚了。可是偶然的机会让我初识它，读到里面的经句。都会扪心自问到底有没有做到呢？（以一个成年人的姿态），这在古时候可是蒙童养正的书籍，是针对儿童的呀！念此私自愧，尽日不能忘！可是弟子规最后一句说到“勿自暴、勿自弃；圣与贤、可驯致”，故以此勉励自己，任何时候都不晚。发心领悟其中的深刻义理，把它落实到生活中。</p>
-</blockquote>
-<h3 id="一、总叙"><a href="#一、总叙" class="headerlink" title="一、总叙"></a>一、总叙</h3><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">弟子规 &emsp;圣人训 &emsp;首孝弟 &emsp;次谨信</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">泛爱众 &emsp;而亲仁 &emsp;有余力 &emsp;则学文</p>
-
-<p style="margin-bottom: 0;"><br>    【解】《弟子规》这本书，是依据至圣先师孔子的教诲而编成的生活规范。它教导我们：首先在日常生活中要做到孝顺父母、友爱兄弟姐妹；其次在一切日常言语、行为中，要小心谨慎，要讲信用；与大众相处时要平等博爱，并且亲近有仁德的人，向他学习，这些都是很重要非做不可的事；如果还有多余的时间、精力，就应该好好学习六艺等其他有益的学问。<br></p>
-
-<p style="margin-bottom: 0;"><br>    孔子教学，讲四门教育：德行、言语、政事、文学。四门教育首重教育，而《弟子规》是最好的德行教育课本，这个教育注重的是家庭教育，家教是最重要的扎根教育。家庭教育对一个人的性格、意志、品质、情操、爱好乃至人生观、世界观都起着根本作用。没有家教的小孩，即使学校教育再优秀，一生都不会有大成就。小孩在三岁以前离不开母亲，母亲的一言一行，小孩都在模仿与记忆，以母亲的一百哦作为自己的行为规范，这叫母仪母教。如果父母自己不自尊、不严格要求自己，你的小孩将向你学习什么呢？所以真正要让家庭教育有很好的进展，必须从家长开始提升。<br></p><br><p style="margin-bottom: 0;"><br>    《易经》里有一句话“蒙以养正，圣功也”，意思是孩子小时候就要给他培植正确处事待人的态度，养他的浩然正气，让他奠定德行的根基。你把小孩教好了，这个功德最神圣。为什么呢？因为祖国的未来就在孩子的手里，如果孩子没有德行，那么将来必定会影响社会和谐稳定，孩子如果是有才无德那是危险品、毒品。《三字经》说：“人之初、性本善。性相近，习相远，苟不教，性乃迁。”人的本性都是一样的，而习性就不一样了。因为人受的教育不同、受的熏染不同，在社会里受不良风气的熏染，他就变成坏人了，如果受到良好的教育，他就变成好人了。所以，我们要坚信品学兼优的孩子是教出来的。<br></p><br><p style="margin-bottom: 0;"><br>    有见识的有智慧的父母，一定是以圣贤之道来作为教育孩子的指导方针，通过学习、落实圣贤的教诲，让小孩能在一生获得幸福成功的人生乃至于成圣成贤。<br></p>
-
-<h3 id="二、入则孝"><a href="#二、入则孝" class="headerlink" title="二、入则孝"></a>二、入则孝</h3><p><br>    【解】这一篇讲的是为人子之道，子女的本分就是一个孝字。古人云：“百善孝为先。”孝敬父母是中华民族的道德准则，人人皆知父母养育儿女之辛苦，要尽我所能来回报双亲，但这种良善的天性如不及时施以正确的教导，则此种感恩的心情很快会泯灭掉。不知不觉中，习惯了衣来伸手、饭来张口，就会认为父母疼我爱我乃天经地义之事；至于我也要疼爱父母，因无人教无人提醒，乃渐渐遗忘于脑后。没有使孝顺父母成为孩子的自觉行为，长大后埋怨孩子不懂孝道、对他人没有爱心，后悔已迟。所以，从小就要培养孩子的孝道精神。当他在家知道孝敬父母后，在外面才知道尊敬老师、长辈，他才能进一步把这份爱心扩展扩展到周边的一切人。所以，圣人提倡以孝治理天下，以孝治天下必定能得到和睦家庭、和谐社会、和谐世界。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">父母呼 &emsp;应勿缓 &emsp;父母命 &emsp;行勿懒</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母叫我们，要马上答应，不能够迟缓。父母有事要我们去做，要立刻行动，不可拖延或推辞偷懒，这是对父母的一种尊敬<br></p>
-
-<p><br>     孩子对父母讲话的态度，对小孩一生影响很深远。当他在与父母应答之间所形成的是孝心、恭敬心时，就为他以后的发展奠定了良好的基础。如果父母叫我们时拖拖拉拉，那就是一种傲慢，恭敬心就没有了。子游问孔子：以很丰厚的生活奉养父母，这个算不算是尽孝呢？孔子说：“至于犬马，皆能有养。不敬，何以别乎？”如果对父母没有恭敬心，那么养父母跟养狗、养马有什么区别呢？哪能叫尽孝呢？所以孝第一要培养的是敬，一切人伦之道都是以爱敬心为基础的，孝必定要跟恭敬心联系起来。当一个人在家里养成了这种对父母温和柔顺的态度与恭敬的存心后，踏入社会，他的这种修养一定会引起大家对他的重视和尊敬，这种恭敬的存心就是他幸福成功的源泉。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">父母教 &emsp;须敬听 &emsp;父母责 &emsp;须顺承</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母教导我们做人处事的道理，是为了我们好，应该恭敬地聆听。做错了事，父母责备教诫时，应当虚心接受，不可强词夺理，使父母生气、伤心。父母的责备大部分都是出自于爱心，所以即使是父母说错了，我们心里明白，也不必跟父母顶嘴，有则改之，无则加勉。<br></p>
-
-<p><br>    我们要深深感念父母不厌其烦地教导和成就我们的苦心，所谓“爱之深，责之切”，而为人子女者，却很少能体会父母这至深至爱之情。犯了错，不但不能接受父母的教诲，反而阳奉阴违，甚至起厌烦心说出冒犯父母的话，让父母伤心至极。故孔夫子说：“色难。”侍奉父母，难在永远保持和颜悦色。仔细想想，我们是否父母说一句而顶了很多句呢？深信每个人都希望能做一个孝子，因为自古以来孝子是最有福的人，那么就让我们先从事亲、悦亲、让父母心生欢喜开始吧！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">冬则温 &emsp;夏则凊 &emsp;晨则省 &emsp;昏则定</p>
-
-<p style="margin-bottom: 0;"><br>    【解】为人子女，对父母要时时关心、处处留意。二十四孝的黄香，为了让父亲安心睡眠，夏天睡前会帮父亲把床铺扇凉，冬天寒冷时会为父亲温暖被窝，实在值得我们学习。早晨起来要向父母请安问好，下午回家之后，要将今天在外的情形告诉父母，向父母报平安，使老人家放心。<br></p>
-
-<p><br>    这些行为虽然都是小事，但出处都表现出一个孝子的那种纯孝之心、知恩报恩的心。我们要知道，从孩子有了生命那天开始，父母就对子女百般呵护，衣食住行照顾得无微不至。作为感恩，子女关注留意父母的冷暖，这是天经地义的，况且子女给予父母的关爱比起父母的付出，万分之一也不及。而当一个人爱护父母养成了习惯后，他待人、处事、接物都有那种温、良、恭、俭、让的态度，这种人自然能得到大家的尊敬、爱戴。这样的人生虽是平凡，确是现今社会中的不凡之人了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">出必告 &emsp;反必面 &emsp;居有常 &emsp;业无变</p>
-
-<p style="margin-bottom: 0;"><br>    【解】外出离家时，须告诉父母要到哪里去，父母批准了我们才可以去。回家后还要当面禀报父母回来了，让父母安心，这些都是必要的礼貌。平时起居作息（生活习惯）要保持正常有规律，不要任意改变。长大以后，应居有定所、事业专注、切勿荒废、空过一生，让父母为我们担忧。<br></p>
-
-<p><br>    这些行为都体现出一个孝子心里常常存着父母，因为心里存着父母，所以他必然就“出必告，反必面”。如果心里面把父母忘了，很可能这些细节他也忽略了。我们要体会到，它主要告诉我们对父母要常常惦记在心，常常有安慰父母、让父母安心的这个意念。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事虽小 &emsp;勿擅为 &emsp;苟擅为 &emsp;子道亏</p>
-
-<p style="margin-bottom: 0;"><br>    【解】纵然是小事，也不要擅自做主而不向父母禀告。如果任性而为，容易出错，也有损为人子女的本分，因此而让父母担心，是不孝的行为。<br></p>
-
-<p><br>    孩子第一次犯错，做父母的千万不可以含糊过去，一定要给予正确的纠正，不能迁就和纵容孩子，不能满足孩子的无理要求，不许任性，要让他懂得哭闹毫无意义，做任何事情必须讲道理，这样他会终身记住，不会再犯。所谓“慎于始”，一切都要谨慎于开始，而等他一错再错，再来纠正就不容易了。每个孩子都会犯错，如果我们对孩子的缺点和错误，在仔细分析的基础上给予批评，并心平气和地把道理给他讲清楚，再教他正确的做法，使孩子接受起来口服心服。这种处理孩子不良行为的方法既充满关爱，又不失威严，并且能够加深母子之间的感情。当我们有了这些正确的做法时，孩子犯错，自然而然机会意识到，这正是教育他的最佳时机，就不会因为乱发脾气，而把教育的机会点错过了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">物虽小 &emsp;勿私藏 &emsp;苟私藏 &emsp;亲心伤</p>
-
-<p style="margin-bottom: 0;"><br>    【解】东西虽然很小，也不要背着父母，偷偷地私藏起来。一旦被发现，父母心里一定十分伤心生气。<br></p>
-
-<p><br>    即使小到一颗糖果，如果没有经过主人同意，就私自把它隐藏起来，那就等于是小偷。这种行为会让父母蒙羞，感到是一种羞耻。所以，我们为人父母要在这些方面特别谨慎注意，应该经常查看孩子的书包、口袋，看是否有来路不明的东西，是不是多出了一些文具或用品。如果有的话，可能孩子的手已经犯了不干净的行为。谚云：“小时偷针，大时偷金。”如不及时制止，发展下去就会对品德造成很大的伤害，这很可能就因此而毁了他一生的前途。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲所好 &emsp;力为具 &emsp;亲所恶 &emsp;谨为去</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母亲所喜好的东西，当子女的应该尽力去准备齐全，父母亲所厌恶的事情，要小心谨慎地去除掉（包含自己的坏习惯）。<br></p>
-
-<p style="margin-bottom: 0;"><br>    在日常生活中我们要处处留心、时时在意，一言一行都要以父母作为主要考虑。要从衣食住上细心观察，使父母的口福不缺，按四季更换衣服，卧宿使其安适，行动有人扶持；父母所爱植物，我必爱之，父母所爱之人，我当敬之，父母所愿意的事，我当奉行之，要时时顺着父母的心意，使其心生欢喜。读懂父母的心声、父母的需求，这才是真正的孝道。相反，当我们起一个坏的念头，比如说起了贪心、起了跟人家争斗的心以及不好学进取、种种不善的念头，这都是对不起父母啊！这些我们都要小心地把它去除掉，所以这个孝必要从这点点滴滴去养成。<br></p>
-
-<p><br>    这让我不禁想到孝经中的一句话“身体发肤，受之父母，不敢损伤，孝之始也；立身行道，扬名于后世，以显父母，孝之终也。”<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">身有伤 &emsp;贻亲羞 &emsp;德有伤 &emsp;贻亲羞</p>
-
-<p style="margin-bottom: 0;"><br>    【解】要爱护自己的身体，不要使身体受到伤害，让父母忧虑。更要注重自己的品德修养，不可以做出伤风败德的事，使父母亲蒙受耻辱。<br></p>
-
-<p><br>    有人抱怨说：父母怎么管我这么多？实在是因为你不能让父母放心啊！假如你知道照顾好自己的身体，生活起居饮食有规律，进而让自己更懂事，这样父母就放心了。现在不健康的网络、影视、杂志媒体太发达，人与人之间交流很频繁，假如你没有判断力，又没有理智，就会收到邪恶思想的污染而堕落。到时候不但父母家人蒙羞，甚至连下一代也有可能蒙羞，这是大不孝，所以从小就要学会自尊自爱，保持身心的清净健康很重要。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲爱我 &emsp;孝何难 &emsp;亲憎我 &emsp;孝方贤</p>
-
-<p style="margin-bottom: 0;"><br>    【解】当父母喜爱我们时，孝顺是很容易地事情。当父母不喜欢我们或者管教过于严厉时，我们一样孝顺，还能够自己反省检点，体会父母的良苦用心，努力改过并且做得更好，这种孝顺的行为最是难能可贵。<br></p>
-
-<p><br>    父母即使不慈，也不应该称为自己不尽孝的理由。因为父母给予生命并将自己抚育成人，这个恩德太大，做儿女的用任何方法都是无法回报的。但是父母身上可能会有缺点，作为儿女也应该感父母养育之恩而加以包容，不可以以此作为自己不孝的理由，这是功利观，而非道义观。人伦之道的关键是先尽自己一方的责任，而不能以他人尽责与否作为我们是否尽责的前提条件。我们与人相处要记住一个原则，“不管别人对不对，自己一定要做对”，无论是父母还是身边所有的人，纵使他们用不对的态度对我，我依然要用对的态度去面对他们，不然我也是跟他一般见识了，根本没有资格去说别人的错。以怨报怨，结果会造成更加严重的对立矛盾。我们要相信“精诚所至，金石为开”，这样才能上演人生一出又一出的好戏。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲有过 &emsp;谏使更 &emsp;怡吾色 &emsp;柔吾声</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母有过失，当子女的应小心劝导改过向善。态度一定要诚恳，声音必须柔和，应做到和颜悦色地把道理讲清楚、讲明白。<br></p>
-
-<p><br>    孝顺并不是一定要对父母百依百顺，人与人之间所有的行为都要以“道义”为准则，父母子女之间也不例外。人无完人，父母也难免有过错，子女如果对此听之任之、不闻不问，也是一种不孝的表现。因为父母的过错会给自己和家庭带来损失、伤害，作为子女，爱父母，就有劝导帮助父母的责任，而劝导帮助的关键是你的态度和方式、方法。因此，我们在劝谏时绝对不可板着面孔，一派指责的言语，好似在教训父母一样，这样父母肯定是没有办法接受的。而应当见机行事，以虔敬的心、善巧的言语，或请适当的长者来帮忙，这样效果才更好，也会使父母子女之间的亲情更加融洽、家庭更加和睦。为人父母者，我们读到这一条，也更应该警诫、反省自己有无过失及不良的习惯，如果有，就要及时把它改正过来，这样才能做好榜样让子女效法。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">谏不入 &emsp;悦复谏 &emsp;号泣随 &emsp;挞无怨</p>
-
-<p style="margin-bottom: 0;"><br>    【解】如果父母不听规劝，要耐心等待，一有适当时机，例如父母情绪好转或是高兴的时候，再继续劝导。如果父母仍固执不听，甚至生气，此时我们虽然难过得痛哭流涕，也要恳求父母改过。因为，有孝心的人是不忍心陷父母于不义的。纵然遭到责打，我们也无怨无悔，不能使父母一错再错、铸成大错。<br></p>
-
-<p><br>    不论我们规劝谁，都要建立在对方对我们有很深信任的基础上，而这个信任绝对不是凭空而来的，你必须要在长期的相处中，时时观察对方的需求，然后真心地去关怀与付出，才能赢得别人的信任。进而再去适当的时机进行规劝，才会有效果。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲有疾 &emsp;药先尝 &emsp;昼夜侍 &emsp;不离床</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母亲生病时，子女应当尽心尽力地照顾，古人熬制中药，在给父母服用之前都会先尝一下，看看温度凉热是否适宜。昼夜侍奉在父母的床前，这是一种孝心的流露。<br></p>
-
-<p><br>    想一想当子女生病时，做父母的恨不得自己去替孩子生病，那心血的付出是世上少有的。如今父母生病了，最需要自己的子女在身边陪伴照顾起居，我们岂能因为工作太忙或没有时间，就放弃这种尽孝的机会呢？所谓“树欲静而风不止，子欲养而亲不待”，故行孝当及时，错过机会，将是终身的遗憾！等父母过世后，才想到要奉养父母，那时就悔之晚矣！孝亲不是难事，只要我们肯承担，只要我们真正生起对父母的报恩之心，就没有做不到的事情。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">丧三年 &emsp;常悲咽 &emsp;居处变 &emsp;酒肉绝</p>
-
-<p style="margin-bottom: 0;"><br>    【解】当父母亲不幸去世，守孝期间（古礼三年），要常常追思、感怀父母教养的恩德，因而经常悲伤哭泣。自己的生活起居必须调整改变，不能贪图享受，应该戒绝酒肉（请参考《地藏菩萨本愿经》，孝子应如何给往生者修福）。<br></p>
-
-<p><br>    一个孝子他很难接受父母离去的现实，自然而然就会有这样的情绪：当想到父母一把屎一把尿，用尽心力，累到耳聋眼花，牙也掉了，腿疼腰弯，行动不便，一生辛苦地把我们培育成人；想到父母待我之慈爱真心，而自己尚未报父母之恩于万一；想到以往跟父母在一起的种种情形，眼泪就忍不住掉下来。这种感怀之情，是一个孝子发自内心自然做出来的。父母都离去了，他还会吃好的、穿好的、用好的，去花天酒地吗？不可能的，自然而然对那些挥霍、酒肉就不想。这都是对父母一种哀悼的表现。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">丧尽礼 &emsp;祭尽诚 &emsp;事死者 &emsp;如事生</p>
-
-<p style="margin-bottom: 0;"><br>    【解】办理父母亲的丧事要哀戚合乎礼节，不可草率马虎，也不要为了面子铺张浪费，才是真孝顺。祭拜时应诚心诚意，对待已经去世的父母，要如同生前一样恭敬。《论语》云：“慎终追远，民德归厚矣。”中国古礼特重葬礼，而重视丧葬之根本目的是在教化活人，以此来培养人们的道德品性和反哺报恩的观念。人与人之间的感情很容易夹杂势利的因素而不纯粹，唯有对死者，没有欲望，只有真情。现在当然可以改革葬礼仪式，不必厚葬，但一定要有对父母的真情，切不可流于形式。<br></p>
-
-<p style="margin-bottom: 0;"><br>    父母过世以后（父母的祭日、清明节、冬至节）祭祀父母、祭祀祖先，这是一种缅怀父母祖先恩德的活动。父母在生的时候，我们要爱敬自己的父母，父母不在了，我们对父母的那种怀念，也是一生不改啊！特别是要更加努力地来做人、行义，不可以做出亏欠父母、让父母蒙羞的事情，要对得起父母的在天之灵，这也是对父母尽孝啊！<br></p>
-
-<p style="margin-bottom: 0;"><br>    人生在世，父母与我们最亲，给我们的恩情也最重。所以，人一生最重要的就是对得起自己的父母。努力学习侍奉父母的礼节，把孝养父母当成人生中最重要的一件大事业，用心努力来完成，做到仰不愧于天、俯不怍于地，心胸坦荡地立足于天地之间。千万不要上演“树欲静而风不止，子欲养而亲不待”的人生悲剧，这种心痛一定会缠绕我们一生……使我们的内心经常会在自责与后悔的阴影下痛苦地煎熬着，无法得到安宁。切记，切记！如果生前不尽心奉养，让父母寒心而去，死的时候花一大把钱，那就是太颠倒了，这是大不孝啊！<br></p>
-
-<p style="margin-bottom: 0;"><br>    所以，我们要把孝深深地根植于我们的心中，尊重、感恩、顶礼我们的父母，是他们给了我们生命，仅此一恩已经足矣，更不用说难以报答的养育之恩。莫论父母的是是非非、恩恩怨怨，他们也是人，岂能事事明理、处处正确？无论如何，当他们老了，糊涂了，脾气古怪了，不通情理了，我们要把他们当孩子疼、当孩子爱。原谅宽容每一位天下的老人，珍惜老人的好心情，哪个不是我们的白发亲人，我们哪个不是会变成别人的白发亲人？<br></p>
-
-<p><br>    《孝经》云：“立身行道，扬名于后世，以显父母，孝之终也。”孝到了终极，是要立身行道啊！要让父母成为圣贤人的父母，这是大孝啊！大孝的人，要以身济世，救济这个世间，正如古人所讲的“为天地立心，为生民立命，为往圣继绝学，为万世开太平”。<br></p>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2316,7 +2334,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
