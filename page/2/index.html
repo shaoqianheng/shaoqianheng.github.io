@@ -257,6 +257,267 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/26/变量、作用域和内存问题（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谦恒">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="谦恒-个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/26/变量、作用域和内存问题（一）/" itemprop="url">变量、作用域和内存变量（一）——JavaScript高级程序设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-26T19:41:33+08:00">
+                2017-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>按照ECMA-262的定义，JavaScript的变量与其他语言的变量有很大区别。JavaScript变量松散类型的本质，决定了它只是在特定时间用于保存特定值的一个名字而已。由于不存在定义某个变量要保存何种数据类型值的规则，变量的值及其数据类型可以在脚本的生命周期内改变。尽管从某种角度看，这可能是一个既有趣又强大，同时又容易出问题的特性，但JavaScript变量实际的复杂程度还远不止如此。</p>
+</blockquote>
+<h3 id="1-1-基本类型和引用类型的值"><a href="#1-1-基本类型和引用类型的值" class="headerlink" title="1.1 基本类型和引用类型的值"></a>1.1 基本类型和引用类型的值</h3><p><br>    ECMAScript变量可能包含两种不同数据类型的值：基本类型值和引用类型值。基本类型值指的是简单的数据段，而引用类型值指那些可能由多个值构成的对象。<br></p>
+
+<p><br>    在将一个值赋给变量时，解析器必须确定这个值是基本类型值还是引用类型值。基本数据类型：Undefined、Null、Boolean、Number和String。这5种基本数据类型是按值访问的，因为可以操作保存在变量中的实际的值。<br></p>
+
+<p><br>    引用类型的值是保存在内存中的对象。与其他语言不同，JavaScript不允许直接访问内存中的位置，也就是说不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。为此，引用类型的值是按引用访问的。(这种说法不严密，当复制保存着对象的某个变量时，操作的是对象的引用。但在为对象添加属性时，操作的是实际的对象)<br></p>
+
+<blockquote>
+<p>在很多语言中，字符串以对象的形式来表示，因此被认为是引用类型的。ECMAScript放弃了这一传统。</p>
+</blockquote>
+<h3 id="1-1-1-动态的属性"><a href="#1-1-1-动态的属性" class="headerlink" title="1.1.1 动态的属性"></a>1.1.1 动态的属性</h3><p><br>    定义基本类型值和引用类型值的方式是类似的：创建一个变量并为该变量赋值。但是，当这个值保存到变量中以后，对不同类型值可以执行的操作则大相径庭。对于引用类型的值，我们可以为其添加属性和方法，也可以改变和删除其属性和方法。请看下面的例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div><div class="line">person.name = &quot;Nicholas&quot;;</div><div class="line">alert(person.name);		// &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
+<p><br>    以上代码创建了一个对象并将其保存在了变量person中。然后，我们为该对象添加了一个名为name的属性，并将字符串值“Nicholas”赋给了这个属性。紧接着，又通过alert()函数访问了这个新属性。如果对象不被销毁或者这个属性不被删除，则这个属性将一直存在。<br></p>
+
+<p><br>    但是，我们不能给基本类型的值添加属性，尽管这样做不会导致任何错误。比如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var name = &quot;Nicholas&quot;;</div><div class="line">name.age = 27;</div><div class="line">alert(name.age);	// undefined</div></pre></td></tr></table></figure>
+<p><br>    在这个例子中，我们为字符串name定义了一个名为age的属性，并为该属性赋值27.但在下一行访问这个属性时，发现该属性不见了。这说明只能给引用类型值动态地添加属性，以便将来使用。<br></p>
+
+<h3 id="1-1-2-复制变量值"><a href="#1-1-2-复制变量值" class="headerlink" title="1.1.2 复制变量值"></a>1.1.2 复制变量值</h3><p><br>    除了保存的方式不同之外，在从一个变量向另一个变量复制基本类型值和引用类型值时，也存在不同。如果从一个变量向另一个变量复制基本类型的值，会在变量对象上创建一个新值，然后把该值复制到为新变量分配的位置上。来看一个例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var num1 = 5;</div><div class="line">var num2 = num1;</div></pre></td></tr></table></figure>
+<p><br>    在此，num1中保存的值是5。当使用num1的值来初始化num2时，num2中也保存了值5.但num2中的5与num1中的5是完全独立的，该值只是num1中5的一个副本。此后，这个变量可以参与任何操作而不会相互影响。图1-1形象地真是了赋值基本类型值的过程。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-4-1.png"></p>
+<div style="text-align: center;">图1-1 复制基本类型值的过程</div>
+
+<p><br>    当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一个对象。复制操作结束后，两个变量实际上将引用同一个对象。因此，改变其中一个变量，就会影响另一个变量，如下面的例子所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var obj1 = new Object();</div><div class="line">var obj2 = obj1;</div><div class="line">obj1.name = &quot;Nicholas&quot;;</div><div class="line">alert(obj2.name);	// &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
+<p><br>    首先，变量obj1保存了一个对象的新实例。然后，这个值被复制到了obj2中，换句话说，obj1和obj2都指向同一个对象。这样，当为obj1添加name属性后，可以通过obj2来访问这个属性，因为这两个变量引用的都是同一个对象。图1-2展示了保存在变量对象中的变量和保存在堆中的对象之间的这种关系。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-4-2.png"></p>
+<div style="text-align: center;">图1-2 复制引用类型值的过程</div>
+
+<h3 id="1-1-3-传递参数"><a href="#1-1-3-传递参数" class="headerlink" title="1.1.3 传递参数"></a>1.1.3 传递参数</h3><p><br>    ECMAScript中所有函数的参数都是按值传递的。也就是说，把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。基本类型值的传递如同基本类型变量的复制一样，而引用类型值的传递，则如同引用类型变量的复制一样。有不少开发人员在这一点上可能会感到困惑，因为访问变量有按值和按引用两种方式，而参数只能按值传递。<br></p>
+
+<p><br>    在向参数传递基本类型的值时，被传递的值会被复制给一个局部变量(即命名参数，或者用ECMAScript的概念来说，就是arguments对象中的一个元素)。在向参数传递引用类型的值时，会把这个值在内存中的地址复制给一个局部变量，因此这个局部变量的变化会反映在函数的外部。请看下面这个例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function addTen (num) &#123;</div><div class="line">    num += 10;</div><div class="line">    return num;</div><div class="line">&#125;</div><div class="line">var count = 20;</div><div class="line">var result = addTen(count);</div><div class="line">alert(count);	// 20, 没有变化</div><div class="line">alert(result);	// 30</div></pre></td></tr></table></figure>
+<p><br>    这里的函数addTen()有一个参数num，而参数实际上是函数的局部变量。在调用这个函数时，变量count作为参数被传递给函数，这个变量的值是20.于是，数值20被复制给参数num以便在addTen()中使用。在函数内部，参数num的值被加上了10，但这一变化不会影响函数外部的count变量。参数num与变量count互不相识，它们仅仅是具有相同的值。假如num是按引用传递的话，那么变量count的值也将变成30，从而反映函数内部的修改。当然，使用数值等基本类型值来说明按值传递参数比较简单，但如果使用对象，那问题就不好理解了。再举一个例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function setName (obj) &#123;</div><div class="line">    obj.name = &quot;Nicholas&quot;;</div><div class="line">&#125;</div><div class="line">var person = new Object();</div><div class="line">setName(person);</div><div class="line">alert(person.name);		// &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
+<p><br>    以上代码中创建一个对象，并将其保存在了变量person中。然后，这个变量被传递到setName()函数中之后就被复制给了obj。在这个函数内部，obj和person引用的是同一个对象。换句话说，即使这个变量是按值传递的，obj也会按引用来访问同一个对象。于是，当在函数内部为obj添加name属性后，函数外部的person也将有所反映；因为person所指向的对象在堆内存中只有一个，而且是全局对象。有很多开发人员错误地认为：在局部作用域中修改的对象会在全局作用域中反映出来，就说明参数是按引用传递的。为了证明对象是按值传递的，我们再看一看下面这个经过修改的例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function setName (obj) &#123;</div><div class="line">    obj.name = &quot;Nickolas&quot;;</div><div class="line">    obj = new Object();</div><div class="line">    obj.name = &quot;Greg&quot;;</div><div class="line">&#125;</div><div class="line">var person = new Object();</div><div class="line">setName(person);</div><div class="line">alert(person.name);		// &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
+<p><br>    这个例子与前一个例子的唯一区别，就是在setName()函数中添加了两行代码：一行代码为obj重新定义了一个对象，另一行代码为该对象定义了一个带有不同值的name属性。在把person传递给setName()后，其name属性被设置为“Nicholas”。然后，又将一个新对象赋给变量obj，同时将其name属性设置为“Greg”。如果person是按引用传递的，那么person就会自动被修改为指向其name属性值为“Greg”的新对象。但是，当接下来再访问person.name时，显示的值仍然是“Nicholas”。这说明即使在函数内部修改了参数的值，但原始的引用仍然保持未变。实际上，当在函数内部重写obj时，这个变量引用的就是一个局部对象了。而这个局部对象会在函数执行完毕后立即被销毁。<br></p>
+
+<blockquote>
+<p>可以把ECMAScript函数的参数想象成局部变量。</p>
+</blockquote>
+<h3 id="1-1-4-检测类型"><a href="#1-1-4-检测类型" class="headerlink" title="1.1.4 检测类型"></a>1.1.4 检测类型</h3><p><br>    要检测一个变量是不是基本数据类型？typeof操作符是最佳的工具。说得更具体一点，typeof操作符是确定一个变量是字符串、数值、布尔值、还是undefined的最佳工具。如果变量的值是一个对象或null，则typeof操作符会像下面例子中所示的那样返回“object”：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var s = &quot;Nicholas&quot;;</div><div class="line">var b = true;</div><div class="line">var i = 22;</div><div class="line">var u;</div><div class="line">var n = null;</div><div class="line">var o = new Object();</div><div class="line"></div><div class="line">alert(typeof s);	// &quot;string&quot;</div><div class="line">alert(typeof i);	// &quot;number&quot;</div><div class="line">alert(typeof b);	// &quot;boolean&quot;</div><div class="line">alert(typeof u);	// &quot;undefined&quot;</div><div class="line">alert(typeof n);	// &quot;object&quot;</div><div class="line">alert(typeof o);	// &quot;object&quot;</div></pre></td></tr></table></figure>
+<p><br>    虽然在检测基本数据类型时typeof是非常得力的助手，但在检测引用类型的值时，这个操作符的用处不大。通常，我们并不是想知道某个值是对象，而是想知道它是什么类型的对象。为此，ECMAScript提供了instanceof操作符，其语法如下所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">result = variable instanceof constructor</div></pre></td></tr></table></figure>
+<p><br>    如果变量是给定引用类型(根据它的原型链来识别)的实例，那么instanceof操作符就会返回true。请看下面的例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(person instanceof Object);	// 变量person是Object吗？</div><div class="line">alert(colors instanceof Array);		// 变量colors是Array吗？</div><div class="line">alert(pattern instanceof RegExp);	// 变量pattern是RegExp吗？</div></pre></td></tr></table></figure>
+<p><br>    根据规定，所有引用类型的值都是Object的实例。因此，在检测一个引用类型值和Object构造函数时，instanceof操作符始终会返回true。当然，如果使用instanceof操作符检测基本类型的值，则该操作符始终会返回false，因为基本类型不是对象。<br></p>
+
+<blockquote>
+<p>使用typeof操作符检测函数时，该操作符会返回“function”。在Safari 5及之前版本和Chrome 7及之前版本中使用typeof检测正则表达式时，由于规范的原因，这个操作符也返回“function”。ECMA-262规定任何在内部实现[[Call]]方法的对象都应该在应用typeof操作符时返回“function”。由于上述浏览器中的正则表达式也实现了这个方法，因此对正则表达式应用typeof会返回“function”。在IE和Firefox中，对正则表达式应用typeof会返回“object”。</p>
+</blockquote>
+<h3 id="1-2-执行环境及作用域"><a href="#1-2-执行环境及作用域" class="headerlink" title="1.2 执行环境及作用域"></a>1.2 执行环境及作用域</h3><p><br>    执行环境(execution context, 为简单起见，有时也称为“环境”)是JavaScript中最为重要的一个概念。执行环境定义了变量或函数有权访问的其他数据，决定了它们各自的行为。每个执行环境都有一个与之关联的变量对象(variable object)，环境中定义的所有变量和函数都保存在这个对象中。虽然我们编写的代码无法访问这个对象，但解析器在处理数据时会在后台使用它。<br></p>
+
+<p><br>    全局执行环境是最外层的一个执行环境。根据ECMAScript实现所在的宿主环境不同，表示执行环境的对象也不一样。在Web浏览器中，全局执行环境被认为是window对象，因此所有全局变量和函数都是作为window对象的属性和方法创建的。某个执行环境中的所有代码执行完毕后，该环境被销毁，保存在其中的所有变量和函数定义也随之销毁(全局执行环境直到应用程序退出——例如关闭网页或浏览器——时才会被销毁)。<br></p>
+
+<p><br>    每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈。而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。ECMAScript程序中的执行流正是由这个方便的机制控制着。<br></p>
+
+<p><br>    当代码在一个环境中执行时，会创建变量对象的一个作用域链(scope chain)。作用域链的用途，是保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其活动对象(activation object)作为变量对象。活动对象在最开始时只包含一个变量。活动对象在最开始时只包含一个变量，即arguments对象(这个对象在全局环境中是不存在的)。作用域链中的下一个变量对象来自包含(外部)环境，而再下一个对象则来自下一个包含环境。这样，一直延续到全局执行环境；全局执行环境的变量对象始终都是作用域链中的最后一个对象。<br></p>
+
+<p><br>    标识符解析是沿着作用域链一级一级地搜索标识符的过程。搜索过程始终从作用域链的前端开始，然后逐级地向后回溯，直到找到标识符为止(如果找不到标识符，通常会导致错误发生)。请看下面的示例代码：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var color = &quot;blue&quot;;</div><div class="line">function changeColor () &#123;</div><div class="line">    if (color === &quot;blue&quot;) &#123;</div><div class="line">        color = &quot;red&quot;;</div><div class="line">    &#125; else &#123;</div><div class="line">        color = &quot;blue&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">changeColor();</div><div class="line">alert(&quot;Color is now &quot; + color);</div></pre></td></tr></table></figure>
+<p><br>    在这个简单的例子中，函数changeColor()的作用域链包含两个对象：它自己的变量对象(其中定义着arguments对象)和全局环境的变量对象。可以在函数内部访问变量color，就是因为可以在这个作用域链中找到它。<br></p>
+
+<p><br>    此外，在局部作用域中定义的变量可以在局部环境中与全局变量互换使用，如下面这个例子所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var color = &quot;blue&quot;;</div><div class="line"></div><div class="line">function changeColor () &#123;</div><div class="line">	var anotherColor = &quot;red&quot;;</div><div class="line">	function swapColors () &#123;</div><div class="line">		var tempColor = anotherColor;</div><div class="line">		anotherColor = color;</div><div class="line">		color = tempColor;</div><div class="line">		// 这里可以访问color、anotherColor和tempColor</div><div class="line">	&#125;</div><div class="line">	// 这里可以访问color和anotherColor，但不能访问tempColor</div><div class="line">	swapColors();</div><div class="line">&#125;</div><div class="line">// 这里只能访问color</div><div class="line">changeColor();</div></pre></td></tr></table></figure>
+<p><br>    以上代码共涉及3个执行环境：全局环境、changeColor()的局部环境和swapColors()的局部环境。全局环境中有一个变量和一个函数changeColor()。changeColor()的局部环境中有一个名为anotherColor的变量和一个名为swapColors()的函数，但它也可以访问全局环境中的变量color。swapColors()的局部环境中有一个变量tempColor，该变量只能在这个环境中访问到。无论全局环境还是changeColor()的局部环境都无权访问tempColor。然而，在swapColors()内部则可以访问其他两个环境中的所有变量，因为那两个环境都是它的父执行环境。图1-3形象地展示了前面这个例子的作用域链。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-4-3.png"></p>
+<div style="text-align: center;">图1-3</div>
+
+<p><br>    图1-3中的矩形表示特定的执行环境。其中，内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何变量和函数。这些环境之间的联系是线性、有次序的。每个环境都可以向上搜索作用域链，以查询变量和函数名；但任何环境都不能通过向下搜索作用域链而进入另一个执行环境。对于这个例子中的swapColors()而言，其作用域链中包含3个对象：swapColors()的变量对象、changeColor()的变量对象和全局变量对象。swapColors()的局部环境开始时会先在自己的变量对象中搜索变量和函数名，如果搜索不到则再搜索上一级作用域链。changeColor()的作用域链中只包含两个对象：它自己的变量对象和全局变量对象。这也就是说，它不能访问swapColors()的环境。<br></p>
+
+<blockquote>
+<p>函数参数也被当做变量来对待，因此其访问规则与执行环境中的其他变量相同。</p>
+</blockquote>
+<h3 id="1-2-1-延长作用域链"><a href="#1-2-1-延长作用域链" class="headerlink" title="1.2.1 延长作用域链"></a>1.2.1 延长作用域链</h3><p><br>    虽然执行环境的类型总共只有两种——全局和局部(函数),但还是有其他办法来延长作用域链。这么说是因为有些语句可以在作用域链的前端临时增加一个变量对象，该变量对象会在代码执行后被移除。在两种情况下会发生这种现象。具体来说，就是当执行流进入下列任何一个语句时，作用域链就会得到加长：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a) try-catch语句的catch块；</div><div class="line">b) with语句。</div></pre></td></tr></table></figure>
+<p><br>    这两个语句都会在作用域链的前端添加一个变量对象。对with语句来说，会将指定的对象添加到作用域链中。对catch语句来说，会创建一个新的变量对象，其中包含的是被抛出的错误对象的声明。下面看一个例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function buildUrl () &#123;</div><div class="line">    var qs = &quot;?debug=true&quot;;</div><div class="line">    with(location) &#123;</div><div class="line">        var url = href + qs;</div><div class="line">    &#125;</div><div class="line">    return url;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br>    在此，with语句接收的是location对象，因此其变量对象中就包含了location对象的所有属性和方法，而这个变量对象被添加到了作用域链的前端。buildUrl()函数中定义了一个变量qs。当在with语句中引用变量href时(实际引用的是location.href)，可以在当前执行环境的变量对象中找到。当引用变量qs时，引用的则是在buildUrl()中定义的那个变量，而该变量位于函数环境的变量对象中。至于with语句内部，则定义了一个名为url的变量，因而url就成了函数执行环境的一部分，所以可以作为函数的值被返回。<br></p>
+
+<blockquote>
+<p>在IE8及之前版本的JavaScript实现中，存在一个与标准不一致的地方，即在catch语句中捕获的错误对象会被添加到执行环境的变量对象，而不是catch语句的变量对象中。换句话说，即使是在catch块的外部也可以访问到错误对象。IE9修复了这个问题。</p>
+</blockquote>
+<h3 id="1-2-2-没有块级作用域"><a href="#1-2-2-没有块级作用域" class="headerlink" title="1.2.2 没有块级作用域"></a>1.2.2 没有块级作用域</h3><p><br>    JavaScript没有块级作用域经常会导致理解上的困惑。在其他类C的语言中，由花括号封闭的代码块都有自己的作用域(如果用ECMAScript的话来讲，就是它们自己的执行环境)，因而支持根据条件来定义变量。例如，下面的代码在JavaScript中并不会得到想象中的结果：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (true) &#123;</div><div class="line">    var color = &quot;blue&quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">alert(color);	// &quot;blue&quot;</div></pre></td></tr></table></figure>
+<p><br>    这里实在一个if语句中定义了变量color。如果是在C、C++或Java中，color会在if语句执行完毕后被销毁。但在JavaScript中，if语句中的变量声明会将变量添加到当前的执行环境(在这里是全局环境)中。在使用for语句时尤其要牢记这一差异，例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for (var i = 0; i &lt; 10; i++) &#123;</div><div class="line">    doSomething(i);</div><div class="line">&#125;</div><div class="line">alert(i);	// 10</div></pre></td></tr></table></figure>
+<p><br>    对于有块级作用域的语言来说，for语句初始化变量的表达式所定义的变量，只会存在于循环的环境之中。而对于JavaScript来说，由for语句创建的变量i即使在for循环执行结束后，也依旧会存在于循环外部的执行环境中。<br></p>
+
+<h3 id="1、声明变量"><a href="#1、声明变量" class="headerlink" title="1、声明变量"></a>1、声明变量</h3><p><br>    使用var声明的变量会自动被添加到最接近的环境中。在函数内部，最接近的环境就是函数的局部环境；在with语句中，最接近的环境是函数环境。如果初始化变量时没有使用var声明，该变量会自动被添加到全局环境。如下所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function add (num1, num2) &#123;</div><div class="line">    var sum = num1 + num2;</div><div class="line">    return sum;</div><div class="line">&#125;</div><div class="line">var result = add(10, 20);	// 30</div><div class="line">alert(sum);		// 由于sum不是有效的变量，因此会导致错误</div></pre></td></tr></table></figure>
+<p><br>    以上代码中的函数add()定义了一个名为sum的局部变量，该变量包含加法操作的结果。虽然结果值从函数中返回了，但变量sum在函数外部是访问不到的。如果省略这个例子中的var关键字，那么当add()执行完毕后，sum也将可以访问到：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function add (num1, num2) &#123;</div><div class="line">    sum = num1 + num2;</div><div class="line">    return sum;</div><div class="line">&#125;</div><div class="line">var result = add(10, 20);	// 30</div><div class="line">alert(sum);		// 30</div></pre></td></tr></table></figure>
+<p><br>    这个例子中的变量sum在被初始化赋值时没有使用var关键字。于是，当调用完add()之后，添加到全局环境中的变量sum将继续存在；即使函数已经执行完毕，后面的代码依旧可以访问它。<br></p>
+
+<blockquote>
+<p>在编写JavaScript代码的过程中，不声明而直接初始化变量是一个常见的错误做法，因为这样可能会导致意外。我们建议在初始化变量之前，一定要先声明，这样就可以避免类似问题。在严格模式下，初始化未经声明的变量会导致错误。</p>
+</blockquote>
+<h3 id="2、查询标识符"><a href="#2、查询标识符" class="headerlink" title="2、查询标识符"></a>2、查询标识符</h3><p><br>    当在某个环境中为了读取或写入而引用一个标识符，必须通过搜索来确定标识符实际代表什么。搜索过程从作用域链的前端开始，向上逐级查询与给定名字匹配的标识符。如果在局部环境中找到了该标识符，搜索过程停止，变量就绪。如果在局部环境中没有找到该变量名，则继续沿作用域链向上搜索。搜索过程将一直追溯到全局环境的变量对象。如果在全局环境中也没有找到这个标识符，则意味着该变量尚未声明。<br></p>
+
+<p><br>    通过下面这个示例，可以理解查询标识符的过程：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var color = &quot;blue&quot;;</div><div class="line"></div><div class="line">function getColor () &#123;</div><div class="line">    return color;    	</div><div class="line">&#125;</div><div class="line"></div><div class="line">alert(getColor());	// &quot;blue&quot;</div></pre></td></tr></table></figure>
+<p><br>    调用本例中的函数getColor()时会引用变量color。为了确定变量color的值，将开始一个两步的搜索过程。首先，搜索getColor()的变量对象，查找其中是否包含一个名为color的标识符。在没有找到的情况下，搜索继续到下一个变量对象(全局环境的变量对象)，然后在那里找到了名为color的标识符。因为搜索到了定义这个变量的变量对象，搜索过程宣告结束。图1-4形象地展示了上述搜索过程。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-4-4.png"></p>
+<div style="text-align: center;">图1-4</div>
+
+<p><br>    在这个搜索过程中，如果存在一个局部的变量的定义，则搜索会自动停止，不再进入另一个变量对象。换句话说，如果局部环境中存在着同名标识符，就不会使用位于父环境中的标识符，如下面的例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var color = &quot;blue&quot;;</div><div class="line"></div><div class="line">function getColor () &#123;</div><div class="line">	var color = &quot;red&quot;;</div><div class="line">	return color;</div><div class="line">&#125;</div><div class="line"></div><div class="line">alert(getColor());	// &quot;red&quot;</div></pre></td></tr></table></figure>
+<p><br>    修改后的代码在getColor()函数中声明了一个名为color的局部变量。调用函数时，该变量就会被声明。而当函数中的第二行代码执行时，意味着必须找到并返回变量color的值。搜索过程首先从局部环境中开始，而且在这里发现了一个名为color的变量，其值为“red”。因为变量已经找到了，所以搜索即行停止，return语句就使用这个局部变量，并为函数会返回“red”。也就是说，任何位于局部变量color的声明之后的代码，如果不使用window.color都无法访问全局color变量。<br></p>
+
+<blockquote>
+<p>变量查询也不是没有代价的。很明显，访问局部变量要比访问全局变量更快，因为不用向上搜索作用域链。JavaScript引擎在优化标识符查询方面做得不错，因此这个差别在将来恐怕就可以忽略不计了。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/25/群书治要360（一）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1947,218 +2208,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/19/弟子规 （4）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="谦恒">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="谦恒-个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/19/弟子规 （4）/" itemprop="url">弟子规 （四）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-19T15:07:41+08:00">
-                2017-08-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="五、信"><a href="#五、信" class="headerlink" title="五、信"></a>五、信</h3><p><br>    【解】“信”是会意字，代表人言，也就是说话要算数，说到做到。孔老夫子说：“人无信不立”。一个人假如没有信用，很难在社会上立足。当人人对你说的话、办的事都产生怀疑时，你就无法在社会、人群当中立足。因为社会是一个团体生活，假如大家都不信任你，就会离你而去，你就很难发展。所以，信用跟一个人的生命同等重要。因此，说话、做事都要以诚信为原则。特别是在生意场上，做生意最关键的就是信用，真正把诚信做到了，大家跟你合作会很欢喜，都会很愿意帮你，你的事业必定成功。所以，诚信的人可以在社会上立于不败之地。<br></p>
-
-<p><br>    “信”引申来讲还包括信念的意思，一个人、一个团体、一个国家都要有信念，就是我们讲的志向。如果人没有了信念、没有了志向，人生也就没有了方向、目标，哪怕是吃的饱、穿得暖，奢华享受，那叫作混日子，说句不好听的话，一天到晚是“饱食终日，无所用心”。孟子说：“人之异于禽兽者几希。”那样的生活，是禽兽生，不是人生，人与禽兽的区别是在道德上。所以人要立志，立志做什么呢？立志做圣贤。圣贤人的生活一定幸福、圣贤人的事业一定成功。学习《弟子规》我们也要有一个正确的信念，要学做圣贤，那么幸福成功都是自然而然的。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡出言 &emsp;信为先 &emsp;诈与妄 &emsp;奚可焉</p>
-
-<p style="margin-bottom: 0;"><br>    【解】开口说话，诚信为先，对自己讲出来的话绝对要在心上去实践、去履行。答应别人的事情一定要遵守承诺，没有能力做到的事不能随便答应，至于欺骗或花言巧语更不能使用。<br></p>
-
-<p><br>    言语行为当中能守信，就已经奠定了一个人今后在社会上好的发展基础。假如我们不守信，还要找一些借口，赖掩饰自己的失信，那你的名声就会愈来愈差。假如有特殊原因让你是在无法实现诺言，这时就要坦诚布公，当他真正了解你的情况、了解你的诚意后，他也会退一步。但是你如果继续掩盖，他就会愈来愈愤怒，到时候就很难收拾了。所以，与别人的信诺绝不可以拖延，愈拖愈难解决。<br></p>
-
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">话说多 &emsp;不如少 &emsp;惟其是 &emsp;勿佞巧</p>
-
-<p style="margin-bottom: 0;"><br>    【解】话说多了，大部分都是废话，不如少讲几句，避免过失。说话要恰到好处，谈话内容要实事求是，不着边际、没有根据的谎话，终有被识破的时候。<br></p>
-
-<p><br>    所谓“言多必失”，如果你滔滔不绝，很多话还没有思考清楚就说出去了，结果就收不回来了。谚云：“是非只为多开口，烦恼皆因强出头。”人与人接触会有是非产生，就是因为话多，所以处事要少言、慎行。在讲话之前，我们首先要想一想，讲这句话自己能不能做到、能不能够对这个话负责。如果我们说的话能够做到、能够负起责任，这才能够说，如果说了话之后不能负责任，我们在他人心目中的信用就会慢慢地减少了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">奸巧语 &emsp;秽污词 &emsp;市井气 &emsp;切戒之</p>
-
-<p style="margin-bottom: 0;"><br>    【解】奸诈取巧的语言、下流肮脏的话以及街头无赖粗俗的口气，都要避免，不去沾染。如果已经被污染，就要下定决心切实戒除掉。<br></p>
-
-<p><br>    说话时要戒掉一些不良的语言，言谈如果能够非常文雅，无形当中都会提升一个人的气质修养。当我们内心充满了对圣贤人的憧憬、向往，立志要成圣成贤的时候，我们的言语、行为自然就会效仿圣贤人的存心。凡是圣贤人不说不做的事情，我们绝对也不说不做。久而久之，自己那种圣贤的风范就会慢慢表露出来了，人们看到一定也会敬重你。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见未真 &emsp;勿轻言 &emsp;知未的 &emsp;勿轻传</p>
-
-<p style="margin-bottom: 0;"><br>    【解】任何事情在没有看到真相之前，不要轻易发表意见，对事情了解得不够清楚明白时，不可以任意传播，以免造成不良后果。<br></p>
-
-<p><br>    即使你看到的是事情真相，也不要轻易地讲出来，因为与人相处会有纠纷及不愉快的事情发生，追根究底都是从口舌是非开始的，所以我们在讲话之前一定要想一想，这句话讲了之后它有没有后遗症？会不会破坏别人的声誉？它到底有没有利害关系？会不会破坏整个团体的和谐？千万不可以看到什么就讲什么。有些人随便听到一句闲话，再加上自己的妄想，就可以编出一件新闻。这种无根的谣言，常常惹出许多的是非，传出去后很容易跟人结怨，把自己的德行也败坏了。所谓“谣言止于智者”，我们不要被谣言所利用，聪明人碰到这些是是非非的事情，绝对不会跟着传，因为智者的心在道上，对于那些风吹草动、流言蜚语，统统都能够置之不理。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事非宜 &emsp;勿轻诺 &emsp;苟轻诺 &emsp;进退错</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不合义理的事，不要轻易答应。如果意气用事、轻率表态，事到临头才发现不合理，做也不是，不做也不是，那就太被动了。<br></p>
-
-<p><br>    面对一件事情，首先要看应不应该去做，如果是不符合道义甚至是非法的，那就绝对不可以答应。假如我们轻易承诺以后就会进退两难，不做就是没有信用，做了又违背良心道德，这样会让自己陷入烦恼之中而无法解脱。因为有时我们与人方便，别人却变成了随便，所以在答应之前一定要详细查看内容是什么，不要先答应之后再后悔，那就来不及了。古人讲：“一言可以兴邦，一言可以丧邦。”如果我们讲话不谨慎而又事关重大，很可能会带来不堪设想的后果，尤其是在高位的领导人更要慎重。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡道字 &emsp;重且舒 &emsp;勿急疾 &emsp;勿模糊</p>
-
-<p style="margin-bottom: 0;"><br>    【解】我们讲话吐字要清楚而有力，缓缓道来，要讲得很舒畅、放松。说话不可以太急，每个字都要吐得清清楚楚、不模糊，听的人也就听得很清楚、很舒服，这也避免了让人错意而造成没必要的误会。<br></p>
-
-<p><br>    如果别人讲话太快，你又没有听清楚，正好又是要处理的事情，这时我们要养成一个习惯，不管是谁交代我们事情，到最后都要再给他复述一遍，这样才会万无一失。不然你似懂非懂，到时候出了偏差，就不能怪别人讲得太快，只能怪你没把话听清楚、听明白。所以我们不要怕麻烦，一定要把讲话内容确认清楚，不可马虎大意。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">彼说长 &emsp;此说短 &emsp;不关己 &emsp;莫闲管</p>
-
-<p style="margin-bottom: 0;"><br>    【解】遇到他人来说是非好坏时，听听就算了，要有智慧判断，不要受影响，不要介入是非。如果与己无关，就不要多管闲事（来说是非者，便是是非人。）<br></p>
-
-<p><br>    多管闲事会让自己增加很多烦恼，还会引来不愉快，跟人结怨。谚云：“利刃割体痕易合，恶语伤人恨难消。”讲人的是非、隐私，这个对人的伤害比利刃伤人更严重，引起的怨恨也更大，到时候你再怎么说对不起，也不见得能回到原来的那种关系了。所以古德说：“莫说他人短与长，说来说去自遭殃，若能闭口深藏舌，便是修行第一方。”劝导我们不说是非长短，要修养自己的厚德。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见人善 &emsp;即思齐 &emsp;纵去远 &emsp;以渐跻</p>
-
-<p style="margin-bottom: 0;"><br>    【解】见到人家的优点，我们要马上见贤思齐，向人学习。即使跟他差距很远，我们也要慢慢努力地去追赶，希望有朝一日能跟他看齐，这是一种好学的精神。<br></p>
-
-<p><br>    古人云：“尺有所短，寸有所长。”看待事物和与他人相处，我们如果能多看别人的长处，不但和自己相处的人愉悦欢喜，而且最大的受益者就是自己。因为每个人在某个方面肯定都会有比我们做得好的地方，如果我们能带着谦卑的心去寻找他人的闪光点，那么即使和有很多缺点的人相处，也能从他人身上受益。与此相反，如果我们带着傲慢的心，仗恃自己的一点学识、观点，用评判和挑衅的眼光来看待周遭的一切，那么即使是圣贤大德的教诲，我们也能找到一些“疏漏”和“失误”，最终也无法受益。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见人恶 &emsp;即内省 &emsp;有则改 &emsp;无加警</p>
-
-<p style="margin-bottom: 0;"><br>    【解】看到别人的缺点或不良的行为，要先反观自己有没有犯同样的错。假如有，要赶快修正，假如没有，要警惕自己将来不要犯。（子曰：“三人行，必有我师焉，择其善者而从之，其不善者而改之。”）<br></p>
-
-<p><br>    人生百态犹如一面镜子，见人过失易，不责人过失难，虽然镜子里的一切清清楚楚、明明白白，但智者可以借之反思警戒，而愚者却入中看戏而沉迷不悟！重要的是自己有无反省的功夫。一个人如果能处处看到自己的本分，他就不会把时间浪费在指责别人的不是上了。如果把别人的缺点、过失放在心上，那等于是把自己的心当成了垃圾桶，这样做是最傻的。做父母的要引导孩子正确看待他人的缺点和不足，不以自己的长处比他人的短处，要让孩子明白“金无足赤，人无完人”的道理。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">唯德学 &emsp;唯才艺 &emsp;不如人 &emsp;当自砺</p>
-
-<p style="margin-bottom: 0;"><br>    【解】每一个人都应当重视自己的品德、学问和才能技艺的培养，如果感觉到有不如人的地方，应当自我惕励，奋发图强，努力赶上。<br></p>
-
-<p><br>    《中庸》上讲：“好学近乎智，力行近乎仁，知耻近乎勇。”一个人他真能对德学才艺努力踏实去学习，这叫近乎智慧了；学到之后，关键是要力行，如何把孔夫子的温、良、恭、俭、让做出来，把孝、悌、忠、信、礼、义、廉、耻落实到生活当中，对父母如何行孝，对祖国如何尽忠，这叫力行，所以真正的仁，要有力行啊！知道自己有过失了，就叫知耻，知耻的人会勇猛改过，他必定是一步一步向着圣贤迈进。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">若衣服 &emsp;若饮食 &emsp;不如人 &emsp;勿生戚</p>
-
-<p style="margin-bottom: 0;"><br>    【解】至于外表穿着或者饮食方面不如他人，心里不必难过，更没有必要忧虑自卑。物质上的这些享受够用就好，知足才是真正的富。<br></p>
-
-<p><br>    如果一味追求物质享受，跟人攀比，看人穿名牌、时尚的衣服也要去赶时髦，看别人开名车、买大的别墅，心里又坐不住了，把大部分的时间、精力都花在逛街购物上，看到喜欢的款式就买，得到后很快又厌倦了。每天这样生活在患得患失之中，把人生短暂的时间、有限的精力、辛苦赚来的金钱都用在了这些奢侈、浪费、享受上，这样子生活很累，烦恼痛苦都是自己找的啊！所谓“欲是深渊，欲不可纵”，假如让自己的欲望无限制地膨胀下去，就会带给你很大的痛苦，当你入不敷出的时候，想回头都相当困难，因为“由俭入奢易，由奢入俭难”。所以明智的父母一定要防微杜渐，把孩子不健康的思想因素消灭在萌芽之中，一切都要谨慎于开始。父母同时也要以身作则，为孩子树立一个勤俭治家的好榜样，这样就会给孩子潜移默化的影响。当我们这样去引导孩子，让他懂得知足，他这一生才不会成为物质的奴隶，才不会崇尚虚华。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">闻过怒 &emsp;闻誉乐 &emsp;损友来 &emsp;益友却</p>
-
-<p style="margin-bottom: 0;"><br>    【解】如果听到别人说自己的过错就一副不高兴的样子，听到别人称赞自己就欢喜的不得了，很快那些说好听话的、替你掩饰过失的、教你吃喝玩乐的损害你的朋友就会接近你，让你堕落，而真正的良朋益友反而远离你了，因为你根本听不进去好话，何必跟你结怨呢？<br></p>
-
-<p><br>    人往往看不到自己的过失，因此这就需要善友的时时提醒。人一生中除了父母和老师之外，能有几个可以真心批评、指正我们的人呢？真心批评、指正我们的人，那真的是我们的善友，没有他们的批评、指正，我们还真的看不到自己的问题所在，所以感恩都来不及，怎么可以闻过之后发怒呢？古人将朋友也列为五伦之一，就是因为朋友可以帮助我们共同实践人生大道。曾子说：“君子以文会友，以友辅仁。”真正的朋友是以道义为准绳的，而不是以功利为纽带的世道教。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">闻誉恐 &emsp;闻过欣 &emsp;直谅士 &emsp;渐相亲</p>
-
-<p style="margin-bottom: 0;"><br>    【解】听到别人赞叹我们，心中感到很惶恐，深怕别人言过其实，觉得自己根本没有那么好，应该要更加努力才对，听到别人说自己的过失，能够感到很欢喜，那么自然就有正直、诚实、讲信用的益友跟我们走在一起了，这对我们的学业、事业、道业都有莫大的帮助啊！<br></p>
-
-<p><br>    要知道我们的才华、成就，绝不是个人能力所能达到的，都是父母长辈们养育、教育、指导、关怀以及众人付出的结果。所以我们每一件事情的成就，首先要感谢他们，这样我们才不会自视甚高，一个真正有所作为的人，必定是一个有大的涵养和度量、善于听取别人劝谏、欢喜改过的人。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">无心非 &emsp;名为错 &emsp;有心非 &emsp;名为恶</p>
-
-<p style="margin-bottom: 0;"><br>    【解】无心犯的过失，这种过失称为错。假如已经知道这件事是错的，但是还要去做，那就是作恶。<br></p>
-
-<p><br>    “人非圣贤，孰能无过”，圣贤之所以能成为圣贤，就是因为他能够天天改过啊！我们过去没有学习过圣贤教育，不懂得孝、悌、忠、信、礼、义、廉、耻，不知道怎么做人，做了很多错事，心里很后悔，现在回头重新来学习《弟子规》，发心做一个好人、做一个有德的君子乃至于要做圣贤。如果我们学了以后还是我行我素，明知做错了也不肯改过，那我们就是恶人了。过去做了错事还有个借口“没学过”，现在没有借口了，不能不改了！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">过能改 &emsp;归于无 &emsp;倘掩饰 &emsp;增一辜</p>
-
-<p style="margin-bottom: 0;"><br>    【解】知错能改是勇者的行为，错误自然慢慢地减少消失。如果为了面子，死不认错，还要替自己开脱、掩饰，那就是错上加错，反而又增加一项掩饰的罪过了。<br></p>
-
-<p><br>    世上没有完美无缺的人，每个人都是在不断纠正自己的错误中得到进步和发展的。一个人改正错误到最后实际就是超越自己，这需要极大的勇气与毅力，而要改错首先是知错、认识错误，还要有承认错误的勇气，最后才是改正错误的毅力。知过能改，善莫大焉！有过失没关系，能承认、能改过那就是好人。《菜根谭》上告诉我们：“弥天罪过，都当不得一个悔字。”天大的过失，只要能够忏悔改过，他就有救，因为当善心生起的时候，过去的罪恶都烟消云散了。如果我们不肯改，甚至还要为自己找借口来掩饰，那就会让人家从此瞧不起你、不信任你，这就叫作自暴自弃、自甘堕落啊！所以对于改过要痛下决心，这样人生才能走得坦坦荡荡。<br></p>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2209,7 +2258,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
