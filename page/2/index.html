@@ -257,6 +257,303 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/28/引用类型（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谦恒">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="谦恒-个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/28/引用类型（一）/" itemprop="url">引用类型（一）——JavaScript高级程序设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-28T09:28:54+08:00">
+                2017-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>引用类型的值(对象)是引用类型的一个实例。在ECMAScript中，引用类型是一种数据结构，用于将数据和功能组织在一起。它也常被称为类，但这种称呼并不妥当。尽管ECMAScript从技术上讲是一门面向对象的语言，但它不具备传统的面向对象语言所支持的类和接口等基本结构。引用类型有时候也被称为对象定义，因此它们描述的是一类对象所具有的属性和方法。</p>
+</blockquote>
+<p><br>    如前所述，对象是某个特定引用类型的实例。新对象是使用new操作符后跟一个构造函数来创建的。构造函数本身就是一个函数，只不过该函数是出于创建新对象的目的而定义的。请看下面这行代码：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div></pre></td></tr></table></figure>
+<p><br>    这行代码创建了Object引用类型的一个新实例，然后把该实例保存在了变量person中。使用的构造函数是Object，它只为新对象定义了默认的属性和方法。ECMAScript提供了很多原生引用类型(例如Object)，以便开发人员用以实现常见的计算任务。<br></p>
+
+<h3 id="1-1-Object类型"><a href="#1-1-Object类型" class="headerlink" title="1.1 Object类型"></a>1.1 Object类型</h3><p><br>    到目前为止，我们看到的大多数引用类型值都是Object类型的实例；而且，Object也是ECMAScript中使用最多的一个类型。虽然Object的实例不具备多少功能，但对于在应用程序中存储和传输数据而言，它们确实是非常理想的选择。<br></p>
+
+<p><br>    创建Object实例的方式有两种。第一种是使用new操作符后跟Object构造函数，如下所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div><div class="line">person.name = &quot;Nicholas&quot;;</div><div class="line">person.age = 29;</div></pre></td></tr></table></figure>
+<p><br>    另一种方式是使用对象字面量表示法。对象字面量是对象定义的一种简写形式，目的在于简化创建包含大量属性的对象的过程。下面这个例子就使用了对象字面量语法定义了与前面那个例子中相同的person对象：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var person = &#123;</div><div class="line">    name: &apos;Nicholas&apos;,</div><div class="line">    age: 29</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><br>    在这个例子中，左边的花括号({)表示对象字面量的开始，因为它出现在了表达式上下文中(expression context)中。ECMAScript中的表达式上下文值得是能够返回一个值(表达式)。赋值操作符表示后面是一个值，所以左花括号在这里表示一个表达式的开始。同样的花括号，如果出现在一个语句上下文(statement context)中，例如跟在if语句条件的后面，则表示一个语句块的开始。<br></p>
+
+<p><br>    然后，我们定义了name属性，之后是一个冒号，再后面是这个属性的值。在对象字面量中，使用逗号来分隔不同的属性，因此’Nicholas’后面是一个逗号。但是，在age属性的值29的后面不能添加逗号，因为age是这个对象的最后一个属性。在最后一个属性后面添加逗号，会在IE7及更早版本和Opera中导致错误。<br></p>
+
+<p><br>    在使用对象字面量语法时，属性名也可以使用字符串，如下面这个例子所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var person = &#123;</div><div class="line">    &quot;name&quot;: &quot;Nicholas&quot;,</div><div class="line">    &quot;age&quot;: 29,</div><div class="line">    5: true</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p><br>    这个例子会创建一个对象，包含三个属性：name、age和5.但这里的数值属性名会自动转换为字符串。<br></p>
+
+<p><br>    另外，使用对象字面量语法时，如果留空其花括号，则可以定义只包含默认属性和方法的对象，如下所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person = &#123;&#125;;	// 与new Object()相同</div><div class="line">person.name = &quot;Nicholas&quot;;</div><div class="line">person.age = 29;</div></pre></td></tr></table></figure>
+<p><br>    这个例子与本节前面的例子是等价的，只不过看起来似乎有点奇怪。关于对象字面量语法，我们推荐只在考虑对象属性名的可读性时使用。<br></p>
+
+<blockquote>
+<p>在通过对象字面量定义对象时，实际上不会调用Object构造函数(Firefox 2及更早版本会调用Object构造函数；但Firefox 3之后就不会了)。</p>
+</blockquote>
+<p><br>    虽然可以使用前面介绍的任何一种方法来定义对象，但开发人员更青睐对象字面量语法，因为这种语法要求的代码量少，而且能够给人封装的感觉。实际上，对象字面量也是向函数传递大量可选参数的首选方式，例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function displayInfo (args) &#123;</div><div class="line">    var output = &quot;&quot;;</div><div class="line">    if (typeof args.name == &quot;string&quot;) &#123;</div><div class="line">        output += &quot;Name: &quot; + args.name + &quot;\n&quot;;</div><div class="line">    &#125;</div><div class="line">    if (typeof args.age == &quot;number&quot;) &#123;</div><div class="line">        output += &quot;Age: &quot; + args.age +&quot;\n&quot;;</div><div class="line">    &#125;</div><div class="line">    alert(output);</div><div class="line">&#125;</div><div class="line">displayInfo(&#123;</div><div class="line">    name: &quot;Nicholas&quot;,</div><div class="line">    age: 29</div><div class="line">&#125;);</div><div class="line">displayInfo(&#123;</div><div class="line">    name: &quot;Greg&quot;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><br>    在这个例子中，函数displayInfo()接受一个名为args的函数。这个参数可能带有一个名为name或age的属性，也可能这两个属性都有或者都没有。在这个函数内部，我们通过typeof操作符来检测每个属性是否存在，然后再基于相应的属性来构建一条要显示的消息。然后，我们调用了两次这个函数，每次都是用一个对象字面量来指定不同的数据。这两次调用传递的参数虽然不同，但函数都能正常执行。<br></p>
+
+<blockquote>
+<p>这种传递参数的模式最适合需要向函数传入大量可选参数的情形。一般来讲，命名参数虽然容易处理，但在有多个可选参数的情况下就会显示不够灵活。最好的做法是对那些必需值使用命名参数，而使用对象字面量来封装多个可选参数。</p>
+</blockquote>
+<p><br>    一般来说，访问对象属性时使用的都是点表示法，这也是很多面向对象语言中通用的语法。不过，在JavaScript也可以使用方括号表示法来访问对象的属性。在使用方括号语法时，应该将要访问的属性以字符串的形式放在方括号中，如下面的例子所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(person[&quot;name&quot;]);	// &quot;Nicholas&quot;</div><div class="line">alert(person.name);		// &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
+<p><br>    从功能上看，这两种访问对象属性的方法没有任何区别。但方括号语法的主要优点是可以通过变量来访问属性，例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var propertyName = &quot;name&quot;;</div><div class="line">alert(person[propertyName]);	// &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
+<p><br>    如果属性名中包含导致语法错误的字符，或者属性名使用的是关键字或保留字，也可以使用方括号表示法。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">person[&quot;first name&quot;] = &quot;Nicholas&quot;;</div></pre></td></tr></table></figure>
+<p><br>    由于“first name”中包含一个空格，所以不能使用点表示法来访问它。然而，属性名中是可以包含非字母非数字的，这时候就可以使用方括号表示法来访问它们。<br></p>
+
+<p><br>    通常，除非必须使用变量来访问属性，否则我们建议使用点表示法。<br></p>
+
+<h3 id="1-2-Date类型"><a href="#1-2-Date类型" class="headerlink" title="1.2 Date类型"></a>1.2 Date类型</h3><p><br>    ECMAScript中的Date类型是在早期Java中的java.util.Date基础上构建的。为此，Date类型使用自UTC(Coordinated Universal Time, 国际协调时间)1970年1月1日午夜(零时)开始经过的毫秒数来保存日期。在使用这种数据存储格式的条件下，Date类型保存的日期能够精确到1970年1月1日之前或之后的285616年。<br></p>
+
+<p><br>    要创建一个日期对象，使用new操作符和Date构造函数即可，如下所示。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var now = new Date();</div></pre></td></tr></table></figure>
+<p><br>    在调用Date构造函数而不传递参数的情况下，新创建的对象自动获得当前日期和时间。如果想根据特定的日期和时间创建日期对象，必须传入表示日期的毫秒数(即从UTC时间1970年1月1日午夜起至该日期止经过的毫秒数)。为了简化这一计算过程，ECMAScript提供了两个方法：Date.parse()和Date.UTC()。<br></p>
+
+<p><br>    其中，Date.parse()方法接收一个表示日期的字符串参数，然后尝试根据这个字符串返回相应日期的毫秒数。ECMA-262没有定义Date.parse()应该支持哪种日期格式，因此这个方法的行为因实现而异，而且通常是因地区而异。将地区设置为美国浏览器通常都接受下列日期格式：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">a) “月/日/年”，如6/13/2004;</div><div class="line">b) “英文月名 日，年”，如January 12, 2004;</div><div class="line">c) “英文星期几 英文月名 日 年 时：分：秒 时区”，如Tue May 25 2004 00:00:00 GMT-0700;</div><div class="line">d) ISO 8601扩展格式YYYY-MM-DDTHH:mm:ss.sssZ(例如 2004-05-25T00:00:00)。只有兼容ECMAScript 5的实现支持这种格式。</div></pre></td></tr></table></figure>
+<p><br>    例如，要为2004年5月25日创建一个日期对象，可以使用下面的代码：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var someDate = new Date(Date.parse(&quot;May 25, 2004&quot;));</div></pre></td></tr></table></figure>
+<p><br>    如果传入Date.parse()方法的字符串不能表示日期，那么它会返回NaN。实际上，如果直接将表示日期的字符串传递给Date构造函数，也会在后台调用Date.parse()。换句话说，下面的代码与前面的例子是等价的：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var someDate = new Date(&quot;May 25, 2004&quot;);</div></pre></td></tr></table></figure>
+<p><br>    这行代码将会得到与前面相同的日期对象。<br></p>
+
+<blockquote>
+<p>日期对象及其在不同浏览器中的实现有许多奇怪的行为。其中有一种倾向是将超出范围的值替换成当前的值，以便生成输出。例如，在解析“January 32,2007”时，有的浏览器会将其解释为“February 1, 2007”。而Opera则倾向于插入当前月份的当前日期，返回“January 当前日期，2007”。也就是说，如果在2007年9月21日运行前面的代码，将会得到“January 21,2007”(都是21日)。</p>
+</blockquote>
+<p><br>    Date.UTC()方法同样也返回表示日期的毫秒数，但它与Date.parse()在构建值时使用不同的信息。Date.UTC()的参数分别是年份、基于0的月份(一月是0，二月是1，以此类推)、月中的哪一天(1到31)、小时数(0到23)、分钟、秒以及毫秒数。在这些参数中，只有前面两个参数(年和月)是必需的。如果没有提供月中的天数，则假设天数为1；如果省略其他参数，则统统假设为0.以下是两个使用Date.UTC()方法的例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// GMT 时间2000年1月1日午夜零时</div><div class="line">var y2k = new Date(Date.UTC(2000, 0));</div><div class="line"></div><div class="line">// GMT 时间2005年5月5日下午5:55:55</div><div class="line">var allFives = new Date(Date.UTC(2005, 4, 5, 17, 55, 55));</div></pre></td></tr></table></figure>
+<p><br>    这个例子创建了两个日期对象。第一个对象表示GMT时间2000年1月1日午夜零时，传入的值一个是表示年份的2000，一个是表示月份的0(即一月份)。因为其他参数是自动填充的(即月中的天数为1，其他所有参数均为0)，所以结果就是该月第一天的午夜零时。第二个对象表示GMT时间2005年5月5日下午5:55:55，即使日期和时间中只包含5，也需要传入不一样的参数：月份必须是4(因为月份是基于0的)、小时必须设置为17(因为小时以0到23表示)，剩下的参数就很直观了。<br></p>
+
+<p><br>    如同模仿Date.parse()一样，Date构造函数也会模仿Date.UTC()，但有一点明显不同：日期和时间都基于本地时区而非GMT来创建。不过，Date构造函数接收的参数仍然与Date.UTC()相同。因此，如果第一个参数是数值，Date构造函数就会假设该值是日期中的年份，而第二个参数是月份，以此类推。据此，可以将前面的例子重写如下。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 本地时间2000年1月1日午夜零时</div><div class="line">var y2k = new Date(2000, 0);</div><div class="line">// 本地时间2005年5月5日下午5:55:55</div><div class="line">var allFives = new Date(2005, 4, 5, 17, 55, 55);</div></pre></td></tr></table></figure>
+<p><br>    以上代码创建了与前面例子中相同的两个日期对象，只不过这次的日期都是基于系统设置的本地时区而创建的。<br></p>
+
+<p><br>    ECMAScript 5添加了Date.now()方法，返回表示调用这个方法时的日期和时间的毫秒数。这个方法简化了使用Date对象分析代码的工作。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 取得开始时间</div><div class="line">var start = Date.now();</div><div class="line"></div><div class="line">// 调用函数</div><div class="line">doSomething();</div><div class="line"></div><div class="line">// 取得停止时间</div><div class="line">var stop = Date.now(),</div><div class="line">    result = stop - start;</div></pre></td></tr></table></figure>
+<p><br>    支持Date.now()方法的浏览器包括IE9+、Firefox 3+、Safari 3+、Opera 10.5和Chrome。在不支持它的浏览器中，使用+操作符把Date对象转换成字符串，也可以达到同样的目的。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 取得开始时间</div><div class="line">var start = +new Date();</div><div class="line"></div><div class="line">// 调用函数</div><div class="line">doSomething();</div><div class="line">// 取得停止时间</div><div class="line">var stop = +new Date(),</div><div class="line">    result = stop - start;</div></pre></td></tr></table></figure>
+<h3 id="1-2-1-继承的方法"><a href="#1-2-1-继承的方法" class="headerlink" title="1.2.1 继承的方法"></a>1.2.1 继承的方法</h3><p><br>    与其他引用类型一样，Date类型也重写了toLocaleString()、toString()和valueOf()方法；但这些方法返回的值与其他类型中的方法不同。Date类型的toLocaleString()方法会按照与浏览器设置的地区相适应的格式返回日期和时间。这大致意味着时间格式中会包含AM或PM，但不会包含时区信息(当然，具体的格式会因浏览器而异)。而toString()方法则通常返回带有时区信息的日期和时间，其中时间一般以军用时间(即小时的范围是0到23)表示。下面给出了在不同浏览器中调用toLocaleString()和toString()方法，输出PST(Pacific Standard Time, 太平洋标准时间)时间2007年2月1日午夜零时的结果。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-5-1.png"></p>
+<p><br>    显然，这两个方法在不同的浏览器中返回的日期和时间格式可谓大相径庭。事实上，toLocaleString()和toString()的这一差别仅在调试代码时比较有用，而在显示日期和时间时没有什么价值。<br></p>
+
+<p><br>    至于Date类型的valueOf()方法，则根本不返回字符串，而是返回日期的毫秒表示。因此，可以方便使用比较操作符(小于或大于)来比较日期值。请看下面的例子。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var date1 = new Date(2007, 0, 1);	// &quot;January 1, 2007&quot;</div><div class="line">var date2 = new Date(2007, 1, 1);	// &quot;February 1, 2007&quot;</div><div class="line"></div><div class="line">alert(date1 &lt; date2);	// true</div><div class="line">alert(date1 &gt; date2);	// false</div></pre></td></tr></table></figure>
+<p><br>    从逻辑上讲，2007年1月1日要早于2007年2月1日，此时如果我们说前者小于后者比较符合常理。而表示2007年1月1日的毫秒值小于表示2007年2月1日的毫秒值，因此在首先使用小于操作符比较日期时，返回的结果是true。这样，就为我们比较日期提供了极大方便。<br></p>
+
+<h3 id="1-2-2-日期格式化方法"><a href="#1-2-2-日期格式化方法" class="headerlink" title="1.2.2 日期格式化方法"></a>1.2.2 日期格式化方法</h3><p><br>    Date类型还有一些专门用于将日期格式化为字符串的方法，这些方法如下。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a) toDateString() —— 以特定于实现的格式显示星期几、月、日和年；</div><div class="line">b) toTimeString() —— 以特定于实现的格式显示时、分、秒和时区；</div><div class="line">c) toLocaleDateString() —— 以特定于地区的格式显示星期几、月、日和年；</div><div class="line">d) toLocaleTimeString() —— 以特定于实现的格式显示时、分、秒；</div><div class="line">e) toUTCString() —— 以特定于实现的格式完整的UTC日期。</div></pre></td></tr></table></figure>
+<p><br>    与toLocaleString()和toString()方法一样，以上这些字符串格式方法的输出也是因浏览器而异的，因此没有哪一个方法能够用来在用户界面中显示一致的日期信息。<br></p>
+
+<blockquote>
+<p>除了前面介绍的方法之外，还有一个名叫toGMTString()的方法，这是一个与toUTCString()等价的方法，其存在目的在于确保向后兼容。不过，ECMAScript推荐现在编写的代码一律使用toUTCString()方法。</p>
+</blockquote>
+<h3 id="1-2-3-日期-时间组件方法"><a href="#1-2-3-日期-时间组件方法" class="headerlink" title="1.2.3 日期/时间组件方法"></a>1.2.3 日期/时间组件方法</h3><p><br>    到目前为止，剩下还未介绍的Date类型的方法(如下表所示)，都是直接取得和设置日期值中特定部分的方法了。需要注意的是，UTC日期指的是在没有时区偏差的情况下(将日期转换为GMT时间)的日期值。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-5-2.png"></p>
+<h3 id="1-3-RegExp类型"><a href="#1-3-RegExp类型" class="headerlink" title="1.3 RegExp类型"></a>1.3 RegExp类型</h3><p><br>    ECMAScript通过RegExp类型来支持正则表达式。使用下面类似Perl的语法，就可以创建一个正则表达式。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var expression = / pattern / flags;</div></pre></td></tr></table></figure>
+<p><br>    其中的模式(pattern)部分可以是任何简单或复杂的正则表达式，可以包含字符类、限定符、分组、向前查找以及反向引用。每个正则表达式都可以带有一或多个标志(flags)，用以标明正则表达式的行为。正则表达式的匹配模式支持下列3个标志。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">g：表示全局(global)模式，即模式将被应用于所有字符串，而非在发现第一个匹配项时立即停止；</div><div class="line">i：表示不区分大小写(case-insensitive)模式，即在确定匹配项时忽略模式与字符串的大小写；</div><div class="line">m：表示多行(multiline)模式，即在到达一行文本末尾时还会继续查找下一行中是否存在与模式匹配的项。</div></pre></td></tr></table></figure>
+<p><br>    因此，一个正则表达式就是一个模式与上述3个标志的组合体。不同组合产生不同结果，如下面的例子所示。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 匹配字符串中所有“at”的实例</div><div class="line">var pattern1 = /at/g;</div><div class="line">// 匹配第一个“bat”或“cat”，不区分大小写</div><div class="line">var pattern2 = /[bc]at/i;</div><div class="line">// 匹配所有以“at”结尾的3个字符的组合，不区分大小写</div><div class="line">var pattern3 = /.at/gi;</div></pre></td></tr></table></figure>
+<p><br>    与其他语言中的正则表达式类似，模式中使用的所有元字符都必须转义。正则表达式中的元字符包括：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">( [ &#123; \ ^ $ | ) ? * + . ] &#125;</div></pre></td></tr></table></figure>
+<p><br>    这些元字符在正则表达式中都有一或多种特殊用途，因此如果想要匹配字符串中包含的这些字符，就必须对它们进行转义。下面给出几个例子。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 匹配第一个“bat”或“cat”,不区分大小写</div><div class="line">var pattern1 = /[bc]at/i;</div><div class="line">// 匹配第一个“[bc]at”,不区分大小写</div><div class="line">var pattern2 = /\[bc\]at/i;</div><div class="line">// 匹配所有以“at”结尾的3个字符的组合，不区分大小写</div><div class="line">var pattern3 = /.at/gi;</div><div class="line">// 匹配所有“.at”，不区分大小写</div><div class="line">var pattern4 = /\.at/gi;</div></pre></td></tr></table></figure>
+<p><br>    在上面的例子中，pattern1匹配第一个“bat”或“cat”，不区分大小写。而要想直接匹配“[bc]at”的话，就需要像定义pattern2一样，对其中的两个方括号进行转义。对于pattern3来说，句点表示位于“at”之前的任意一个可以构成匹配项的字符。但如果想匹配“.at”，则必须对句点本身进行转义，如pattern4所示。<br></p>
+
+<p><br>    前面举的这些例子都是以字面量形式来定义的正则表达式。另一种创建正则表达式的方式是使用RegExp构造函数，它接收两个参数：一个是要匹配的字符串模式，另一个是可选的标志字符串。可以使用字面量定义的任何表达式，都可以使用构造函数来定义，如下面的例子所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 匹配第一个“bat”或“cat”，不区分大小写</div><div class="line">var pattern1 = /[bc]at/i;</div><div class="line">// 与pattern1相同，只不过是使用构造函数创建的</div><div class="line">var pattern2 = new RegExp(&quot;[bc]at&quot;, &quot;i&quot;);</div></pre></td></tr></table></figure>
+<p><br>    在此，pattern1和pattern2是两个完全等价的正则表达式。要注意的是，传递给RegExp构造函数的两个参数都是字符串(不能把正则表达式字面量传给RegExp构造函数)。有RegExp构造函数的模式参数是字符串，所以在某些情况下要对字符进行双重转义。所有元字符都必须双重转义，那些已经转义过的字符也是如此，例如\n(字符\在字符串中通常被转义为\,而在正则表达式字符串中就会变成\\)。下表给出了一些模式，左边是这些模式的字面量形式，右边是使用RegExp构造函数定义相同模式时使用的字符串。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">字面量模式             等价的字符串</div><div class="line">/\[bc\]at/             &quot;\\[bc\\]at&quot;</div><div class="line">/\.at/                 &quot;\\.at&quot;</div><div class="line">/name\/age/            &quot;name\\/age&quot;</div><div class="line">/\d.\d&#123;1,2&#125;/           &quot;\\d.\\d&#123;1,2&#125;&quot;</div><div class="line">/\w\\hello\\123/       &quot;\\w\\\\hello\\\\123&quot;</div></pre></td></tr></table></figure>
+<p><br>    使用正则表达式字面量和使用RegExp构造函数创建的正则表达式不一样。在ECMAScript 3中，正则表达式字面量始终会共享同一个RegExp实例，而使用构造函数创建的每一个新RegExp实例都是一个新实例。来看下面的例子。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var re = null,</div><div class="line">    i;</div><div class="line"></div><div class="line">for (i = 0; i &lt; 10; i++) &#123;</div><div class="line">	re = /cat/g;</div><div class="line">	re.test(&quot;catastrophe&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">for (i = 0; i &lt; 10; i++) &#123;</div><div class="line">	re = new RegExp(&quot;cat&quot;, &quot;g&quot;);</div><div class="line">	re.test(&quot;catastrophe&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br>    在第一个循环中，即使是循环体指定的，但实际上只为/cat/创建了一个RegExp实例。由于实例属性不会重置，所以在循环中再次调用test()方法会失败。这是因为第一个调用test()找到了“cat”。但第二次调用是从索引为3的字符(上一次匹配的末尾)开始的，所以就找不到它了。由于会测试到字符串末尾，所以下一次再调用test()就有从头开始了。<br></p>
+
+<p><br>    第二个循环使用RegExp构造函数在每次循环中创建正则表达式。因为每次迭代都会创建一个新的RegExp实例，所以每次调用test()都会返回true。<br></p>
+
+<p><br>    ECMAScript 5明确规定，使用正则表达式字面量必须像直接调用RegExp构造函数一眼，每次都创建新的RegExp实例。IE9+、Firefox4+和Chrome都据此做出了修改。<br></p>
+
+<h3 id="1-3-1-RegExp实例属性"><a href="#1-3-1-RegExp实例属性" class="headerlink" title="1.3.1 RegExp实例属性"></a>1.3.1 RegExp实例属性</h3><p><br>    RegExp的每个实例都具有下列属性，通过这些属性可以取得有关模式的各种信息。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a) global：布尔值，表示是否设置了g标志。</div><div class="line">b) ignoreCase：布尔值，表示是否设置了i标志。</div><div class="line">c) lastIndex：整数，表示开始搜索下一个匹配项的字符位置，从0算起。</div><div class="line">d) multiline：布尔值，表示是否设置了m标志。</div><div class="line">e) source：正则表达式的字符串表示，按照字面量形式而非传入构造函数中的字符串模式返回。</div></pre></td></tr></table></figure>
+<p><br>    通过这些属性可以获知一个正则表达式的各方面信息，但却没有多大用处，因为这些信息全都包含在模式声明中。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var pattern1 = /\[bc\]at/i;</div><div class="line"></div><div class="line">alert(pattern1.global);		// false</div><div class="line">alert(pattern1.ignoreCase);	// true</div><div class="line">alert(pattern1.multiline);	// false</div><div class="line">alert(pattern1.lastIndex);	// 0</div><div class="line">alert(pattern1.source);		// &quot;\[bc\]at&quot;</div><div class="line"></div><div class="line">var pattern2 = new RegExp(&quot;\\[bc\\]at&quot;, &quot;i&quot;);</div><div class="line"></div><div class="line">alert(pattern2.global);		// false</div><div class="line">alert(pattern2.ignoreCase);	// true</div><div class="line">alert(pattern2.multiline);	// false</div><div class="line">alert(pattern2.lastIndex);	// 0</div><div class="line">alert(pattern2.source);		// &quot;\[bc\]at&quot;</div></pre></td></tr></table></figure>
+<p><br>    我们注意到，尽管第一个模式使用的是字面量，第二个模式使用了RegExp构造函数，但它们的source属性是相同的。可见，source属性保存的是规范形式的字符串，即字面量形式所用的字符串。<br></p>
+
+<h3 id="1-3-2-RegExp实例方法"><a href="#1-3-2-RegExp实例方法" class="headerlink" title="1.3.2 RegExp实例方法"></a>1.3.2 RegExp实例方法</h3><p><br>    RegExp对象的主要方法是exec(),该方法是专门为捕获组而设计的。exec()接受一个参数，即要应用模式的字符串，然后返回包含第一个匹配项信息的数组；或者在没有匹配项的情况下返回null。返回的数组虽然是Array的实例，但包含两个额外的属性：index和input。其中，index表示匹配项在字符串中的位置，而input表示应用正则表达式的字符串。在数组中，第一项是与整个模式匹配的字符串，其他项是与模式中的捕获组匹配的字符串(如果模式中没有捕获组，则该数组只包含一项)。请看下面这个例子。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var text = &quot;mom and dad and baby&quot;;</div><div class="line">var pattern = /mom( and dad( and baby)?)?/gi;</div><div class="line"></div><div class="line">var matches = pattern.exec(text);</div><div class="line">alert(matches.index);	// 0</div><div class="line">alert(matches.input);	// &quot;mom and dad and baby&quot;</div><div class="line">alert(matches[0]);		// &quot;mom and dad and baby&quot;</div><div class="line">alert(matches[1]);		// &quot; and dad and baby&quot;</div><div class="line">alert(matches[2]);		// &quot; and baby&quot;</div></pre></td></tr></table></figure>
+<p><br>    这个例子中的模式包含两个捕获组。最内部的捕获组匹配“and baby”，而包含它的捕获组匹配“and dad”或者“and dad and baby”。当把字符串传入exec()方法中之后，发现了一个匹配项。因为整个字符串本身与模式匹配，所以返回的数组matchs的index属性值为0.数组中的第一项是匹配的整个字符串，第二项包含与第一个捕获组匹配的内容，第三项包含与第二个捕获组匹配的内容。<br></p>
+
+<p><br>    对于exec()方法而言，即使在模式中设置了全局标志(g),他每次也只会返回一个匹配项。在不设置全局标志的情况下，在同一个字符串上多次调用exec()将始终返回第一个匹配项的信息。而在设置全局标志的情况下，每次调用exec()则都会在字符串中继续查找新匹配项，如下面的例子所示。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">var text = &quot;cat, bat, sat, fat&quot;;</div><div class="line">var pattern1 = /.at/;</div><div class="line"></div><div class="line">var matches = pattern1.exec(text);</div><div class="line">alert(matches.index);		// 0</div><div class="line">alert(matches[0]);			// cat</div><div class="line">alert(pattern.lastIndex);	// 0</div><div class="line"></div><div class="line">matches = pattern1.exec(text);</div><div class="line">alert(matches.index);		// 0</div><div class="line">alert(matches[0]);			// cat</div><div class="line">alert(matches.lastIndex);   // 0</div><div class="line"></div><div class="line">var pattern2 = /.at/g;</div><div class="line"></div><div class="line">var matches = pattern2.exec(text);</div><div class="line">alert(matches.index);		// 0</div><div class="line">alert(matches[0]);			// cat</div><div class="line">alert(pattern2.lastIndex);	// 3</div><div class="line"></div><div class="line">matches = pattern2.exec(text);</div><div class="line">alert(matches.index);		// 5</div><div class="line">alert(matches[0]);			// bat</div><div class="line">alert(pattern2.lastIndex);	// 8</div></pre></td></tr></table></figure>
+<p><br>    这个例子中的第一个模式pattern1不是全局模式，因此每次调用exec()返回的都是第一个匹配项(“cat”)。而第二个模式pattern2是全局模式，因此每次调用exec()都会返回字符串中的下一个匹配项，直至搜索到字符串末尾为止。此外，还应该注意模式的lastIndex属性的变化情况。在全局匹配模式下，lastIndex的值在每次调用exec()后都会增加，而在非全局模式下则始终保持不变。<br></p>
+
+<blockquote>
+<p>IE的JavaScript实现在lastIndex属性上存在偏差，即使在非全局模式下，lastIndex属性每次也会变化。</p>
+</blockquote>
+<p><br>    正则表达式的第二个方法是text()，它接受一个字符串参数。在模式与该参数匹配的情况下返回true；否则，返回false。在只想知道目标字符串与某个模式是否匹配，但不需要知道其文本内容的情况下，使用这个方法非常方便。因此，test()方法经常被用在if语句中，如下面的例子所示。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var text = &quot;000-00-0000&quot;;</div><div class="line">var pattern = /\d&#123;3&#125;-\d&#123;2&#125;-\d&#123;4&#125;/;</div><div class="line"></div><div class="line">if (pattern.text(text)) &#123;</div><div class="line">	alert(&quot;The pattern was matched.&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br>    在这个例子中，我们使用正则表达式来测试一个数字序列。如果输入的文本与模式匹配，则显示一条消息。这种用法经常出现在验证用户输入的情况下，因为我们只想知道输入是不是有效，至于它为什么无效就无关紧要了。<br></p>
+
+<p><br>    RegExp实例继承的toLocaleString()和toString()方法都会返回正则表达式的字面量，与创建正则表达式的方式无关。例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var pattern = new RegExp(&quot;\\[bc\\]at&quot;, &quot;gi&quot;);</div><div class="line">alert(pattern.toString());			// /\[bc\]at/gi</div><div class="line">alert(pattern.toLocaleString());	// /\[bc\]at/gi</div></pre></td></tr></table></figure>
+<p><br>    即使上例中的模式是通过调用RegExp构造函数创建的，但toLocaleString()和toString()方法仍然会像它是以字面量形式创建的一样显示其字符串表示。<br></p>
+
+<blockquote>
+<p>正则表达式的valueOf()方法返回正则表达式本身。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/27/变量、作用域和内存问题（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1938,203 +2235,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/20/弟子规 （6）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="谦恒">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="谦恒-个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/20/弟子规 （6）/" itemprop="url">弟子规 （六）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T16:03:55+08:00">
-                2017-08-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="八、余力学文"><a href="#八、余力学文" class="headerlink" title="八、余力学文"></a>八、余力学文</h3><p><br>    【解】《弟子规》一共讲了七个方面内容，前六个方面讲孝、悌、谨、信、泛爱众、亲仁，这些都是让我们努力去落实而提升自己修养品德的，是讲力行这方面，而学文就是要学习圣贤经典，通过学习能帮助我们力行，这样力行就有了正确的方向，所以学问很重要，文不可不学。文化文化，就是要用文来化我们，学文的目的就是化自己，变化自己的气质，把文化到自己的一举手一投足，化到点点滴滴的生活中去。所以学文和力行是相辅相成、我们学到了圣贤教育，帮助指导我们去生活、工作、处事、待人、接物，这是在力行；真正力行了，对于圣贤的教诲，就会有新的悟处，就会有更深入的体验。力行是行门，学文是解门，解行要并重。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">不力行 &emsp;但学文 &emsp;涨浮华 &emsp;成何人</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不能身体力行孝、悌、谨、信、泛爱众、亲仁这些本分，一味死读书，纵然有些知识，也只是增长自己浮华不实的习气，怎能成为一个真正有用的人呢？如此读书又有何用？<br></p>
-
-<p><br>    受教育的目的首先在“做人”，做一个有道德的人。古人读书是志在圣贤，而现在人读书是志在赚钱。很多家长和老师只注重孩子的成绩分数，不注重品行教育，结果小孩越学就越傲慢。讲得头头是道，自己没做到，这样就变成伪君子了，因此品德的提升比什么都重要。孩子学能力的真正目的是什么？为什么要学本事？这个要谨慎于开始！做家长和老师的一定要有正确的引导观念才行。现代社会受西方文化的影响，教育只是传授知识技能的手段，没有道德的指导，科技知识极有可能被滥用而贻害人类。对个人而言，有才无德会给自己和他人带来极大的痛苦，这是有目共睹的事实。所以，当务之急是努力恢复中国传统伦理道德教育，使每一个人都明白先做人、后做事的道理。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">但力行 &emsp;不学文 &emsp;任己见 &emsp;昧理真</p>
-
-<p style="margin-bottom: 0;"><br>    【解】如果只是一味地做，而不去学习圣贤教诲，那就会变得自以为是，执着自己的见解，违背了真理，这也是不对的。<br></p>
-
-<p><br>    人的学问，随着你阅历的丰富、人生的历练，应该要相对提升才对。如果你裹足不前，觉得自己已经学得不错了，任凭自己的想法来做一切事情，就很可能会做出许多不合义理之事。所以有空闲时要不忘展开圣贤的典籍，从圣贤的典籍中反观自照，找出内心与圣贤的差距，随顺圣贤的教诲，依教奉行。通过不断地学习，当我们把圣贤之道真正领会了，把圣贤的教诲转化成自己对世界的认识、体悟，转变成自己处理事情的方法，当我们真正有了这样的智慧之后，在生活中出现什么问题都可以得心应手、左右逢源，什么问题都可以解决，这样我们的人生旅途就会愈来愈幸福。这是提醒、勉励所有的人，读书要有恒心。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">读书法 &emsp;有三到 &emsp;心眼口 &emsp;信皆要</p>
-
-<p style="margin-bottom: 0;"><br>    【解】读书的方法要注重三到：眼到、口到、心到。读书要专注，专注才能够深入领会文章的意思，如此方能收到事半功倍的效果。<br></p>
-
-<p><br>    有很多孩子每天读到三更半夜，可是考出来的成绩却非常差，原因就是不懂得读书的要领。读书最重要的还是在于心，如果眼睛在看，口也在读，但是心没有专注在课业上，想着其他的事情，也是白看白读。所以古人从小培养孩子的专注力，就是让他背书，这样精神就集中。现在的孩子经常看电视、玩电脑、打游戏，精神不专注，书怎么能读得好呢？<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">方读此 &emsp;勿慕彼 &emsp;此未终 &emsp;彼勿起 </p>
-
-<p style="margin-bottom: 0;"><br>    【解】研究学问要专一、专精才能深入，不能这本书才开始读没多久，又想看其他的书，或是这段还未读完、读通，就又想读另一段，这样永远也定不下心来。学东西不能一知半解，要精益求精。<br></p>
-
-<p><br>    读书重要是在掌握纲领、真正落实，最忌贪多、贪快。你太躁进，心很浮动，跟学问就不相应。学东西、求学问甚至于世间的技能都要专而不能杂。现在很多家长让孩子一学就是三、四种才艺，不见得多就一定好。所谓“样样通样样松”，因为多就会乱，杂了就学不扎实，到最后哪一样也没有学精，甚至孩子还会产生厌学的心理。所以，我们做家长的确确实实要给孩子正确的知道。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">宽为限 &emsp;紧用功 &emsp;工夫到 &emsp;滞塞通</p>
-
-<p style="margin-bottom: 0;"><br>    【解】在定读书计划的时候，不妨宽松一些，这样心里没有压力，但是工夫要用的紧，每天都要努力，不可以懈怠偷懒。日积月累功夫深了，原先窒碍不通、困顿疑惑之处，自然而然就都迎刃而解了。<br></p>
-
-<p><br>    现在一般孩子读书是为了应付考试，平时不认真学习，不知今日事今日毕，问题累积下来，到临近考试时才开始知道用功，这样就非常被动了。所以读书要有计划，要会规划安排好时间，每天按计划好的内容一定完成，这样才有真正的受用。如果父母能给孩子树立好榜样，每天把家事做完以后就看书而不是看电视，这样孩子从小自然就能养成喜欢看书学习的好习惯了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">心有疑 &emsp;随札记 &emsp;就人问 &emsp;求确义</p>
-
-<p style="margin-bottom: 0;"><br>    【解】求学当中，心里有疑问，要马上把问题记录下来，一有机会就向良师益友请教，务必确实明白它的真义，一定要得到正确的答案才可通过，这是认真学习的态度。<br></p>
-
-<p><br>    知识是学来的，也是问来的，只有在学中问，在问中学，并与观察思考结合起来，才能求得真知。我们从小就要养成勤学好问的习惯，有了问题，随时随地请教别人。只要他确实能给你启发、给你帮助，不管年长年幼、地位高低，都可以成为你的老师，古人所说的“能者为师”就是这个道理。但是，最主要还是靠自己先去探究，实在没有办法的时候，再请问别人，这样印象才会更深刻。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">房室清 &emsp;墙壁净 &emsp;几案洁 &emsp;笔砚正</p>
-
-<p style="margin-bottom: 0;"><br>    【解】书房、卧室都要保持清洁、干净，墙壁也要干净，给自己创造一个良好的读书环境。桌面上笔墨纸砚等文具要防止整齐，不得凌乱。触目所及皆是井井有条，这样才能静下心来读书。<br></p>
-
-<p><br>    现在孩子会自己整理房间书桌的非常少，几乎都是父母替他们整理。家长认为只要你学习好，什么都不用你管。这样就造成了孩子的生活自理能力非常差，从而给他以后的家庭、事业、人际关系带来许多的障碍。如果孩子是在这种教育理念下长大成人、结婚生子，婚后夫妻经常会因为家务活谁都不想承担、生活习惯不好而真吵不断，甚至结婚每两年就闹离婚。究其原因，都是家长从小舍不得让孩子学习做家事，不教他们自理，一味地照顾、迁就，最终使孩子养成了懒惰与不知感恩的心理。所以有远见的父母，一定从小就要有意识地锻炼孩子这些基本的生活能力，自己的事必须自己做，以便他们长大后能从容地面对各种挑战。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">墨磨偏 &emsp;心不端 &emsp;字不敬 &emsp;心先病</p>
-
-<p style="margin-bottom: 0;"><br>    【解】古人写字使用毛笔，写字前先要磨墨，如果心不在焉，墨就会磨偏了。写出来的字如果歪歪斜斜，就表示你浮躁不安，心定不下来。<br></p>
-
-<p><br>    汉字是传承我们中华文明的重要载体，是我华夏子孙传古颂今的宝贵财富。古人说：“意在笔先，心正则笔正”字如其人，一个人写字不认真，把字写得乱七八糟、歪七扭八，证明他的心没有专注在这个字上。这一笔写到哪里，到哪里该停，到哪里该顿，心里也没个底。同时也反映出他办事不认真、没规矩、心情浮躁。所以一定要把字写好，这样不仅继承发扬了民族的精华，还能培养自己认真严谨的作风。这些都是从我们平常的行为造作当中，看到自己的心态。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">列典籍 &emsp;有定处 &emsp;读看毕 &emsp;还原处</p>
-
-<p style="margin-bottom: 0;"><br>    【解】书籍课本应分类，排列整齐，放在固定的位置，读诵完毕须归还原处。<br></p>
-
-<p><br>    “动物归原”，这也是一个必不可少的良好习惯。无论我们用了什么东西，用完之后，要记得随手放回原位，这样不论是下次使用还是别人使用，都知道去哪里找，节省时间，提高效率。这样做事情便会有始有终，有条不紊。做父母的要做出很好的榜样来教导自己的小孩，自己看哪一本，桌上就放哪一本，不看的我们要放回原位，整整齐齐，恭恭敬敬，下一次要看时很快就可以找到。同时也要教导孩子，书要怎么排列比较整齐、好看、好拿，这才是治学的态度。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">虽有急 &emsp;卷束齐 &emsp;有缺坏 &emsp;就补之</p>
-
-<p style="margin-bottom: 0;"><br>    【解】即使在有急事的时候，看完书也要把它顺手和尚，放回书架原处，要养成这种良好的习惯。遇到书本有残缺损坏时，应立刻修补好，保持完整，这是对书的恭敬、爱护。（古人一书难求，故有修补之举。）<br></p>
-
-<p><br>    虽然今天得到书比古代容易多了，但是我们也要存着恭敬之心来爱惜这些书籍。在翻阅的时候要轻轻地翻，不要很粗鲁，以免折坏，也不要随便在书里乱画，把课本图的脏兮兮的，从小就要建立起爱护书籍的观念。如果你处处都能仔细小心，无形中就培养了你做事井井有条、少出差错、稳重安详的能力，这都是平时练出来的功夫。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">非圣书 &emsp;屏勿视 &emsp;蔽聪明 &emsp;坏心志</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不是传述圣贤道理言行的书籍以及有害身心健康的不良书刊，都应该摒弃不看。因为书里面不正当的事理会蒙蔽我们的聪明智慧，会败坏我们纯正的志向，使我们的身心受到污染，心志变得不健康。<br></p>
-
-<p><br>    当今社会是信息社会，但并不是信息知道的越多就越聪明、人生就越幸福，现在不健康的电脑网络内容画面、电影电视节目以及叫我们杀盗淫妄的小说、故事、报章杂志等一些不良的出版物，污染特别严重，要防止自己受到污染，更要防止孩子受到污染。所以身为父母，一定要经常查看你的子女是否在接触这些不健康的内容，因为这些对孩子的身心伤害的确是非常之大。不必要的信息要尽量摒弃，专心于自己应做之事，才能心情宁静。因此，孔子说：“非礼勿视，非礼勿听，非礼勿言，非礼勿动”是非常科学的。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">勿自暴 &emsp;勿自弃 &emsp;圣与贤 &emsp;可驯致</p>
-
-<p style="margin-bottom: 0;"><br>    【解】遇到困难或挫折时，不要自暴自弃，也不必愤世嫉俗，看什么都不顺眼，而应该发奋向上，努力学习，不怕挫折，把失败当做成功之母，任何美好的结局都要经过艰辛的努力才能得到。圣贤的境界虽高，循序渐进也是可以达到的。（孟子曰：“舜何人也，予何人也，有为者亦若是！”）<br></p>
-
-<p style="margin-bottom: 0;"><br>    人对自己要有信心，所谓“天生我材必有用”。人一生首先要立定志向，“学贵立志”，有了目标、方向，在通过精进不懈地努力，成圣贤不是遥不可及的事，只要有心，终有成就的一天。有道是：“天下无难事，只怕有心人。”愿我们彼此相互勉励，共同携手向圣贤之道迈进！<br></p>    
-
-<p style="margin-bottom: 0;"><br>    一个为人父母者真正的成功在哪里？当他不在的时候，孩子还是非常懂事，离开父母的时候，孩子还能够遵照父母给予的正确人生态度去做人，这才叫真正的成功。孩子如同父母的心头肉，哪有父母不爱自己孩子的？但给予孩子的爱，是帮他还是害他，的确值得我们省思。可曾想过，当有一天孩子离开父母走入社会，谁又能向父母一样疼爱顺从他呢？纵然父母愿意一辈子照顾着子女，又能呵护到几时呢？这就如同温室里的花儿，一旦搬到室外，恐怕就要枯萎了。所以，孔子说：“人无远虑，必有近忧。”<br></p>
-
-<p style="margin-bottom: 0;"><br>    所谓“至要莫若教子”，人生第一大事是要把孩子教好。假如我们的孩子没教好，你这一生会不会幸福？一个人有没有福报，一个人的人生能不能够过得自在，他的中、晚年取决于孩子懂不懂事、孝不孝顺。假如养育出来的孩子不懂事，我们后半辈子悔恨难熬！不知道孩子今天又会给我们上演哪一出戏，来让我们收拾残局？<br></p>    
-
-<p><br>    试想想，一个孩子如果没有受过《弟子规》的教育，任由自己的习气来成长，长大以后，这个习气已经变得根深蒂固了。所以，当他走入社会，在工作里面跟领导、同事的关系一定不可能处的好，结婚后跟另一半结合在一起，常常都是看别人毛病，又怎么可能有幸福快乐呢？以后如果又生了孩子，这个孩子能教得好吗？因此，要知道一个孩子的成长，如果没有这种良善的教育，吃亏的绝对不只是这一个孩子啊！他会影响身边所有的人，甚至影响到孩子的下一代。所以，一定要学习《弟子规》！<br></p>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2185,7 +2285,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

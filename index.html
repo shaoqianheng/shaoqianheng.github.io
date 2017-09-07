@@ -257,6 +257,251 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/07/BOM（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谦恒">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="谦恒-个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/07/BOM（三）/" itemprop="url">BOM（三）——JavaScript高级程序设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-07T09:36:47+08:00">
+                2017-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="1-1-7-系统对话框"><a href="#1-1-7-系统对话框" class="headerlink" title="1.1.7 系统对话框"></a>1.1.7 系统对话框</h3><p><br>    浏览器通过alert()、confirm()和prompt()方法可以调用系统对话框向用户显示消息。系统对话框与在浏览器中显示的网页没有关系，也不包含HTML。它们的外观由操作系统及(或)浏览器设置决定，而不是由CSS决定。此外，通过这几个方法打开的对话框都是同步和模态的。也就是说，显示这些对话框的时候代码会停止执行，而关掉这些对话框后代码又会恢复执行。<br></p>
+
+<p><br>    前面经常会用到alert()方法，这个方法接受一个字符串并将其显示给用户。具体来说，调用alert()方法的结果就是向用户显示一个系统对话框，其中包含指定的文本和一个OK(“确定”)按钮。<br></p>
+
+<p><br>    通常使用alert()生成的“警告”对话框向用户显示一些他们无法控制的消息，例如错误消息。而用户只能在看完消息后关闭对话框。<br></p>
+
+<p><br>    第二种对话框是调用confirm()方法生成的。从向用户显示消息的方面来看，这种“确认”对话框很像是一个“警告”对话框。但二者的主要区别在于“确认”对话框除了显示OK按钮外，还会显示一个Cancel(“取消”)按钮，两个按钮可以让用户决定是否执行给定的操作。<br></p>
+
+<p><br>    最后一种对话框是通过调用prompt()方法生成的，这是一个“提示”框，用于提示用户输入一些文本。提示框中除了显示OK和Cancel按钮之外，还会显示一个文本输入域，以供用户在其中输入内容。prompt()方法接受两个参数：要显示给用户的文本提示和文本输入域的默认值(可以是一个空字符串)。<br></p>
+
+<p><br>    综上所述，这些系统对话框很适合向用户显示消息并请用户做出决定。由于不涉及HTML、CSS或JavaScript，因此它们是增强Web应用程序的一种便捷方式。<br></p>
+
+<h3 id="1-2-location对象"><a href="#1-2-location对象" class="headerlink" title="1.2 location对象"></a>1.2 location对象</h3><p><br>    location是最有用的BOM对象之一，它提供了与当前窗口中加载的文档有关的信息，还提供了一些导航功能。事实上，location对象是很特别的一个对象，因为它既是window对象的属性，也是document对象的属性；换句话说，window.location和document.location引用的是同一个对象。location对象的用处不只表现在它保存着当前文档的信息，还表现在它将URL解析为独立的片段，让开发人员可以通过不同的属性访问这些片段。下表列出了location对象的所有属性。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-8-4.png"></p>
+<h3 id="1-2-1-查询字符串参数"><a href="#1-2-1-查询字符串参数" class="headerlink" title="1.2.1 查询字符串参数"></a>1.2.1 查询字符串参数</h3><p><br>    虽然通过上面的属性可以访问到location对象的大多数信息，但其中访问URL包含的查询字符串的属性并不方便。尽管location.search返回从问好到URL末尾的所有内容，但却没有办法逐个访问其中的每个查询字符串参数。为此，可以像下面这样创建一个函数，用于解析查询字符串，然后返回包含所有参数的一个对象。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">function getQueryStringArgs() &#123;</div><div class="line">    // 取得查询字符串并去掉开头的问好</div><div class="line">    var qs = (location.search.length &gt; 0 ? location.search.substring(1) : &quot;&quot;),</div><div class="line"></div><div class="line">    // 保存数据的对象</div><div class="line">    args = &#123;&#125;，</div><div class="line"></div><div class="line">    // 取得每一项</div><div class="line">    items = qs.length ? qs.split(&quot;&amp;&quot;) : [],</div><div class="line">    item = null,</div><div class="line">    name = null,</div><div class="line">    value = null,</div><div class="line"></div><div class="line">    // 在for循环中使用</div><div class="line">    i = 0,</div><div class="line">    len = items.length;</div><div class="line"></div><div class="line">    // 逐个将每一项添加到args对象中</div><div class="line">    for(i = 0; i &lt; len; i++) &#123;</div><div class="line">        item = items[i].split(&quot;=&quot;);</div><div class="line">        name = decodeURIComponent(item[0]);</div><div class="line">        value = decodeURIComponent(item[1]);</div><div class="line"></div><div class="line">        if (name.length) &#123;</div><div class="line">            args[name] = value;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return args;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br>    这个函数的第一步是先去掉查询字符串开头的问号。当然，前提是location.search中必须要包含一个或多个字符。然后，所有参数将被保存在args对象中，该对象以字面量形式创建。接下来，根据和号(&amp;)来分割查询字符串，并返回name=value格式的字符串数组。下面的for循环会迭代这个数组，然后再根据等于号分割每一项，从而返回第一项为参数名，第二项为参数值的数组。在使用decodeURIComponent()分别解码name和value(因为查询字符串应该是被编码过的)。最后，将name作为args对象的属性，将value作为相应属性的值。下面给出了使用这个函数的示例。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 假设查询字符串是?q=javascript&amp;num=10</div><div class="line">var args = getQueryStringArgs();</div><div class="line"></div><div class="line">alert(args[&quot;q&quot;]);    // &quot;javascript&quot;</div><div class="line">alert(args[&quot;num&quot;]);  // &quot;10&quot;</div></pre></td></tr></table></figure>
+<p><br>    可见，每个查询字符串参数都成了返回对象的属性。这样就极大地方便了对每个参数的访问。<br></p>
+
+<h3 id="1-2-2-位置操作"><a href="#1-2-2-位置操作" class="headerlink" title="1.2.2 位置操作"></a>1.2.2 位置操作</h3><p><br>    使用location对象可以通过很多方式来改变浏览器的位置。首先，也是最常用的方式，就是使用assign()方法并为其传递一个URL，如下所示。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">location.assign(&quot;xxxx&quot;);</div></pre></td></tr></table></figure>
+<p><br>    这样，就可以立即打开新URL并在浏览器的历史记录中生成一条记录。如果将location.href或window.location设置为一个URL值，也会以该值调用assign()方法。例如，下列两行代码与显式调用assign()方法的效果完全一样。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">window.location = &quot;xxxx&quot;;</div><div class="line">location.href = &quot;xxxx&quot;;</div></pre></td></tr></table></figure>
+<p><br>    在这些改变浏览器位置的方法中，最常用的是设置location.href属性。<br></p>
+
+<p><br>    另外，修改location对象的其他属性也可以改变当前加载的页面。下面的例子展示了通过将hash、search、hostname、pathname和port属性设置为新值来改变URL。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 假设初始URL为 http://www.wrox.com/WileyCDA/</div><div class="line"></div><div class="line">// 将URL修改为 http://www.wrox.com/WileyCDA/#section1</div><div class="line">location.hash = &quot;#section1&quot;;</div><div class="line"></div><div class="line">// 将URL修改为 http://www.wrox.com/WileyCDA/?q=javascript</div><div class="line">location.search = &quot;?q=javascript&quot;;</div><div class="line"></div><div class="line">// 将URL修改为 http://www.yahoo.com/WileyCDA/</div><div class="line">location.hostname = &quot;www.yahoo.com&quot;;</div><div class="line"></div><div class="line">// 将URL修改为 http://www.yahoo.com/mydir/</div><div class="line">location.pathname = &quot;mydir&quot;;</div><div class="line"></div><div class="line">// 将URL修改为 http://www.yahoo.com:8080/WileyCDA/</div><div class="line">location.port = 8080;</div></pre></td></tr></table></figure>
+<p><br>    每次修改location的属性(除hash外)，页面都会以新URL重新加载。<br></p>
+
+<p><br>    当通过上述任何一种方式修改URL之后，浏览器的历史记录中就会生成一条记录，因此用户通过单击“后退”按钮都会导航到前一个页面。要禁用这种行为，可以使用replace()方法。这个方法只接受一个参数，即要导航到的URL；结果虽然会导致浏览器位置改变，但不会在历史记录中生成新纪录。在调用replace()方法之后，用户不能回到前一个页面，来看下面的例子：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">    &lt;head&gt;</div><div class="line">        &lt;title&gt;You won&apos;t be able to get back here&lt;/title&gt;</div><div class="line">    &lt;/head&gt;</div><div class="line">    &lt;body&gt;</div><div class="line">        &lt;p&gt;Enjoy this page for a second, because you won&apos;t be coming back here.&lt;/p&gt;</div><div class="line">        &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">            setTimeout(function () &#123;</div><div class="line">                location.replace(&quot;http://www.wrox.com/&quot;);</div><div class="line">            &#125;, 1000);</div><div class="line">        &lt;/script&gt;</div><div class="line">    &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p><br>    如果将这个页面加载到浏览器中，浏览器就会在1秒钟后重新定向到www.wrox.com。然后，“后退”按钮将处于禁用状态，如果不重新输入完整的URL，则无法返回示例页面。<br></p>
+
+<p><br>    与位置有关的最后一个方法是reload(),作用是重新加载当前显示的页面。如果调用reload()时不传递任何参数，页面就会以最有效的方式重新加载。也就是说，如果页面自上次请求以来并没有改变过，页面就会从浏览器缓存中重新加载。如果要强制从服务器重新加载，则需要像下面这样为该方法传递参数true。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">location.reload();      // 重新加载(有可能从缓存中加载)</div><div class="line">location.reload(true);  // 重新加载(从服务器重新加载)</div></pre></td></tr></table></figure>
+<p><br>    位于reload()调用之后的代码可能会也可能不会执行，这要取决于网络延迟或系统资源等因素。为此，最好将reload()放在代码的最后一行。<br></p>
+
+<h3 id="1-3-navigator对象"><a href="#1-3-navigator对象" class="headerlink" title="1.3 navigator对象"></a>1.3 navigator对象</h3><p><br>    最早由Netscape Navigator 2.0引入的navigator对象，现在已经成为识别客户端浏览器的事实标准。虽然其他浏览器也通过其他方式提供了相同或相似的信息(例如，IE中的window.clientInformation和Opera中的window.opera),但navigator对象却是所有支持JavaScript的浏览器所共有的。与其他BOM对象的情况一样，每个浏览器中的navigator对象也都有一套自己的属性。下表列出了存在于所有浏览器中的属性和方法，以及支持他么的浏览器版本。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-8-5(1).png"><br><img src="https://shaoqianheng.github.io/images/h-8-5(2).png"></p>
+<h3 id="1-3-1-检测插件"><a href="#1-3-1-检测插件" class="headerlink" title="1.3.1 检测插件"></a>1.3.1 检测插件</h3><p><br>    检测浏览器中是否安装了特定的插件是一种最常见的检测例程。对于非IE浏览器，可以使用plugins数组来达到这个目的。该数组中的每一项都包含下列属性。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(1) name: 插件的名字。</div><div class="line">(2) description: 插件的描述。</div><div class="line">(3) filename: 插件的文件名。</div><div class="line">(4) length: 插件所处理的MIME类型数量。</div></pre></td></tr></table></figure>
+<p><br>    一般来说，name属性中会包含检测插件必需的所有信息，但有时候也不完全如此。在检测插件时，需要像下面这样循环迭代每个插件并将插件的name与给定的名字进行比较。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// 检测插件（在 IE 中无效）</div><div class="line">function hasPlugin(name) &#123;</div><div class="line">    name = name.toLowerCase();</div><div class="line">    for (var i=0; i &lt; navigator.plugins.length; i++) &#123;</div><div class="line">        if (navigator. plugins [i].name.toLowerCase().indexOf(name) &gt; -1) &#123;</div><div class="line">            return true;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 检测 Flash</div><div class="line">alert(hasPlugin(&quot;Flash&quot;));</div><div class="line">// 检测 QuickTime</div><div class="line">alert(hasPlugin(&quot;QuickTime&quot;));</div></pre></td></tr></table></figure>
+<p><br>    这个hasPlugin()函数接受一个参数：要检测的插件名。第一步是将传入的名称转换为小写形式，以便于比较。然后迭代plugins数组，通过indexOf()检测每个name属性，以确定传入的名称是否出现在字符串的某个地方。比较的字符串都使用小写形式可以避免因大小写不一致导致的错误。而传入的参数应该尽可能具体，以避免混淆。应该说，像Flash和QuickTime这样的字符串就比较具体了，不容易导致混淆。在Firefox、Safari、Opera和Chrome中可以使用这种方法来检测插件。<br></p>
+
+<blockquote>
+<p>每个插件对象本身也是一个MimeType对象的数组，这些对象可以通过方括号语法来访问。每个MimeType对象有4个属性：包含MIME类型描述的description、回指插件对象的enabledPlugin、表示与MIME类型对应的文件扩展名的字符串suffixes(以逗号分隔)和表示完整MIME类型字符串的type。</p>
+</blockquote>
+<p><br>    检测IE中的插件比较麻烦，因为IE不支持Netscape式的插件。在IE中检测插件的唯一方式就是使用专有的ActiveXObject类型，并尝试创建一个特定插件的实例。IE是以COM对象的方式实现插件的，而COM对象使用唯一标识符来标识。因此，要想检查特定的插件，就必须知道其COM标识符。例如，Flash的标识符是ShockwaveFlash.shockwaveFlash.知道唯一标识符之后，就可以编写类似下面的函数来检测IE中是否安装相应插件了。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 检测 IE 中的插件</div><div class="line">function hasIEPlugin(name) &#123;</div><div class="line">    try &#123;</div><div class="line">        new ActiveXObject(name);</div><div class="line">        return true;</div><div class="line">    &#125; catch (ex) &#123;</div><div class="line">        return false;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 检测 Flash</div><div class="line">alert(hasIEPlugin(&quot;ShockwaveFlash.ShockwaveFlash&quot;));</div><div class="line">// 检测 QuickTime</div><div class="line">alert(hasIEPlugin(&quot;QuickTime.QuickTime&quot;));</div></pre></td></tr></table></figure>
+<p><br>    在这个例子中，函数hasIEPlugin()只接收一个COM标识符作为参数。在函数内部，首先会尝试创建一个COM对象的实例。之所以要在try-catch语句中进行实例化，是因为创建未知COM对象会抛出错误。这样，如果实例化成功，则函数返回true；否则，如果抛出了错误，则执行catch块，结果就会返回false。例子最后检测IE中是否安装了Flash和QuickTime插件。<br></p>
+
+<p><br>    鉴于检测这两种插件的方法差别太大，因此典型的做法是针对每个插件分别创建检测函数，而不是使用前面介绍的通用检测方法。来看下面的例子。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">// 检测所有浏览器中的 Flash</div><div class="line">function hasFlash() &#123;</div><div class="line">    var result = hasPlugin(&quot;Flash&quot;);</div><div class="line">    if (!result) &#123;</div><div class="line">        result = hasIEPlugin(&quot;ShockwaveFlash.ShockwaveFlash&quot;);</div><div class="line">    &#125; </div><div class="line">    return result;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 检测所有浏览器中的 QuickTime</div><div class="line">function hasQuickTime() &#123;</div><div class="line">    var result = hasPlugin(&quot;QuickTime&quot;);</div><div class="line">    if (!result) &#123;</div><div class="line">        result = hasIEPlugin(&quot;QuickTime.QuickTime&quot;);</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 检测 Flash</div><div class="line">alert(hasFlash());</div><div class="line">// 检测 QuickTime</div><div class="line">alert(hasQuickTime());</div></pre></td></tr></table></figure>
+<p><br>    上面代码中定义了两个函数：hasFlash()和hasQuickTime().每个函数都是先尝试使用不针对IE的插件检测方法。如果返回了false(在IE中会这样)，那么再使用针对IE的插件检测方法。如果IE的插件检测方法再返回false，则整个方法也将返回false。只要任何一次检测返回true，整个方法都会返回true。<br></p>
+
+<blockquote>
+<p>plugins集合有一个名叫refresh()的方法，用于刷新plugins以反映最新安装的插件。这个方法接收一个参数：表示是否应该重新加载页面的一个布尔值。如果将这个值设置为true，则会重新加载包含插件的所有页面；否则，只更新plugins集合，不重新加载页面。</p>
+</blockquote>
+<h3 id="1-3-2-注册处理程序"><a href="#1-3-2-注册处理程序" class="headerlink" title="1.3.2 注册处理程序"></a>1.3.2 注册处理程序</h3><p><br>    Firefox 2为navigator对象新增了registerContentHandler()和registerProtocolHandler()方法(这两个方法是在HTML5中定义的)。这两个方法可以让一个站点指明它可以处理特定类型的信息。随着RSS阅读器和在线电子邮件程序的兴起，注册处理程序就为像使用桌面应用程序一样默认使用这些在线应用程序提供了一种方式。<br></p>
+
+<p><br>    其中，registerContentHandler()方法接收三个参数：要处理的MIME类型、可以处理该MIME类型的页面的URL以及应用程序的名称。举个例子，要将一个站点注册为处理RSS源的处理程序，可以使用如下代码。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   navigator.registerContentHandler(&quot;application/rss+xml&quot;,</div><div class="line">&quot;http://www.somereader.com?feed=%s&quot;, &quot;Some Reader&quot;);</div></pre></td></tr></table></figure>
+<p><br>    第一个参数是RSS源的MIME类型。第二个参数是应该接收RSS源URL的URL，其中的%s表示RSS源URL，由浏览器自动插入。当下一次请求RSS源时，浏览器就会打开指定的URL，而相应的Web应用程序将以适当方式来处理该请求。<br></p>
+
+<blockquote>
+<p>Firefox 4及之前版本只允许在registerContentHandler()方法中使用三个MIME类型：application/rss+xml、application/atom+xml和application/vnd.mozilla.maybe.feed.这三个MIME类型的作用都一样，即为RSS或ATOM新闻源(feed)注册处理程序。</p>
+</blockquote>
+<p><br>    类似的调用方式也适用于registerProtocolHandler()方法，它也接收三个参数：要处理的协议(例如，mailto或ftp)、处理该协议的页面的URL和应用程序的名称。例如，要想将一个应用程序注册为默认的邮件客户端，可以使用如下代码。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   navigator.registerProtocolHandler(&quot;mailto&quot;,</div><div class="line">&quot;http://www.somemailclient.com?cmd=%s&quot;, &quot;Some Mail Client&quot;);</div></pre></td></tr></table></figure>
+<p><br>    这个例子注册了一个mailto协议的处理程序，该程序指向一个基于Web的电子邮件客户端。同样，第二个参数仍然是处理相应请求的URL，而%s则表示原始的请求。<br></p>
+
+<blockquote>
+<p>Firefox 2虽然实现了registerProtocolHandler(),当该方法还不能用。Firefox 3完整实现这个方法。</p>
+</blockquote>
+<h3 id="1-4-screen对象"><a href="#1-4-screen对象" class="headerlink" title="1.4 screen对象"></a>1.4 screen对象</h3><p><br>    JavaScript中有几个对象在编程中用处不大，而screen对象就是其中之一。screen对象基本上只用来表明客户端的能力，其中包括浏览器窗口外部的显示器的信息，如像素宽度和高度等。每个浏览器中的screen对象都包含着各自不同的属性，下表列出了所有属性及支持相应属性的浏览器。<br></p>
+
+<p><img src="https://shaoqianheng.github.io/images/h-8-6(1).png"><br><img src="https://shaoqianheng.github.io/images/h-8-6(2).png"></p>
+<p><br>    这些信息经常集中出现在测定客户端能力的站点跟踪工具中，但通常不会用于影响功能。不过，有时候也可能会用到其中的信息来调整浏览器窗口大小，使其占据屏幕的可用空间，例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.resizeTo(screen.availWidth, screen.availHeight);</div></pre></td></tr></table></figure>
+<p><br>    前面曾经提到过，许多浏览器都会禁用调整浏览器窗口大小的能力，因此上面这行代码不一定在所有环境下都有效。<br></p>
+
+<p><br>    涉及移动设备的屏幕大小时，情况有点不一样。运行iOS的设备始终会像是把设备竖着拿在手里一样，因此返回的值是768 * 1024.而Android设备则会相应调用screen.width和screen.height的值。<br></p>
+
+<h3 id="1-5-history对象"><a href="#1-5-history对象" class="headerlink" title="1.5 history对象"></a>1.5 history对象</h3><p><br>    history对象保存着用户上网的历史记录，从窗口被打开的那一刻算起。因为history是window对象的属性，因此每个浏览器窗口、每个标签页乃至每个框架，都有自己的history对象与特定的window对象关联。出于安全方面的考虑，开发人员无法得知用于浏览过的URL。不过，借由用户访问过的页面列表，同样可以在不知道实际URL的情况下实现后退和前进。<br></p>
+
+<p><br>    使用go()方法可以在用户的历史记录中任意跳转，可以向后也可以向前。这个方法接受一个参数，表示向后或向前跳转的页面数的一个整数值。负数表示向后跳转(类似于单击浏览器的“后退”<br>    按钮)，正数表示向前跳转(类似于单击浏览器的“前进”按钮)。来看下面的例子。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">//后退一页</div><div class="line">history.go(-1);</div><div class="line"></div><div class="line">//前进一页</div><div class="line">history.go(1);</div><div class="line"></div><div class="line">//前进两页</div><div class="line">history.go(2);</div></pre></td></tr></table></figure>
+<p><br>    也可以给go()方法传递一个字符串参数，此时浏览器会跳转到历史记录中包含该字符串的第一个位置——可能后退，也可能前进，具体要看哪个位置最近。如果历史记录中不包含该字符串，那么这个方法什么也不做，例如：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//跳转到最近的 wrox.com 页面</div><div class="line">history.go(&quot;wrox.com&quot;);</div><div class="line"></div><div class="line">//跳转到最近的 nczonline.net 页面</div><div class="line">history.go(&quot;nczonline.net&quot;);</div></pre></td></tr></table></figure>
+<p><br>    另外，还可以使用两个简写方法back()和forward()来代替go().顾名思义，这两个方法可以模仿浏览器的“后退”和“前进”按钮。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//后退一页</div><div class="line">history.back();</div><div class="line"></div><div class="line">//前进一页</div><div class="line">history.forward();</div></pre></td></tr></table></figure>
+<p><br>    除了上述几个方法外，history对象还有一个length属性，保存着历史记录的数量。这个数量包括所有历史记录，即所有向后和向前的记录。对于加载到窗口、标签页或框架中的第一个页面而言，history.length等于0.通过像下面这样测试该属性的值，可以确定用户是否一开始就打开了你的页面。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">if (history.length == 0) &#123;</div><div class="line">    //这应该是用户打开窗口后的第一个页面</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><br>    虽然history并不常用，但在创建自定义的“后退”和“前进”按钮，以及检测当前页面是不是用户历史记录中第一个页面时，还是必须使用它。<br></p>
+
+<blockquote>
+<p>当页面的URL改变时，就会生成一条历史记录。在IE8及更高版本、Opera、Firefox、Safari 3以及更高版本及Chrome中，这里所说的改变包括URL中的hash的变化(因此，设置location.hash会在这些浏览器中生成一条新的历史记录)。</p>
+</blockquote>
+<h3 id="1-6-小结"><a href="#1-6-小结" class="headerlink" title="1.6 小结"></a>1.6 小结</h3><p><br>    浏览器对象模型(BOM)以window对象为依托，表示浏览器窗口以及页面可见区域。同时，window对象还是ECMAScript中的Global对象，因而所有全局变量和函数都是它的属性，且所有原生的构造函数及其他函数也都存在于它的命名空间下。这章讨论了下列BOM的组成部分。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(1) 在使用框架时，每个框架都有自己的window对象以及所有原生构造函数及其他函数的副本。每个框架都保存在frames集合中，可以通过位置或通过名称来访问。</div><div class="line">(2) 有一些窗口指针，可以用来引用其他框架，包括父框架。</div><div class="line">(3) top对象始终指向最外围的框架，也就是整个浏览器窗口。</div><div class="line">(4) parent对象表示包含当前框架的框架，而self对象则回指window。</div><div class="line">(5) 使用location对象可以通过编程方式来访问浏览器的导航系统。设置相应的属性，可以逐段或整体性地修改浏览器的URL。</div><div class="line">(6) 调用replace()方法可以导航到一个新URL，同时该URL会替换掉浏览器历史记录中当前显示的页面。</div><div class="line">(7) navigator对象提供了与浏览器相关的信息。到底提供哪些信息，很大程度上取决于用户的浏览器；不过，也有一些公共的属性(如userAgent)存在于所有浏览器中。</div></pre></td></tr></table></figure>
+<blockquote>
+<p>BOM中还有两个对象：screen和history，但它们的功能有限。screen对象中保存着与客户端显示器有关信息，这些信息一般只用于站点分析。history对象为访问浏览器的历史记录开了一个小缝隙，开发人员可以据此判断历史记录的数量，也可以在历史记录中向后或向前导航到任意页面。</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/06/BOM（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2508,303 +2753,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/28/引用类型（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="谦恒">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="谦恒-个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/28/引用类型（一）/" itemprop="url">引用类型（一）——JavaScript高级程序设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-28T09:28:54+08:00">
-                2017-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>引用类型的值(对象)是引用类型的一个实例。在ECMAScript中，引用类型是一种数据结构，用于将数据和功能组织在一起。它也常被称为类，但这种称呼并不妥当。尽管ECMAScript从技术上讲是一门面向对象的语言，但它不具备传统的面向对象语言所支持的类和接口等基本结构。引用类型有时候也被称为对象定义，因此它们描述的是一类对象所具有的属性和方法。</p>
-</blockquote>
-<p><br>    如前所述，对象是某个特定引用类型的实例。新对象是使用new操作符后跟一个构造函数来创建的。构造函数本身就是一个函数，只不过该函数是出于创建新对象的目的而定义的。请看下面这行代码：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div></pre></td></tr></table></figure>
-<p><br>    这行代码创建了Object引用类型的一个新实例，然后把该实例保存在了变量person中。使用的构造函数是Object，它只为新对象定义了默认的属性和方法。ECMAScript提供了很多原生引用类型(例如Object)，以便开发人员用以实现常见的计算任务。<br></p>
-
-<h3 id="1-1-Object类型"><a href="#1-1-Object类型" class="headerlink" title="1.1 Object类型"></a>1.1 Object类型</h3><p><br>    到目前为止，我们看到的大多数引用类型值都是Object类型的实例；而且，Object也是ECMAScript中使用最多的一个类型。虽然Object的实例不具备多少功能，但对于在应用程序中存储和传输数据而言，它们确实是非常理想的选择。<br></p>
-
-<p><br>    创建Object实例的方式有两种。第一种是使用new操作符后跟Object构造函数，如下所示：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div><div class="line">person.name = &quot;Nicholas&quot;;</div><div class="line">person.age = 29;</div></pre></td></tr></table></figure>
-<p><br>    另一种方式是使用对象字面量表示法。对象字面量是对象定义的一种简写形式，目的在于简化创建包含大量属性的对象的过程。下面这个例子就使用了对象字面量语法定义了与前面那个例子中相同的person对象：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var person = &#123;</div><div class="line">    name: &apos;Nicholas&apos;,</div><div class="line">    age: 29</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p><br>    在这个例子中，左边的花括号({)表示对象字面量的开始，因为它出现在了表达式上下文中(expression context)中。ECMAScript中的表达式上下文值得是能够返回一个值(表达式)。赋值操作符表示后面是一个值，所以左花括号在这里表示一个表达式的开始。同样的花括号，如果出现在一个语句上下文(statement context)中，例如跟在if语句条件的后面，则表示一个语句块的开始。<br></p>
-
-<p><br>    然后，我们定义了name属性，之后是一个冒号，再后面是这个属性的值。在对象字面量中，使用逗号来分隔不同的属性，因此’Nicholas’后面是一个逗号。但是，在age属性的值29的后面不能添加逗号，因为age是这个对象的最后一个属性。在最后一个属性后面添加逗号，会在IE7及更早版本和Opera中导致错误。<br></p>
-
-<p><br>    在使用对象字面量语法时，属性名也可以使用字符串，如下面这个例子所示：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var person = &#123;</div><div class="line">    &quot;name&quot;: &quot;Nicholas&quot;,</div><div class="line">    &quot;age&quot;: 29,</div><div class="line">    5: true</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p><br>    这个例子会创建一个对象，包含三个属性：name、age和5.但这里的数值属性名会自动转换为字符串。<br></p>
-
-<p><br>    另外，使用对象字面量语法时，如果留空其花括号，则可以定义只包含默认属性和方法的对象，如下所示：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person = &#123;&#125;;	// 与new Object()相同</div><div class="line">person.name = &quot;Nicholas&quot;;</div><div class="line">person.age = 29;</div></pre></td></tr></table></figure>
-<p><br>    这个例子与本节前面的例子是等价的，只不过看起来似乎有点奇怪。关于对象字面量语法，我们推荐只在考虑对象属性名的可读性时使用。<br></p>
-
-<blockquote>
-<p>在通过对象字面量定义对象时，实际上不会调用Object构造函数(Firefox 2及更早版本会调用Object构造函数；但Firefox 3之后就不会了)。</p>
-</blockquote>
-<p><br>    虽然可以使用前面介绍的任何一种方法来定义对象，但开发人员更青睐对象字面量语法，因为这种语法要求的代码量少，而且能够给人封装的感觉。实际上，对象字面量也是向函数传递大量可选参数的首选方式，例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">function displayInfo (args) &#123;</div><div class="line">    var output = &quot;&quot;;</div><div class="line">    if (typeof args.name == &quot;string&quot;) &#123;</div><div class="line">        output += &quot;Name: &quot; + args.name + &quot;\n&quot;;</div><div class="line">    &#125;</div><div class="line">    if (typeof args.age == &quot;number&quot;) &#123;</div><div class="line">        output += &quot;Age: &quot; + args.age +&quot;\n&quot;;</div><div class="line">    &#125;</div><div class="line">    alert(output);</div><div class="line">&#125;</div><div class="line">displayInfo(&#123;</div><div class="line">    name: &quot;Nicholas&quot;,</div><div class="line">    age: 29</div><div class="line">&#125;);</div><div class="line">displayInfo(&#123;</div><div class="line">    name: &quot;Greg&quot;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><br>    在这个例子中，函数displayInfo()接受一个名为args的函数。这个参数可能带有一个名为name或age的属性，也可能这两个属性都有或者都没有。在这个函数内部，我们通过typeof操作符来检测每个属性是否存在，然后再基于相应的属性来构建一条要显示的消息。然后，我们调用了两次这个函数，每次都是用一个对象字面量来指定不同的数据。这两次调用传递的参数虽然不同，但函数都能正常执行。<br></p>
-
-<blockquote>
-<p>这种传递参数的模式最适合需要向函数传入大量可选参数的情形。一般来讲，命名参数虽然容易处理，但在有多个可选参数的情况下就会显示不够灵活。最好的做法是对那些必需值使用命名参数，而使用对象字面量来封装多个可选参数。</p>
-</blockquote>
-<p><br>    一般来说，访问对象属性时使用的都是点表示法，这也是很多面向对象语言中通用的语法。不过，在JavaScript也可以使用方括号表示法来访问对象的属性。在使用方括号语法时，应该将要访问的属性以字符串的形式放在方括号中，如下面的例子所示：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(person[&quot;name&quot;]);	// &quot;Nicholas&quot;</div><div class="line">alert(person.name);		// &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
-<p><br>    从功能上看，这两种访问对象属性的方法没有任何区别。但方括号语法的主要优点是可以通过变量来访问属性，例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var propertyName = &quot;name&quot;;</div><div class="line">alert(person[propertyName]);	// &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
-<p><br>    如果属性名中包含导致语法错误的字符，或者属性名使用的是关键字或保留字，也可以使用方括号表示法。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">person[&quot;first name&quot;] = &quot;Nicholas&quot;;</div></pre></td></tr></table></figure>
-<p><br>    由于“first name”中包含一个空格，所以不能使用点表示法来访问它。然而，属性名中是可以包含非字母非数字的，这时候就可以使用方括号表示法来访问它们。<br></p>
-
-<p><br>    通常，除非必须使用变量来访问属性，否则我们建议使用点表示法。<br></p>
-
-<h3 id="1-2-Date类型"><a href="#1-2-Date类型" class="headerlink" title="1.2 Date类型"></a>1.2 Date类型</h3><p><br>    ECMAScript中的Date类型是在早期Java中的java.util.Date基础上构建的。为此，Date类型使用自UTC(Coordinated Universal Time, 国际协调时间)1970年1月1日午夜(零时)开始经过的毫秒数来保存日期。在使用这种数据存储格式的条件下，Date类型保存的日期能够精确到1970年1月1日之前或之后的285616年。<br></p>
-
-<p><br>    要创建一个日期对象，使用new操作符和Date构造函数即可，如下所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var now = new Date();</div></pre></td></tr></table></figure>
-<p><br>    在调用Date构造函数而不传递参数的情况下，新创建的对象自动获得当前日期和时间。如果想根据特定的日期和时间创建日期对象，必须传入表示日期的毫秒数(即从UTC时间1970年1月1日午夜起至该日期止经过的毫秒数)。为了简化这一计算过程，ECMAScript提供了两个方法：Date.parse()和Date.UTC()。<br></p>
-
-<p><br>    其中，Date.parse()方法接收一个表示日期的字符串参数，然后尝试根据这个字符串返回相应日期的毫秒数。ECMA-262没有定义Date.parse()应该支持哪种日期格式，因此这个方法的行为因实现而异，而且通常是因地区而异。将地区设置为美国浏览器通常都接受下列日期格式：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">a) “月/日/年”，如6/13/2004;</div><div class="line">b) “英文月名 日，年”，如January 12, 2004;</div><div class="line">c) “英文星期几 英文月名 日 年 时：分：秒 时区”，如Tue May 25 2004 00:00:00 GMT-0700;</div><div class="line">d) ISO 8601扩展格式YYYY-MM-DDTHH:mm:ss.sssZ(例如 2004-05-25T00:00:00)。只有兼容ECMAScript 5的实现支持这种格式。</div></pre></td></tr></table></figure>
-<p><br>    例如，要为2004年5月25日创建一个日期对象，可以使用下面的代码：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var someDate = new Date(Date.parse(&quot;May 25, 2004&quot;));</div></pre></td></tr></table></figure>
-<p><br>    如果传入Date.parse()方法的字符串不能表示日期，那么它会返回NaN。实际上，如果直接将表示日期的字符串传递给Date构造函数，也会在后台调用Date.parse()。换句话说，下面的代码与前面的例子是等价的：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var someDate = new Date(&quot;May 25, 2004&quot;);</div></pre></td></tr></table></figure>
-<p><br>    这行代码将会得到与前面相同的日期对象。<br></p>
-
-<blockquote>
-<p>日期对象及其在不同浏览器中的实现有许多奇怪的行为。其中有一种倾向是将超出范围的值替换成当前的值，以便生成输出。例如，在解析“January 32,2007”时，有的浏览器会将其解释为“February 1, 2007”。而Opera则倾向于插入当前月份的当前日期，返回“January 当前日期，2007”。也就是说，如果在2007年9月21日运行前面的代码，将会得到“January 21,2007”(都是21日)。</p>
-</blockquote>
-<p><br>    Date.UTC()方法同样也返回表示日期的毫秒数，但它与Date.parse()在构建值时使用不同的信息。Date.UTC()的参数分别是年份、基于0的月份(一月是0，二月是1，以此类推)、月中的哪一天(1到31)、小时数(0到23)、分钟、秒以及毫秒数。在这些参数中，只有前面两个参数(年和月)是必需的。如果没有提供月中的天数，则假设天数为1；如果省略其他参数，则统统假设为0.以下是两个使用Date.UTC()方法的例子：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// GMT 时间2000年1月1日午夜零时</div><div class="line">var y2k = new Date(Date.UTC(2000, 0));</div><div class="line"></div><div class="line">// GMT 时间2005年5月5日下午5:55:55</div><div class="line">var allFives = new Date(Date.UTC(2005, 4, 5, 17, 55, 55));</div></pre></td></tr></table></figure>
-<p><br>    这个例子创建了两个日期对象。第一个对象表示GMT时间2000年1月1日午夜零时，传入的值一个是表示年份的2000，一个是表示月份的0(即一月份)。因为其他参数是自动填充的(即月中的天数为1，其他所有参数均为0)，所以结果就是该月第一天的午夜零时。第二个对象表示GMT时间2005年5月5日下午5:55:55，即使日期和时间中只包含5，也需要传入不一样的参数：月份必须是4(因为月份是基于0的)、小时必须设置为17(因为小时以0到23表示)，剩下的参数就很直观了。<br></p>
-
-<p><br>    如同模仿Date.parse()一样，Date构造函数也会模仿Date.UTC()，但有一点明显不同：日期和时间都基于本地时区而非GMT来创建。不过，Date构造函数接收的参数仍然与Date.UTC()相同。因此，如果第一个参数是数值，Date构造函数就会假设该值是日期中的年份，而第二个参数是月份，以此类推。据此，可以将前面的例子重写如下。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 本地时间2000年1月1日午夜零时</div><div class="line">var y2k = new Date(2000, 0);</div><div class="line">// 本地时间2005年5月5日下午5:55:55</div><div class="line">var allFives = new Date(2005, 4, 5, 17, 55, 55);</div></pre></td></tr></table></figure>
-<p><br>    以上代码创建了与前面例子中相同的两个日期对象，只不过这次的日期都是基于系统设置的本地时区而创建的。<br></p>
-
-<p><br>    ECMAScript 5添加了Date.now()方法，返回表示调用这个方法时的日期和时间的毫秒数。这个方法简化了使用Date对象分析代码的工作。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">// 取得开始时间</div><div class="line">var start = Date.now();</div><div class="line"></div><div class="line">// 调用函数</div><div class="line">doSomething();</div><div class="line"></div><div class="line">// 取得停止时间</div><div class="line">var stop = Date.now(),</div><div class="line">    result = stop - start;</div></pre></td></tr></table></figure>
-<p><br>    支持Date.now()方法的浏览器包括IE9+、Firefox 3+、Safari 3+、Opera 10.5和Chrome。在不支持它的浏览器中，使用+操作符把Date对象转换成字符串，也可以达到同样的目的。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 取得开始时间</div><div class="line">var start = +new Date();</div><div class="line"></div><div class="line">// 调用函数</div><div class="line">doSomething();</div><div class="line">// 取得停止时间</div><div class="line">var stop = +new Date(),</div><div class="line">    result = stop - start;</div></pre></td></tr></table></figure>
-<h3 id="1-2-1-继承的方法"><a href="#1-2-1-继承的方法" class="headerlink" title="1.2.1 继承的方法"></a>1.2.1 继承的方法</h3><p><br>    与其他引用类型一样，Date类型也重写了toLocaleString()、toString()和valueOf()方法；但这些方法返回的值与其他类型中的方法不同。Date类型的toLocaleString()方法会按照与浏览器设置的地区相适应的格式返回日期和时间。这大致意味着时间格式中会包含AM或PM，但不会包含时区信息(当然，具体的格式会因浏览器而异)。而toString()方法则通常返回带有时区信息的日期和时间，其中时间一般以军用时间(即小时的范围是0到23)表示。下面给出了在不同浏览器中调用toLocaleString()和toString()方法，输出PST(Pacific Standard Time, 太平洋标准时间)时间2007年2月1日午夜零时的结果。<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/h-5-1.png"></p>
-<p><br>    显然，这两个方法在不同的浏览器中返回的日期和时间格式可谓大相径庭。事实上，toLocaleString()和toString()的这一差别仅在调试代码时比较有用，而在显示日期和时间时没有什么价值。<br></p>
-
-<p><br>    至于Date类型的valueOf()方法，则根本不返回字符串，而是返回日期的毫秒表示。因此，可以方便使用比较操作符(小于或大于)来比较日期值。请看下面的例子。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var date1 = new Date(2007, 0, 1);	// &quot;January 1, 2007&quot;</div><div class="line">var date2 = new Date(2007, 1, 1);	// &quot;February 1, 2007&quot;</div><div class="line"></div><div class="line">alert(date1 &lt; date2);	// true</div><div class="line">alert(date1 &gt; date2);	// false</div></pre></td></tr></table></figure>
-<p><br>    从逻辑上讲，2007年1月1日要早于2007年2月1日，此时如果我们说前者小于后者比较符合常理。而表示2007年1月1日的毫秒值小于表示2007年2月1日的毫秒值，因此在首先使用小于操作符比较日期时，返回的结果是true。这样，就为我们比较日期提供了极大方便。<br></p>
-
-<h3 id="1-2-2-日期格式化方法"><a href="#1-2-2-日期格式化方法" class="headerlink" title="1.2.2 日期格式化方法"></a>1.2.2 日期格式化方法</h3><p><br>    Date类型还有一些专门用于将日期格式化为字符串的方法，这些方法如下。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a) toDateString() —— 以特定于实现的格式显示星期几、月、日和年；</div><div class="line">b) toTimeString() —— 以特定于实现的格式显示时、分、秒和时区；</div><div class="line">c) toLocaleDateString() —— 以特定于地区的格式显示星期几、月、日和年；</div><div class="line">d) toLocaleTimeString() —— 以特定于实现的格式显示时、分、秒；</div><div class="line">e) toUTCString() —— 以特定于实现的格式完整的UTC日期。</div></pre></td></tr></table></figure>
-<p><br>    与toLocaleString()和toString()方法一样，以上这些字符串格式方法的输出也是因浏览器而异的，因此没有哪一个方法能够用来在用户界面中显示一致的日期信息。<br></p>
-
-<blockquote>
-<p>除了前面介绍的方法之外，还有一个名叫toGMTString()的方法，这是一个与toUTCString()等价的方法，其存在目的在于确保向后兼容。不过，ECMAScript推荐现在编写的代码一律使用toUTCString()方法。</p>
-</blockquote>
-<h3 id="1-2-3-日期-时间组件方法"><a href="#1-2-3-日期-时间组件方法" class="headerlink" title="1.2.3 日期/时间组件方法"></a>1.2.3 日期/时间组件方法</h3><p><br>    到目前为止，剩下还未介绍的Date类型的方法(如下表所示)，都是直接取得和设置日期值中特定部分的方法了。需要注意的是，UTC日期指的是在没有时区偏差的情况下(将日期转换为GMT时间)的日期值。<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/h-5-2.png"></p>
-<h3 id="1-3-RegExp类型"><a href="#1-3-RegExp类型" class="headerlink" title="1.3 RegExp类型"></a>1.3 RegExp类型</h3><p><br>    ECMAScript通过RegExp类型来支持正则表达式。使用下面类似Perl的语法，就可以创建一个正则表达式。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var expression = / pattern / flags;</div></pre></td></tr></table></figure>
-<p><br>    其中的模式(pattern)部分可以是任何简单或复杂的正则表达式，可以包含字符类、限定符、分组、向前查找以及反向引用。每个正则表达式都可以带有一或多个标志(flags)，用以标明正则表达式的行为。正则表达式的匹配模式支持下列3个标志。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">g：表示全局(global)模式，即模式将被应用于所有字符串，而非在发现第一个匹配项时立即停止；</div><div class="line">i：表示不区分大小写(case-insensitive)模式，即在确定匹配项时忽略模式与字符串的大小写；</div><div class="line">m：表示多行(multiline)模式，即在到达一行文本末尾时还会继续查找下一行中是否存在与模式匹配的项。</div></pre></td></tr></table></figure>
-<p><br>    因此，一个正则表达式就是一个模式与上述3个标志的组合体。不同组合产生不同结果，如下面的例子所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 匹配字符串中所有“at”的实例</div><div class="line">var pattern1 = /at/g;</div><div class="line">// 匹配第一个“bat”或“cat”，不区分大小写</div><div class="line">var pattern2 = /[bc]at/i;</div><div class="line">// 匹配所有以“at”结尾的3个字符的组合，不区分大小写</div><div class="line">var pattern3 = /.at/gi;</div></pre></td></tr></table></figure>
-<p><br>    与其他语言中的正则表达式类似，模式中使用的所有元字符都必须转义。正则表达式中的元字符包括：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">( [ &#123; \ ^ $ | ) ? * + . ] &#125;</div></pre></td></tr></table></figure>
-<p><br>    这些元字符在正则表达式中都有一或多种特殊用途，因此如果想要匹配字符串中包含的这些字符，就必须对它们进行转义。下面给出几个例子。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 匹配第一个“bat”或“cat”,不区分大小写</div><div class="line">var pattern1 = /[bc]at/i;</div><div class="line">// 匹配第一个“[bc]at”,不区分大小写</div><div class="line">var pattern2 = /\[bc\]at/i;</div><div class="line">// 匹配所有以“at”结尾的3个字符的组合，不区分大小写</div><div class="line">var pattern3 = /.at/gi;</div><div class="line">// 匹配所有“.at”，不区分大小写</div><div class="line">var pattern4 = /\.at/gi;</div></pre></td></tr></table></figure>
-<p><br>    在上面的例子中，pattern1匹配第一个“bat”或“cat”，不区分大小写。而要想直接匹配“[bc]at”的话，就需要像定义pattern2一样，对其中的两个方括号进行转义。对于pattern3来说，句点表示位于“at”之前的任意一个可以构成匹配项的字符。但如果想匹配“.at”，则必须对句点本身进行转义，如pattern4所示。<br></p>
-
-<p><br>    前面举的这些例子都是以字面量形式来定义的正则表达式。另一种创建正则表达式的方式是使用RegExp构造函数，它接收两个参数：一个是要匹配的字符串模式，另一个是可选的标志字符串。可以使用字面量定义的任何表达式，都可以使用构造函数来定义，如下面的例子所示：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 匹配第一个“bat”或“cat”，不区分大小写</div><div class="line">var pattern1 = /[bc]at/i;</div><div class="line">// 与pattern1相同，只不过是使用构造函数创建的</div><div class="line">var pattern2 = new RegExp(&quot;[bc]at&quot;, &quot;i&quot;);</div></pre></td></tr></table></figure>
-<p><br>    在此，pattern1和pattern2是两个完全等价的正则表达式。要注意的是，传递给RegExp构造函数的两个参数都是字符串(不能把正则表达式字面量传给RegExp构造函数)。有RegExp构造函数的模式参数是字符串，所以在某些情况下要对字符进行双重转义。所有元字符都必须双重转义，那些已经转义过的字符也是如此，例如\n(字符\在字符串中通常被转义为\,而在正则表达式字符串中就会变成\\)。下表给出了一些模式，左边是这些模式的字面量形式，右边是使用RegExp构造函数定义相同模式时使用的字符串。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">字面量模式             等价的字符串</div><div class="line">/\[bc\]at/             &quot;\\[bc\\]at&quot;</div><div class="line">/\.at/                 &quot;\\.at&quot;</div><div class="line">/name\/age/            &quot;name\\/age&quot;</div><div class="line">/\d.\d&#123;1,2&#125;/           &quot;\\d.\\d&#123;1,2&#125;&quot;</div><div class="line">/\w\\hello\\123/       &quot;\\w\\\\hello\\\\123&quot;</div></pre></td></tr></table></figure>
-<p><br>    使用正则表达式字面量和使用RegExp构造函数创建的正则表达式不一样。在ECMAScript 3中，正则表达式字面量始终会共享同一个RegExp实例，而使用构造函数创建的每一个新RegExp实例都是一个新实例。来看下面的例子。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var re = null,</div><div class="line">    i;</div><div class="line"></div><div class="line">for (i = 0; i &lt; 10; i++) &#123;</div><div class="line">	re = /cat/g;</div><div class="line">	re.test(&quot;catastrophe&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">for (i = 0; i &lt; 10; i++) &#123;</div><div class="line">	re = new RegExp(&quot;cat&quot;, &quot;g&quot;);</div><div class="line">	re.test(&quot;catastrophe&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><br>    在第一个循环中，即使是循环体指定的，但实际上只为/cat/创建了一个RegExp实例。由于实例属性不会重置，所以在循环中再次调用test()方法会失败。这是因为第一个调用test()找到了“cat”。但第二次调用是从索引为3的字符(上一次匹配的末尾)开始的，所以就找不到它了。由于会测试到字符串末尾，所以下一次再调用test()就有从头开始了。<br></p>
-
-<p><br>    第二个循环使用RegExp构造函数在每次循环中创建正则表达式。因为每次迭代都会创建一个新的RegExp实例，所以每次调用test()都会返回true。<br></p>
-
-<p><br>    ECMAScript 5明确规定，使用正则表达式字面量必须像直接调用RegExp构造函数一眼，每次都创建新的RegExp实例。IE9+、Firefox4+和Chrome都据此做出了修改。<br></p>
-
-<h3 id="1-3-1-RegExp实例属性"><a href="#1-3-1-RegExp实例属性" class="headerlink" title="1.3.1 RegExp实例属性"></a>1.3.1 RegExp实例属性</h3><p><br>    RegExp的每个实例都具有下列属性，通过这些属性可以取得有关模式的各种信息。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a) global：布尔值，表示是否设置了g标志。</div><div class="line">b) ignoreCase：布尔值，表示是否设置了i标志。</div><div class="line">c) lastIndex：整数，表示开始搜索下一个匹配项的字符位置，从0算起。</div><div class="line">d) multiline：布尔值，表示是否设置了m标志。</div><div class="line">e) source：正则表达式的字符串表示，按照字面量形式而非传入构造函数中的字符串模式返回。</div></pre></td></tr></table></figure>
-<p><br>    通过这些属性可以获知一个正则表达式的各方面信息，但却没有多大用处，因为这些信息全都包含在模式声明中。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var pattern1 = /\[bc\]at/i;</div><div class="line"></div><div class="line">alert(pattern1.global);		// false</div><div class="line">alert(pattern1.ignoreCase);	// true</div><div class="line">alert(pattern1.multiline);	// false</div><div class="line">alert(pattern1.lastIndex);	// 0</div><div class="line">alert(pattern1.source);		// &quot;\[bc\]at&quot;</div><div class="line"></div><div class="line">var pattern2 = new RegExp(&quot;\\[bc\\]at&quot;, &quot;i&quot;);</div><div class="line"></div><div class="line">alert(pattern2.global);		// false</div><div class="line">alert(pattern2.ignoreCase);	// true</div><div class="line">alert(pattern2.multiline);	// false</div><div class="line">alert(pattern2.lastIndex);	// 0</div><div class="line">alert(pattern2.source);		// &quot;\[bc\]at&quot;</div></pre></td></tr></table></figure>
-<p><br>    我们注意到，尽管第一个模式使用的是字面量，第二个模式使用了RegExp构造函数，但它们的source属性是相同的。可见，source属性保存的是规范形式的字符串，即字面量形式所用的字符串。<br></p>
-
-<h3 id="1-3-2-RegExp实例方法"><a href="#1-3-2-RegExp实例方法" class="headerlink" title="1.3.2 RegExp实例方法"></a>1.3.2 RegExp实例方法</h3><p><br>    RegExp对象的主要方法是exec(),该方法是专门为捕获组而设计的。exec()接受一个参数，即要应用模式的字符串，然后返回包含第一个匹配项信息的数组；或者在没有匹配项的情况下返回null。返回的数组虽然是Array的实例，但包含两个额外的属性：index和input。其中，index表示匹配项在字符串中的位置，而input表示应用正则表达式的字符串。在数组中，第一项是与整个模式匹配的字符串，其他项是与模式中的捕获组匹配的字符串(如果模式中没有捕获组，则该数组只包含一项)。请看下面这个例子。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var text = &quot;mom and dad and baby&quot;;</div><div class="line">var pattern = /mom( and dad( and baby)?)?/gi;</div><div class="line"></div><div class="line">var matches = pattern.exec(text);</div><div class="line">alert(matches.index);	// 0</div><div class="line">alert(matches.input);	// &quot;mom and dad and baby&quot;</div><div class="line">alert(matches[0]);		// &quot;mom and dad and baby&quot;</div><div class="line">alert(matches[1]);		// &quot; and dad and baby&quot;</div><div class="line">alert(matches[2]);		// &quot; and baby&quot;</div></pre></td></tr></table></figure>
-<p><br>    这个例子中的模式包含两个捕获组。最内部的捕获组匹配“and baby”，而包含它的捕获组匹配“and dad”或者“and dad and baby”。当把字符串传入exec()方法中之后，发现了一个匹配项。因为整个字符串本身与模式匹配，所以返回的数组matchs的index属性值为0.数组中的第一项是匹配的整个字符串，第二项包含与第一个捕获组匹配的内容，第三项包含与第二个捕获组匹配的内容。<br></p>
-
-<p><br>    对于exec()方法而言，即使在模式中设置了全局标志(g),他每次也只会返回一个匹配项。在不设置全局标志的情况下，在同一个字符串上多次调用exec()将始终返回第一个匹配项的信息。而在设置全局标志的情况下，每次调用exec()则都会在字符串中继续查找新匹配项，如下面的例子所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">var text = &quot;cat, bat, sat, fat&quot;;</div><div class="line">var pattern1 = /.at/;</div><div class="line"></div><div class="line">var matches = pattern1.exec(text);</div><div class="line">alert(matches.index);		// 0</div><div class="line">alert(matches[0]);			// cat</div><div class="line">alert(pattern.lastIndex);	// 0</div><div class="line"></div><div class="line">matches = pattern1.exec(text);</div><div class="line">alert(matches.index);		// 0</div><div class="line">alert(matches[0]);			// cat</div><div class="line">alert(matches.lastIndex);   // 0</div><div class="line"></div><div class="line">var pattern2 = /.at/g;</div><div class="line"></div><div class="line">var matches = pattern2.exec(text);</div><div class="line">alert(matches.index);		// 0</div><div class="line">alert(matches[0]);			// cat</div><div class="line">alert(pattern2.lastIndex);	// 3</div><div class="line"></div><div class="line">matches = pattern2.exec(text);</div><div class="line">alert(matches.index);		// 5</div><div class="line">alert(matches[0]);			// bat</div><div class="line">alert(pattern2.lastIndex);	// 8</div></pre></td></tr></table></figure>
-<p><br>    这个例子中的第一个模式pattern1不是全局模式，因此每次调用exec()返回的都是第一个匹配项(“cat”)。而第二个模式pattern2是全局模式，因此每次调用exec()都会返回字符串中的下一个匹配项，直至搜索到字符串末尾为止。此外，还应该注意模式的lastIndex属性的变化情况。在全局匹配模式下，lastIndex的值在每次调用exec()后都会增加，而在非全局模式下则始终保持不变。<br></p>
-
-<blockquote>
-<p>IE的JavaScript实现在lastIndex属性上存在偏差，即使在非全局模式下，lastIndex属性每次也会变化。</p>
-</blockquote>
-<p><br>    正则表达式的第二个方法是text()，它接受一个字符串参数。在模式与该参数匹配的情况下返回true；否则，返回false。在只想知道目标字符串与某个模式是否匹配，但不需要知道其文本内容的情况下，使用这个方法非常方便。因此，test()方法经常被用在if语句中，如下面的例子所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var text = &quot;000-00-0000&quot;;</div><div class="line">var pattern = /\d&#123;3&#125;-\d&#123;2&#125;-\d&#123;4&#125;/;</div><div class="line"></div><div class="line">if (pattern.text(text)) &#123;</div><div class="line">	alert(&quot;The pattern was matched.&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><br>    在这个例子中，我们使用正则表达式来测试一个数字序列。如果输入的文本与模式匹配，则显示一条消息。这种用法经常出现在验证用户输入的情况下，因为我们只想知道输入是不是有效，至于它为什么无效就无关紧要了。<br></p>
-
-<p><br>    RegExp实例继承的toLocaleString()和toString()方法都会返回正则表达式的字面量，与创建正则表达式的方式无关。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var pattern = new RegExp(&quot;\\[bc\\]at&quot;, &quot;gi&quot;);</div><div class="line">alert(pattern.toString());			// /\[bc\]at/gi</div><div class="line">alert(pattern.toLocaleString());	// /\[bc\]at/gi</div></pre></td></tr></table></figure>
-<p><br>    即使上例中的模式是通过调用RegExp构造函数创建的，但toLocaleString()和toString()方法仍然会像它是以字面量形式创建的一样显示其字符串表示。<br></p>
-
-<blockquote>
-<p>正则表达式的valueOf()方法返回正则表达式本身。</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2855,7 +2803,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
