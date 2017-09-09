@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="谦恒-个人博客">
 <meta property="og:description" content="1.1.2 Document类型    JavaScript通过Document类型表示文档。在浏览器中，document对象是HTMLDocument(继承自Document类型)的一个实例，表示整个HTML页面。而且，document对象是window对象的一个属性，因此可以将其作为全局对象来访问。Document节点具有下列特征：  123456（1）nodeType的值为9（2）nodeN">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-09T12:37:05.390Z">
+<meta property="og:updated_time" content="2017-09-09T12:42:51.215Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DOM（二）——JavaScript高级程序设计">
 <meta name="twitter:description" content="1.1.2 Document类型    JavaScript通过Document类型表示文档。在浏览器中，document对象是HTMLDocument(继承自Document类型)的一个实例，表示整个HTML页面。而且，document对象是window对象的一个属性，因此可以将其作为全局对象来访问。Document节点具有下列特征：  123456（1）nodeType的值为9（2）nodeN">
@@ -332,8 +332,9 @@
 <blockquote>
 <p>在Firefox、Safari、Chrome和Opera中，可以通过脚本访问Document类型的构造函数和原型。但在所有浏览器中都可以访问HTMLDocument类型的构造函数和原型，包括IE8及后续版本。</p>
 </blockquote>
-<h4 id="1-文档的子节点"><a href="#1-文档的子节点" class="headerlink" title="1. 文档的子节点"></a>1. 文档的子节点</h4><p><br>    虽然DOM标准规定Document节点的子节点可以是DocumentType、Element、ProcessingInstruction或Comment，但还有两个内置的访问其子节点的快捷方式。第一个就是documentElement属性，该属性始终指向HTML页面中的<html>元素。另一个就是通过childNodes列表访问文档元素，但通过documentElement属性则能更快捷、更直接地访问该元素。以下面这个简单的页面为例。<br><br>    <html><br>        <body><br><br>        </body><br>    </html><br></html></p>
+<h4 id="1-文档的子节点"><a href="#1-文档的子节点" class="headerlink" title="1. 文档的子节点"></a>1. 文档的子节点</h4><p><br>    虽然DOM标准规定Document节点的子节点可以是DocumentType、Element、ProcessingInstruction或Comment，但还有两个内置的访问其子节点的快捷方式。第一个就是documentElement属性，该属性始终指向HTML页面中的<html>元素。另一个就是通过childNodes列表访问文档元素，但通过documentElement属性则能更快捷、更直接地访问该元素。以下面这个简单的页面为例。<br></html></p>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">    &lt;body&gt;</div><div class="line">    </div><div class="line">    &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
 <p><br>    这个页面在经过浏览器解析后，其文档中只包含一个子节点，即<html>元素。可以通过documentElement或childNodes列表来访问这个元素，如下所示。<br></html></p>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var html = document.documentElement;    // 取得对&lt;html&gt;的引用</div><div class="line">alert(html === document.childNodes[0]); // true</div><div class="line">alert(html === document.firstChild);    // true</div></pre></td></tr></table></figure>
@@ -386,8 +387,9 @@
 
 <p><br>    IE8及较低版本不区分ID的大小写，因此“myDiv”和“mydiv”会被看做相同的元素ID。<br></p>
 
-<p><br>    如果页面中多个元素的ID值相同，getElementById()只返回文档中第一次出现的元素。IE7及较低版本还为此方法添加了一个有意思的“怪癖”：name特性与给定ID匹配的表单元素(<input>、<textarea>、</textarea><button>及</button><select>)也会被该方法返回。如果有哪个表单元素的name特性等于指定的ID，而且该元素在文档中位于带有给定ID的元素前面，那么IE就会返回哪个表单元素。来看下面的例子。<br><br>    </select><input type="text" name="myElement" value="Text field"><br>    <div id="myElement">A div</div><br></p>
+<p><br>    如果页面中多个元素的ID值相同，getElementById()只返回文档中第一次出现的元素。IE7及较低版本还为此方法添加了一个有意思的“怪癖”：name特性与给定ID匹配的表单元素(input、textarea、button及select)也会被该方法返回。如果有哪个表单元素的name特性等于指定的ID，而且该元素在文档中位于带有给定ID的元素前面，那么IE就会返回哪个表单元素。来看下面的例子。<br></p>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;text&quot; name=&quot;myElement&quot; value=&quot;Text field&quot;&gt;</div><div class="line">&lt;div id=&quot;myElement&quot;&gt;A div&lt;/div&gt;</div></pre></td></tr></table></figure>
 <p><br>    基于这段HTML代码，在IE7中调用document.getElementById(“myElement”)，结果会返回<input>元素；而在其他所有浏览器中，都会返回对div元素的引用。为了避免IE中存在的这个问题，最好的办法是不让表单字段的name特性与其他元素的ID相同。<br></p>
       
     </div>
