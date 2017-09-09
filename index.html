@@ -394,7 +394,7 @@
 <p><br>    如果页面中多个元素的ID值相同，getElementById()只返回文档中第一次出现的元素。IE7及较低版本还为此方法添加了一个有意思的“怪癖”：name特性与给定ID匹配的表单元素(input、textarea、button及select)也会被该方法返回。如果有哪个表单元素的name特性等于指定的ID，而且该元素在文档中位于带有给定ID的元素前面，那么IE就会返回哪个表单元素。来看下面的例子。<br></p>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;input type=&quot;text&quot; name=&quot;myElement&quot; value=&quot;Text field&quot;&gt;</div><div class="line">&lt;div id=&quot;myElement&quot;&gt;A div&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p><br>    基于这段HTML代码，在IE7中调用document.getElementById(“myElement”)，结果会返回<input>元素；而在其他所有浏览器中，都会返回对div元素的引用。为了避免IE中存在的这个问题，最好的办法是不让表单字段的name特性与其他元素的ID相同。<br></p>
+<p><br>    基于这段HTML代码，在IE7中调用document.getElementById(“myElement”)，结果会返回input元素；而在其他所有浏览器中，都会返回对div元素的引用。为了避免IE中存在的这个问题，最好的办法是不让表单字段的name特性与其他元素的ID相同。<br></p>
           
         
       
