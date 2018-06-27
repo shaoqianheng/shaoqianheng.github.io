@@ -6,7 +6,6 @@ html {
 }
 body {
   margin: 0;
-  background: url(../images/style/background.jpg);
 }
 article,
 aside,
@@ -1810,7 +1809,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #6537c8;
+  background: #ff6b81;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2723,7 +2722,7 @@ pre .javascript .function {
 .site-meta {
   padding: 20px 0;
   color: #fff;
-  background: rgba(35, 132, 176, 0.9);
+  background: #222;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .site-meta {
@@ -2973,4 +2972,10 @@ pre .javascript .function {
 }
 .footer {
   bottom: auto;
+}
+body {
+  background: url("../../images/style/background.jpg") !important;
+}
+.site-meta {
+  background: rgba(35,132,176,0.9) !important;
 }
