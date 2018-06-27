@@ -6,6 +6,7 @@ html {
 }
 body {
   margin: 0;
+  background: url(../images/style/background.jpg);
 }
 article,
 aside,
@@ -1809,7 +1810,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #eb38b0;
+  background: #6537c8;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2722,7 +2723,7 @@ pre .javascript .function {
 .site-meta {
   padding: 20px 0;
   color: #fff;
-  background: #222;
+  background: rgba(35, 132, 176, 0.9);
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .site-meta {
