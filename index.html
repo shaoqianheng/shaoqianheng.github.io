@@ -257,6 +257,194 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/07/DOM（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="谦恒">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="谦恒-个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/07/DOM（三）/" itemprop="url">DOM（三）——JavaScript高级程序设计</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-07T17:32:59+08:00">
+                2018-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><br>    另一个常用于取得元素引用的方法是getElementsByTagName().这个方法接受一个参数，即要取得元素的标签名，而返回的是包含零或多个元素的NodeList。在HTML文档中，这个方法会返回一个HTMLCollection对象，作为一个“动态”集合，该对象与NodeList非常类似。例如，下列代码会取得页面中的所有的<img>元素，并返回一个HTMLCollection。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var images = document.getElementsByTagName(&quot;img&quot;);</div></pre></td></tr></table></figure>
+<p><br>    这行代码会将一个HTMLCollection对象保存在images变量中。与NodeList对象类似，可以使用方括号语法或item()方法来访问HTMLCollection对象中的项。而这个对象中元素的数量则可以通过其length属性取得，如下面的例子所示。<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(images.length);       // 输出图像的数量</div><div class="line">alert(images[0].src);       // 输出第一个图像元素的src特性</div><div class="line">alert(images.item(0).src);  // 输出第一个图像元素的src特性</div></pre></td></tr></table></figure>
+<p><br>    HTMLCollection对象还有一个方法，叫做namedItem(),使用这个方法可以通过元素的name特性取得集合中的项。例如，假设上面提到的页面中包含如下<img>元素：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;myimage.gif&quot; name=&quot;myImage&quot;&gt;</div></pre></td></tr></table></figure>
+<p><br>    那么就可以通过如下方式从images变量中取得这个<img>元素：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var myImage = images.namedItem(&quot;myImage&quot;);</div></pre></td></tr></table></figure>
+<p><br>    在提供按索引访问项的基础上，HTMLCollection还支持按名称访问项，这就为我们取得实际想要的元素提供了便利。而且，对命名的项也可以使用方括号语法来访问，如下所示：<br></p>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var myImage = images[&quot;myImages&quot;];</div></pre></td></tr></table></figure>
+<p><br>    对HTMLCollection而言，我们向方括号中传入数值或字符串形式的索引值。在后台，对数组索引就会调用item（），而对字符串索引就会调用namedItem（）。<br></p>
+
+<p>要想取得文档中的所有元素，可以向getElementsByTagName()中传入“<em>”。在JavaScript及CSS中，星号（</em>）通常表示“全部”。下面看一个例子。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var allElements = document.getElementsByTagName(&quot;*&quot;);</div></pre></td></tr></table></figure>
+<p>仅此一行代码返回的HTMLCollection中，就包含了整个页面中的所有元素——按照他们出现的先后顺序。换句话说，第一项是<html>元素，第二项是<head>元素，以此类推。<br>由于IE将注释（Comment）实现为元素（Element），因此在IE中调用getElementsByTagName(“*”)将会返回所有注释节点。</head></html></p>
+<blockquote>
+<p>  虽然标准规定标签名需要区分大小写，但为了最大限度地与既有HTML页面兼容，传给getElementsByTagName()的标签名是不需要区分大小写的。但对于<br>XML页面而言（包括XHTML），getElementsByTagName（）方法就会区分大小写。</p>
+</blockquote>
+<p>第三个方法，也是只有HTMLDocument类型才有的方法，是getElementsByName（）。顾名思义，这个方法会返回带有给定name特性的所有元素。最常使用getElementsByName()<br>方法的情况是取得单选按钮；为了确保发送给浏览器的值准确无误，所有单选按钮必须具有相同的name特性，如下面的例子所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;fieldset&gt;</div><div class="line">  &lt;legend&gt;Which color do you prefer?&lt;/legend&gt;</div><div class="line">  &lt;ul&gt;</div><div class="line">    &lt;li&gt;&lt;input type=&quot;radio&quot; value=&quot;red&quot; name=&quot;color&quot; id=&quot;colorRed&quot;&gt;</div><div class="line">        &lt;label for=&quot;colorRed&quot;&gt;Red&lt;/label&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;input type=&quot;radio&quot; value=&quot;green&quot; name=&quot;color&quot; id=&quot;colorGreen&quot;&gt;</div><div class="line">        &lt;label for=&quot;colorGreen&quot;&gt;Green&lt;/label&gt;&lt;/li&gt;</div><div class="line">    &lt;li&gt;&lt;input type=&quot;radio&quot; value=&quot;blue&quot; name=&quot;color&quot; id=&quot;colorBlue&quot;&gt;</div><div class="line">        &lt;label for=&quot;colorBlue&quot;&gt;Blue&lt;/label&gt;&lt;/li&gt;</div><div class="line">  &lt;/ul&gt;</div><div class="line">&lt;/fieldset&gt;</div></pre></td></tr></table></figure>
+<p>如这个例子所示，其中所有单选按钮的name特性值都是“color”，但它们的ID可以不同。ID的作用在于将<label>元素应用到每个单选按钮，而name特性则用于确保三个值中只有一个被发送<br>给浏览器。这样，我们就可以使用如下代码取得所有单选按钮。</label></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var radios = document.getElementsByName(&quot;color&quot;);</div></pre></td></tr></table></figure>
+<p>与getElementsByTagName()类似，getElementsByName()方法也会返回一个HTMLCollection。但是，对于这里的单选按钮来说，而namedItem()方法则只会取得第一项（因为每一项的name特性都<br>相同）。</p>
+<h4 id="4-特殊集合"><a href="#4-特殊集合" class="headerlink" title="4.特殊集合"></a>4.特殊集合</h4><p>除了属性和方法，document对象还有一些特殊的集合。这些集合都是HTMLCollection对象，为访问文档常用的部分提供了快捷方式，包括：</p>
+<ul>
+<li>document.anchors,包括文档中所有带name特性的\<a\>元素；</a\></li>
+<li>document.applets,包含文档中所有的<applet>元素，因为不再推荐使用<applet>元素，所以这个集合已经不建议使用了；</applet></applet></li>
+<li>document.forms,包含文档中所有的<form>元素，与document.getElementsByTagName(“form”)得到的结果相同；</form></li>
+<li>document.images,包含文档中所有的<img>元素，与document.getElementsByTagName(“img”)得到结果相同；</li>
+<li>document.links,包含文档中所有带href特性的<a>元素。</a></li>
+</ul>
+<p>这个特殊集合始终都可以通过HTMLDocument对象访问到，而且，与HTMLCollection对象类似，集合中的项也会随着当前文档内容的更新而更新。</p>
+<h4 id="5-DOM一致性检测"><a href="#5-DOM一致性检测" class="headerlink" title="5.DOM一致性检测"></a>5.DOM一致性检测</h4><p>由于DOM分为多个级别，也包含多个部分，因此检测浏览器实现了DOM的哪些部分就十分必要了。document.implementation属性就是<br>为此提供相应信息和功能的对象，与浏览器对DOM的实现直接对应。DOM1级只为document.implementation规定了一个方法，即hasFeature().这个<br>方法接受两个参数：要检测的DOM功能的名称及版本号。如果浏览器支持给定名称和版本的功能，则该方法返回true，如下面的例子所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var hasXmlDom = document.implementation.hasFeature(&quot;XML&quot;, &quot;1.0&quot;);</div></pre></td></tr></table></figure>
+<p>下表列出了可以检测的不同的值及版本号。</p>
+<p><img src="https://shaoqianheng.github.io/images/h-10-3.png"></p>
+<p>尽管使用hasFeature（）确实方便，但也有缺点。因为事先者可以自行决定是否与DOM规范的不同部分保持一致。事实上，要想<br>让hasFeature()方法针对所有值都返回true很容易，但返回true有时候也不意味着实现与规范一致。例如，Safari2.x及更早版本<br>会在没有完全实现某些DOM功能的情况下也返回true。为此，我们建议多数情况下，在使用DOM的某些特殊的功能之前，最好除了检测<br>hasFeature（）之外，还同时使用能力检测。</p>
+<h4 id="6-文档写入"><a href="#6-文档写入" class="headerlink" title="6.文档写入"></a>6.文档写入</h4><p>有一个document对象的功能已经存在很多年了，那就是将输出流写入到网页中的能力。这个能力体现在下列4个方法中：write()、writeIn()、<br>open()和close()。其中，write()和writeIn()方法都接受一个字符串参数，即要写入到输出流中的文本。write()会原样写入，而writeIn()则会<br>在字符串的末尾添加一个换行符(\n)。在页面被加载的过程中，可以使用这两个方法向页面中动态地加入内容，如下面的例子所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;document.write() Example&lt;/title&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">     &lt;p&gt;The current date and time is:</div><div class="line">       &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">       document.write(&quot;&lt;strong&gt;&quot; + (new Date()).toString() + &quot;&lt;/strong&gt;&quot;);</div><div class="line">       &lt;/script&gt;</div><div class="line">     &lt;/p&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>这个例子展示了在页面加载过程中输出当前日期和时间的代码。其中，日期被包含在一个<strong>元素中，就像HTML页面中包含普通的文本一样。<br>这样做会创建一个DOM元素，而且可以在将来访问该元素。通过write()和writeIn()输出的任何HTML代码都将如此处理。</strong></p>
+<p>此外，还可以使用write()和writeIn()方法动态地包含外部资源，例如JavaScript文件等。在包含JavaScript文件时，必须注意不能像下面的例子那样<br>直接包含字符串”“,因为这会导致该字符串被解释为脚本块的结束，它后面的代码将无法执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;document.write() Example 2&lt;/title&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">     &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">     document.write(&quot;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;file.js\&quot;&gt;&quot; +</div><div class="line">     &quot;&lt;/script&gt;&quot;);</div><div class="line">     &lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>即使这个文件看起来没错，但字符串”“将被解释为与外部的<script>标签匹配，结果文本”)；将会出现在页面中。为避免这个问题，只需假如转义字符\即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;document.write() Example 3&lt;/title&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">     &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">     document.write(&quot;&lt;script type=\&quot;text/javascript\&quot; src=\&quot;file.js\&quot;&gt;&quot; +</div><div class="line">     &quot;&lt;\/script&gt;&quot;);</div><div class="line">     &lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>字符串”&lt;\/script&gt;”不会被当作外部<script>标签的关闭标签，因而页面中也就不会出现多余的内容了。</p>
+<p>前面的例子使用document.write()在页面被呈现的过程中直接向其中输出了内容。如果在文档加载结束后再<br>调用document.write()，那么输出的内容将会重写整个页面，如下面的例子所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;title&gt;document.write() Example 4&lt;/title&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">     &lt;p&gt;This is some content that you won&apos;t get to see because it will be overwritten.&lt;/p&gt;</div><div class="line">     &lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">     window.onload = function()&#123;</div><div class="line">     document.write(&quot;Hello world!&quot;);</div><div class="line">     &#125;;</div><div class="line">     &lt;/script&gt;</div><div class="line">  &lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>在这个例子中，我们使用了window.onload事件处理程序，等到页面完全加载之后延迟执行函数。函数执行后，字符串“hello world！”会重写<br>整个页面内容。</p>
+<p>方法open（）和close（）分别用于打开和关闭网页的输出流。如果是在页面加载期间使用write()或writeIn()方法，则不需要用到这两个方法。</p>
+<h3 id="10-1-3-Element类型"><a href="#10-1-3-Element类型" class="headerlink" title="10.1.3 Element类型"></a>10.1.3 Element类型</h3><p>除了Document类型之外，Element类型就要算是Web编程中最常用的类型了。Element类型就要算是Web编程中最常用的类型了。Element类型用于表现<br>XML或HTML元素，提供了对元素标签名、子节点及特性的访问。Element节点具有以下特征：</p>
+<ul>
+<li>nodeType的值为1；</li>
+<li>nodeName的值为元素的标签名；</li>
+<li>nodeValue的值为null；</li>
+<li>parentNode可能是Document或Element；</li>
+<li>其子节点可能是Element、Text、Comment、ProcessingInstruction、CDATASection或EntityReference。</li>
+</ul>
+<p>要访问元素的标签名，可以使用nodeName属性，也可以使用tagName属性；这两个属性会返回相同的值（使用后者主要是为了清晰起见）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;myDiv&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>可以像下面这样取得这个元素及其标签名：</p>
+<p>var div = document.getElementById(“myDiv”);<br>alert(div.tagName);   // “DIV”<br>alert(div.tagName == div.nodeName);  // true</p>
+<p>这里的元素标签名是div，它拥有一个值为“myDiv”的ID。可是，div.tagName实际上输出的是“DIV”而非“div”。在HTML中，标签名始终都<br>以全部大写表示：而在XML（有时候也包括XHTML）中，标签名则始终会与源代码中的保持一致。假如你不确定自己的脚本将会在HTML还是XML文档<br>中执行，最好还是在比较之前将标签名转换为相同的大小写形式，如下面的例子所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">if (element.tagName == &quot;div&quot;) &#123; // 不能这样比较，很容易出错！</div><div class="line">  // 在此执行某些操作</div><div class="line">&#125;</div><div class="line">if (element.tagName.toLowerCase() == &quot;div&quot;) &#123; // 这样最好（适用于任何文档）</div><div class="line">  // 在此执行某些操作</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子展示了围绕tagName属性的两次比较操作。第一次比较非常容易出错，因为其代码在HTML中不管用。第二次比较将标签名转换成了全部小写，是我们<br>推荐的做法，因为这种做法适用于HTML文档，也适用于XML文档。</p>
+</script></p>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/09/DOM（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2227,286 +2415,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/31/面向对象的程序设计（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="谦恒">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="谦恒-个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/31/面向对象的程序设计（一）/" itemprop="url">面向对象的程序设计（一）——JavaScript高级程序设计</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-31T09:29:39+08:00">
-                2017-08-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>面向对象(Object-Oriented, OO)的语言有一个标志，那就是它们都有类的概念，而通过类可以创建任意多个具有相同属性和方法的对象。前面提到过，ECMAScript中没有类的概念，因此它的对象也与基于类的语言中的对象有所不同。</p>
-</blockquote>
-<p>ECMAScript-262把对象定义为：“无序属性的集合，其属性可以包含基本值、对象或者函数。”严格来讲这就相当于说对象是一组没有特定顺序的值。对象的每个属性或方法都有一个名字，而每个名字都映射到一个值。正因为这样，我们可以把ECMAScript的对象想象成散列表：无非就是一组名值对，其中值可以是数据或函数。</p>
-<p>每个对象都是基于一个引用类型创建的，这个引用类型可以是原生类型，也可以是开发人员定义的类型。</p>
-<h3 id="1-1-理解对象"><a href="#1-1-理解对象" class="headerlink" title="1.1 理解对象"></a>1.1 理解对象</h3><p><br>    曾经介绍过，创建自定义对象的最简单方式就是创建一个Object的实例，然后再为它添加属性和方法，如下所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var person = new Object();</div><div class="line">person.name = &quot;Nicholas&quot;;</div><div class="line">person.age = 29;</div><div class="line">person.job = &quot;Software Engineer&quot;;</div><div class="line"></div><div class="line">person.sayName = function() &#123;</div><div class="line">    alert(this.name);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><br>    上面的例子创建了一个名为person的对象，并为它添加了三个属性(name、age和job)和一个方法(sayName())。其中，sayName()方法用于显示this.name(将被解析为person.name)的值。早期的JavaScript开发人员经常使用这个模式创建新对象。几年后，对象字面量成为创建这种对象的首选模式。前面的例子用对象字面量语法可以写成这样：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var person = &#123;</div><div class="line">    name: &quot;Nicholas&quot;,</div><div class="line">    age: 29,</div><div class="line">    job: &quot;Software Engineer&quot;,</div><div class="line"></div><div class="line">    sayName: function() &#123;</div><div class="line">    	alert(this.name);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p><br>    这个例子中的person对象与前面例子中的person对象是一样的，都有相同的属性和方法。这些属性在创建时都带有一些特征值(characteristic)，JavaScript通过这些特征值来定义它们的行为。<br></p>
-
-<h3 id="1-1-1-属性类型"><a href="#1-1-1-属性类型" class="headerlink" title="1.1.1 属性类型"></a>1.1.1 属性类型</h3><p><br>    ECMA-262第5版在定义只有内部才用的特性(attribute)时，描述了属性(property)的各种特征。ECMA-262定义这些特性是为了实现JavaScript引擎用的，因此在JavaScript中不能直接访问它们。为了表示特性是内部值，该规范把它们放在了两对方括号中，例如[[Enumerable]]。<br></p>
-
-<p><br>    ECMAScript中有两种属性：数据属性和访问器属性。<br></p>
-
-<h4 id="1-数据属性"><a href="#1-数据属性" class="headerlink" title="1.数据属性"></a>1.数据属性</h4><p><br>    数据属性包含一个数据值的位置。在这个位置可以读取和写入值。数据属性有4个描述其行为的特性。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(1) [[Configurable]] : 表示能否通过delete删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为访问器属性。像前面例子中那样直接在对象上定义的属性，它们的这个特性默认值为true。</div><div class="line"></div><div class="line">(2) [[Enumerable]] : 表示能否通过for-in循环返回属性。像前面例子中那样直接在对象上定义的属性，它们的这个特性默认值为true。</div><div class="line"></div><div class="line">(3) [[Writable]] : 表示能否修改属性的值。像前面例子中那样直接在对象上定义的属性，它们这个特性默认值为true。</div><div class="line"></div><div class="line">(4) [[Value]] : 包含这个属性的数据值。读取属性值的时候，从这个位置上读，写入属性值的时候，把新值保存在这个位置。这个特性的默认值为undefined。</div></pre></td></tr></table></figure>
-<p><br>    对于像前面例子中那样直接在对象上定义的属性，它们的[[Configurable]]、[[Enumerable]]和[[Writable]]特性都被设置为true，而[[Value]]特性被设置为指定的值。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var person = &#123;</div><div class="line">    name: &quot;Nicholas&quot;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-<p><br>    这里创建了一个名为name的属性，为它指定的值是“Nicholas”。也就是说，[[Value]]特性将被设置为“Nicholas”，而对这个值的任何修改都反映在这个位置。<br></p>
-
-<p><br>    要修改属性默认的特性，必须使用ECMAScript 5的Object.defineProperty()方法。这个方法接收三个参数：属性所在的对象、属性的名字和一个描述符对象。其中，描述符(descriptor)对象的属性必须是：configurable、enumerable、writable和value。设置其中的一或多个值，可以修改对应的特性值。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var person = &#123;&#125;；</div><div class="line">Object.defineProperty(person, &quot;name&quot;, &#123;</div><div class="line">    writable: false,</div><div class="line">    value: &quot;Nicholas&quot;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">alert(person.name);    // &quot;Nicholas&quot;</div><div class="line">person.name = &quot;Greg&quot;;</div><div class="line">alert(person.name);    // &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
-<p><br>    这个例子创建了一个名为name的属性，它的值“Nicholas”是只读的。这个属性的值是不可修改的，如果尝试为它指定新值，则在非严格模式下，赋值操作将被忽略；在严格模式下，赋值操作将会导致抛出错误。<br></p>
-
-<p><br>    类似的规则也适用于不可配置的属性。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var person = &#123;&#125;;</div><div class="line">Object.defineProperty(person, &quot;name&quot;, &#123;</div><div class="line">    configurable: false,</div><div class="line">    value: &quot;Nicholas&quot;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">alert(person.name);    // &quot;Nicholas&quot;</div><div class="line">delete person.name;</div><div class="line">alert(person.name);    // &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
-<p><br>    把configurable设置为false，表示不能从对象中删除属性。如果对这个属性调用delete，则在非严格模式下什么也不会发生，而在严格模式下会导致错误。而且，一旦把属性定义为不可配置的，就不能再把它变回可配置了。此时，再调用Object.defineProperty()方法修改除了writable之外的特性，都会导致错误：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">   var person = &#123;&#125;;</div><div class="line">   Object.defineProperty(person, &quot;name&quot;, &#123;</div><div class="line">       configurable: false,</div><div class="line">       value: &quot;Nicholas&quot;</div><div class="line">   &#125;);</div><div class="line"></div><div class="line">   // 抛出错误</div><div class="line">   Object.defineProperty(person, &quot;name&quot;, &#123;</div><div class="line">   	configurable: true,</div><div class="line">   	value: &quot;Nicholas&quot;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><br>    也就是说，可以多次调用Object.defineProperty()方法修改同一个属性，但在把configurable特性设置为false之后就会有限制了。<br></p>
-
-<p><br>    在调用Object.defineProperty()方法时，如果不指定，configurable、enumerable和writable特性的默认值都是false。多数情况下，可能都没有必要利用Object.defineProperty()方法提供的这些高级功能。不过，理解这些概念对理解JavaScript对象却非常有用。<br></p>
-
-<blockquote>
-<p>IE8是第一个实现Object.defineProperty()方法的浏览器版本。然而，这个版本的实现存在诸多限制：只能在DOM对象上使用这个方法，而且只能创建访问器属性。由于实现不彻底，建议不要在IE8中使用Object.defineProperty()方法。</p>
-</blockquote>
-<h4 id="2-访问器属性"><a href="#2-访问器属性" class="headerlink" title="2. 访问器属性"></a>2. 访问器属性</h4><p><br>    访问器属性不包含数据值；它们包含一对getter和setter函数(不过，这两个函数都不是必需的)。在读取访问器属性时，会调用getter函数，这个函数负责返回有效的值；在写入访问器属性时，会调用setter函数并传入新值，这个函数负责决定如何处理数据。访问器属性有如下4个特性。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(1) [[Configurable]] : 表示能够通过delete属性删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为true。</div><div class="line"></div><div class="line">(2) [[Enumerable]] : 表示能否通过for-in循环返回属性。对于直接在对象上定义的对象，这个特性的默认值为true。</div><div class="line"></div><div class="line">(3) [[Get]] : 在读取属性时调用的函数。默认值为undefined。</div><div class="line"></div><div class="line">(4) [[Set]] : 在写入属性时调用的函数。默认值为undefined。</div></pre></td></tr></table></figure>
-<p><br>    访问器属性不能直接定义，必须使用Object.defineProperty()来定义。请看下面的例子。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">   var book = &#123;</div><div class="line">       _year: 2004,</div><div class="line">       edition: 1</div><div class="line">   &#125;;</div><div class="line"></div><div class="line">   Object.defineProperty(book, &quot;year&quot;, &#123;</div><div class="line">       get: function() &#123;</div><div class="line">       	return this._year;</div><div class="line">       &#125;,</div><div class="line">       set: function(newValue) &#123;</div><div class="line">       	if (newValue &gt; 2004) &#123;</div><div class="line">       		this._year = newValue;</div><div class="line">       		this.edition += newValue - 2004;</div><div class="line">       	&#125;</div><div class="line">       &#125;	</div><div class="line">&#125;);</div><div class="line"></div><div class="line">book.year = 2005;</div><div class="line">alert(book.edition);    // 2</div></pre></td></tr></table></figure>
-<p><br>    以上代码创建了一个book对象，并给它定义了两个默认的属性：_year和edition。_year前面的下划线是一种常用的记号，用于表示只能通过对象方法访问的属性。而访问器属性year则包含一个getter函数和一个setter函数。getter函数返回_year的值，setter函数通过计算来确定正确的版本。因此，把year属性修改为2005会导致_year变成2005，而edition变为2.这是使用访问器属性的常见方式，即设置一个属性会导致其他属性发生变化。<br></p>
-
-<p><br>    不一定非要同时指定getter和setter。只指定getter意味着属性是不能写，尝试写入属性会被忽略。在严格模式下，尝试写入只指定了getter函数的属性会抛出错误。类似地，只指定setter函数的属性也不能读，否则在非严格模式下会返回undefined，而在严格模式下会抛出错误。<br></p>
-
-<p><br>    支持ECMAScript 5的这个方法的浏览器有IE 9+(IE8只是部分实现)、Firefox 4+、Safari 5+、Opera 12+和Chrome。在这个方法之前，要创建访问器属性，一般都是用两个非标准的方法：<strong>defineGetter</strong>()和<strong>defineSetter</strong>()。这两个方法最初由Firefox引入的，后来Safari 3、Chrome 1和Opera 9.5也给出了相同的实现。使用这两个遗留的方法，可以像下面这样重写前面的例子。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">   var book = &#123;</div><div class="line">       _year: 2004,</div><div class="line">       edition: 1</div><div class="line">   &#125;;</div><div class="line"></div><div class="line">   // 定义访问器的旧有方法</div><div class="line">   book.__defineGetter__(&quot;year&quot;, function() &#123;</div><div class="line">       return this._year;	</div><div class="line">&#125;);</div><div class="line"></div><div class="line">book.__defineSetter__(&quot;year&quot;, function(newValue) &#123;</div><div class="line">    if (newValue &gt; 2004) &#123;</div><div class="line">    	this._year = newValue;</div><div class="line">    	this.edition += newValue - 2004;</div><div class="line">    &#125;	</div><div class="line">&#125;);</div><div class="line"></div><div class="line">book.year = 2005;</div><div class="line">alert(book.edition);    // 2</div></pre></td></tr></table></figure>
-<p><br>    在不支持Object.defineProperty()方法的浏览器中不能修改[[Configurable]]和[[Enumerable]].<br></p>
-
-<h3 id="1-1-2-定义多个属性"><a href="#1-1-2-定义多个属性" class="headerlink" title="1.1.2 定义多个属性"></a>1.1.2 定义多个属性</h3><p><br>    由于为对象定义多个属性的可能性很大，ECMAScript 5有定义了一个Object.defineProperties()方法。利用这个方法可以通过描述符一次定义多个属性。这个方法接收两个对象参数：第一个对象是要添加和修改其属性的对象，第二个对象的属性与第一个对象中要添加或修改的属性一一对应。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">   var book = &#123;&#125;;</div><div class="line"></div><div class="line">   Object.defineProperties(book, &#123;</div><div class="line">   	_year: &#123;</div><div class="line">   		value: 2004</div><div class="line">   	&#125;,</div><div class="line">   	edition: &#123;</div><div class="line">   		value: 1</div><div class="line">   	&#125;,</div><div class="line">   	year: &#123;</div><div class="line">   		get: function() &#123;</div><div class="line">   			return this._year;</div><div class="line">   		&#125;,</div><div class="line">   		set: function(newValue) &#123;</div><div class="line">   			if(newValue &gt; 2004) &#123;</div><div class="line">   				this._year = newValue;</div><div class="line">   				this.edition += newValue - 2004;</div><div class="line">   			&#125;</div><div class="line">   		&#125;</div><div class="line">   	&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><br>    以上代码在book对象上定义了两个数据属性(_year和edition)和一个访问器属性(year).最终的对象与上一节中定义的对象相同。唯一的区别是这里的属性都是在同一时间创建的。<br></p>
-
-<p><br>    支持Object.defineProperties()方法的浏览器有IE 9+、Firefox 4+、Safari 5+、Opera 12+和Chrome。<br></p>
-
-<h3 id="1-1-3-读取属性的特性"><a href="#1-1-3-读取属性的特性" class="headerlink" title="1.1.3 读取属性的特性"></a>1.1.3 读取属性的特性</h3><p><br>    使用ECMAScript 5的Object.getOwnPropertyDescriptor()方法，可以取得给定属性的描述符。这个方法接收两个参数：属性所在的对象和要读取其描述符的属性名称。返回值是一个对象，如果是访问器属性，这个对象的属性有configurable、enumerable、get和set；如果是数据属性，这个对象的属性有configurable、enumerable、writable和value。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">   var book = &#123;&#125;;</div><div class="line"></div><div class="line">   Object.defineProperties(book, &#123;</div><div class="line">       _year: &#123;</div><div class="line">       	value: 2004</div><div class="line">       &#125;,</div><div class="line">       edition: &#123;</div><div class="line">       	value: 1</div><div class="line">       &#125;,</div><div class="line">       year: &#123;</div><div class="line">       	get: function() &#123;</div><div class="line">       		return this._year;</div><div class="line">       	&#125;,</div><div class="line">       	set: function(newValue) &#123;</div><div class="line">       		if(newValue &gt; 2004) &#123;</div><div class="line">       			this._year = newValue;</div><div class="line">       			this.edition += newValue - 2004;</div><div class="line">       		&#125;</div><div class="line">       	&#125;</div><div class="line">       &#125;	</div><div class="line">&#125;);</div><div class="line"></div><div class="line">var descriptor = Object.getOwnPropertyDescriptor(book, &quot;_year&quot;);</div><div class="line">alert(descriptor.value);           // 2004</div><div class="line">alert(descriptor.configurable);    // false</div><div class="line">   alert(typeof descriptor.get);      // &quot;undefined&quot;</div><div class="line"></div><div class="line">   var descriptor = Object.getOwnPropertyDescriptor(book, &quot;year&quot;);</div><div class="line">   alert(descriptor.value);          // undefined</div><div class="line">   alert(descriptor.enumerable);     // false</div><div class="line">   alert(typeof descriptor,get);     // &quot;function&quot;</div></pre></td></tr></table></figure>
-<p><br>    对于数据属性_year,value等于最初的值，configurable是false，而get等于undefined。对于访问器属性year，value等于undefined，enumerable是false，而get是一个指向getter函数的指针。<br></p>
-
-<p><br>    在JavaScript中，可以针对任何对象——包括DOM和BOM对象，使用Object.getOwnPropertyDescriptor()方法。支持这个方法的浏览器有IE9+、Firefox 4+、Safari 5+、Opera 12+和Chrome。<br></p>
-
-<h3 id="1-2-创建对象"><a href="#1-2-创建对象" class="headerlink" title="1.2 创建对象"></a>1.2 创建对象</h3><blockquote>
-<p>虽然Object构造函数或对象字面量都可以用来创建单个对象，但这些方式有个明显的缺点：使用同一个接口创建很多对象，会产生大量重复的代码。为解决这个问题，人们开始使用工厂模式的一种变体。</p>
-</blockquote>
-<h3 id="1-2-1-工厂模式"><a href="#1-2-1-工厂模式" class="headerlink" title="1.2.1 工厂模式"></a>1.2.1 工厂模式</h3><p><br>    工厂模式是软件工程领域一种广为人知的设计模式，这种模式抽象了创建具体对象的过程。考虑到在ECMAScript中无法创建类，开发人员就发明了一种函数，用函数来封装以特定接口创建对象的细节，如下面的例子所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function createPerson(name, age, job) &#123;</div><div class="line">    var o = new Object();</div><div class="line">    o.name = name;</div><div class="line">    o.age = age;</div><div class="line">    o.job = job;</div><div class="line">    o.sayName = function() &#123;</div><div class="line">        alert(this.name);</div><div class="line">    &#125;;</div><div class="line">    return o;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var person1 = createPerson(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">var person2 = createPerson(&quot;Greg&quot;, 27, &quot;Doctor&quot;);</div></pre></td></tr></table></figure>
-<p><br>    函数createPerson()能够根据接受的参数来创建一个包含所有必要信息的Person对象。可以无数次地调用这个函数，而每次它都会返回一个包含三个属性一个方法的对象。工厂模式虽然解决了创建多个相似对象的问题，但却没有解决对象识别的问题(即怎样知道一个对象的类型)。随着JavaScript的发展，又一个新模式出现了。<br></p>
-
-<h3 id="1-2-2-构造函数模式"><a href="#1-2-2-构造函数模式" class="headerlink" title="1.2.2 构造函数模式"></a>1.2.2 构造函数模式</h3><p><br>    ECMAScript中的构造函数可用来创建特定类型的对象。像Object和Array这样的原生构造函数，在运行时会自动出现在执行环境中。此外，也可以创建自定义的构造函数，从而定义自定义对象类型的属性和方法。例如，可以使用构造函数模式将前面的例子重写如下。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job) &#123;</div><div class="line">    this.name = name;</div><div class="line">    this.age = age;</div><div class="line">    this.job = job;</div><div class="line">    this.sayName = function() &#123;</div><div class="line">        alert(this.name);</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var person1 = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">var person2 = new Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);</div></pre></td></tr></table></figure>
-<p><br>    在这个例子中，Person()函数取代了createPerson()函数。我们注意到，Person()中的代码除了与createPerson()中相同的部分外，还存在以下不同之处：<br>    (1) 没有显式地创建对象；<br>    (2) 直接将属性和方法赋给了this对象；<br>    (3) 没有return语句。<br></p>
-
-<p><br>    此外，还应该注意到函数名Person使用的是大写字母P。按照惯例，构造函数始终都应该以一个大写字母开头，而非构造函数则应该以一个小写字母开头。这个做法借鉴自其它OO语言，主要是为了区别于ECMAScript中的其他函数；因此构造函数本身也是函数，只不过可以用来创建对象而已。<br></p>
-
-<p><br>    要创建Person的新实例，必须使用new操作符。以这种方式调用构造函数实际上会经历以下4个步骤：<br>    (1) 创建一个新对象；<br>    (2) 将构造函数的作用域赋给新对象(因此this就指向了这个新对象)；<br>    (3) 执行构造函数中的代码(为这个新对象添加属性)；<br>    (4) 返回新对象。<br></p>
-
-<p><br>    在前面例子的最后，person1和person2分别保存着Person的一个不同的实例。这两个对象都有一个constructor(构造函数)属性，该属性指向Person，如下所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(person1.constructor == Person);    // true</div><div class="line">alert(person2.constructor == Person);    // true</div></pre></td></tr></table></figure>
-<p><br>    对象的constructor属性最初是用来标识对象类型的。但是，提到检测对象类型，还是instanceof操作符要更可靠一些。我们在这个例子中创建的所有对象既是Object的实例，同时也是Person的实例，这一点通过instanceof操作符可以得到验证。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">alert(person1 instanceof Object);    // true</div><div class="line">alert(person1 instanceof Person);    // true</div><div class="line">alert(person2 instanceof Object);    // true</div><div class="line">alert(person2 instanceof Person);    // true</div></pre></td></tr></table></figure>
-<p><br>    创建自定义的构造函数意味着将来可以将它的实例标识为一种特定的类型；而这正是构造函数模式胜过工厂模式的地方。在这个例子中，person1和person2之所以同时是Object的实例，是因为所有对象均继承自Object。<br></p>
-
-<blockquote>
-<p>以这种方式定义的构造函数是定义在Global对象(在浏览器中是window对象)中的。</p>
-</blockquote>
-<h4 id="1-将构造函数当作函数"><a href="#1-将构造函数当作函数" class="headerlink" title="1. 将构造函数当作函数"></a>1. 将构造函数当作函数</h4><p><br>    构造函数与其他函数的唯一区别，就在于调用它们的方式不同。不过，构造函数毕竟也是函数，不存在定义构造函数的特殊语法。任何函数，只要通过new操作符来调用，那它就可以作为构造函数；而任何函数，如果不通过new操作符来调用，那它跟普通函数也不会有什么两样。例如，前面例子中定义的Person()函数可以通过下列任何一种方式来调用。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 当作构造函数使用</div><div class="line">var person = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">person.sayName();    // &quot;Nicholas&quot;</div><div class="line"></div><div class="line">// 作为普通函数调用</div><div class="line">Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);    // 添加到window</div><div class="line">window.sayName();    // &quot;Greg&quot;</div><div class="line"></div><div class="line">// 在另一个对象的作用域中调用</div><div class="line">var o = new Object();</div><div class="line">Person.call(o, &quot;Kristen&quot;, 25, &quot;Nurse&quot;);</div><div class="line">o.sayName();    // &quot;Kristen&quot;</div></pre></td></tr></table></figure>
-<p><br>    这个例子中的前两行代码展示了构造函数的典型用法，即使用new操作符来创建一个新对象。接下来的两行代码展示了不使用new操作符调用Person()会出现什么结果：属性和方法都被添加给window对象了。当在全局作用域中调用一个函数时，this对象总是指向Global对象(在浏览器中就是window对象)。因此，在调用完函数之后，可以通过window对象来调用sayName()方法，并且还返回“Greg”。最后，也可以使用call()(或者apply())在某个特殊对象的作用域中调用Person()函数。这里是在对象o的作用域中调用的，因此调用后o就拥有了所有属性和sayName()方法。<br></p>
-
-<h4 id="2-构造函数的问题"><a href="#2-构造函数的问题" class="headerlink" title="2. 构造函数的问题"></a>2. 构造函数的问题</h4><p><br>    构造函数模式虽然好用，但也并非没有缺点。使用构造函数的主要问题，就是每个方法都要在每个实例上重新创建一遍。在前面的例子中，person1和person2都有一个名为sayName()的方法，但那两个方法不是同一个Function的实例。不要忘了——ECMAScript中的函数是对象，因此每定义一个函数，也就是实例化了一个对象。从逻辑角度讲，此时的构造函数也可以这样定义。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job) &#123;</div><div class="line">    this.name = name;</div><div class="line">    this.age = age;</div><div class="line">    this.job = job;</div><div class="line">    this.sayName = new Funtion(&quot;alert(this.name&quot;);    // 与声明函数在逻辑上是等价的</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><br>    从这个角度上来看构造函数，更容易明白每个Person实例都包含一个不同的Function实例(以显示name属性)的本质。说明白些，以这种方式创建函数，会导致不同的作用域链和标识符解析，但创建Function新实例的机制仍然是相同的。因此，不同实例上的同名函数是不相等的，以下代码可以证明这一点。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alert(person1.sayName == person2.sayName);    // false</div></pre></td></tr></table></figure>
-<p><br>    然而，创建两个完成同样任务的Function实例的确没有必要；况且有this对象在，根本不用在执行代码前就把函数绑定到特定对象上面。因此，大可像下面这样，通过把函数定义转义到构造函数外来解决这个问题。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job) &#123;</div><div class="line">    this.name = name;</div><div class="line">    this.age = age;</div><div class="line">    this.job = job;</div><div class="line">    this.sayName = sayName;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function sayName() &#123;</div><div class="line">	alert(this.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var person1 = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">var person2 = new Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);</div></pre></td></tr></table></figure>
-<p><br>    在这个例子中，我们把sayName()函数的定义转移到了构造函数的外部。而在构造函数内部，我们将sayName属性设置成等于全局的sayName函数。这样一来，由于sayName包含的是一个指向函数的指针，因此person1和person2对象就共享了在全局作用域中定义的同一个sayName()函数。这样做确实解决了两个函数做同一件事的问题，可是新的问题又来了：在全局作用域中定义的函数实际上只能被某个对象调用，这让全局作用域有点名不副实。而更让人无法接受的是：如果对象需要定义很多方法，那么就要定义很多个全局函数，于是我们这个自定义的引用类型就丝毫没有封装性可言了。好在，这些问题可以通过使用原型模式来解决。<br></p>
-
-<h3 id="1-2-3-原型模式"><a href="#1-2-3-原型模式" class="headerlink" title="1.2.3 原型模式"></a>1.2.3 原型模式</h3><p><br>    我们创建的每个函数都有一个prototype(原型)属性，这个属性是一个指针，指向一个对象，而这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。如果按照字面意思来理解，那么prototype就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的好处是可以让所有对象实例共享它所包含的属性和方法。换句话来说，不必在构造函数中定义对象实例的信息，而是可以将这些信息直接添加到原型对象中，如下面的例子所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function Person() &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.name = &quot;Nicholas&quot;;</div><div class="line">Person.prototype.age = 29;</div><div class="line">Person.prototype.job = &quot;Software Engineer&quot;;</div><div class="line">Person.prototype.sayName = function() &#123;</div><div class="line">	alert(this.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var person1 = new Person();</div><div class="line">person1.sayName();    // &quot;Nicholas&quot;</div><div class="line"></div><div class="line">var person2 = new Person();</div><div class="line">person2.sayName();    // &quot;Nicholas&quot;</div><div class="line"></div><div class="line">alert(person1.sayName == person2.sayName);    // true</div></pre></td></tr></table></figure>
-<p><br>    在此，我们将sayName()方法和所有属性直接添加到了Person的prototype属性中。构造函数变成了空函数。即使如此，也仍然可以通过调用构造函数来创建新对象，而且新对象还会具有相同的属性和方法。但与构造函数模式不同的是，新对象的这些属性和方法是由所有实例共享的。换句话说，person1和person2访问的都是同一组属性和同一个sayName()函数。要理解原型模式的工作原理，必须先理解ECMAScript中原型对象的性质。<br></p>
-
-<h4 id="1-理解原型对象"><a href="#1-理解原型对象" class="headerlink" title="1.理解原型对象"></a>1.理解原型对象</h4><p><br>    无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个prototype属性，这个属性指向函数的原型对象。在默认情况下，所有原型对象都会自动获得一个constructor(构造函数)属性，这个属性包含一个指向prototype属性所在函数的指针。就拿前面的例子来说，Person.prototype.constructor指向Person。而通过这个构造函数，我们还可继续为原型对象添加其他属性和方法。<br></p>
-
-<p><br>    创建了自定义的构造函数之后，其原型对象默认只会取得constructor属性；至于其他方法，则都是从Object继承而来的。当调用构造函数创建一个新实例后，该实例的内部将包含一个指针(内部属性)，指向构造函数的原型对象。ECMA-262第5版中管这个指针叫[[Prototype]].虽然在脚本中没有标准的方式访问[[Prototype]],但Firefox、Safari和Chrome在每个对象上都支持一个属性<strong>proto</strong>;而在其他实现中，这个属性对脚本则是完全可见的。不过，要明确的真正重要的一点就是，这个连接存在于实例与构造函数的原型对象之间，而不是存在于实例与构造函数之间。<br></p>
-
-<p><br>    以前面使用Person构造函数和Person.prototype创建实例的代码为例，图1-1展示了各个对象之间的关系。<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/h-6-1.png"></p>
-<p><br>    图1-1展示了Person构造函数、Person的原型属性以及Person现有的两个实例之间的关系。在此，Person.prototype指向了原型对象，而Person.prototype.constructor又指回了Person。原型对象中除了包含constructor属性之外，还包括后来添加的其他属性。Person的每个实例——person1和person2都包含一个内部属性，该属性仅仅指向了Person.prototype；换句话说，它们与构造函数没有直接的关系。此外，要格外注意的是，虽然这两个实例都不包含属性和方法，但我们却可以调用person1.sayName()。这是通过查找对象属性的过程来实现的。<br></p>
-
-<p><br>    虽然在所有实现中都无法访问[[Prototype]],但可以通过isPrototypeOf()方法来确定对象之间是否存在这种关系。从本质上讲，如果[[Prototype]]指向调用isPrototypeOf()方法的对象(Person.prototype),那么这个方法就返回true，如下所示：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(Person.prototype.isPrototypeOf(person1));    // true</div><div class="line">alert(Person.prototype.isPrototypeOf(person2));    // true</div></pre></td></tr></table></figure>
-<p><br>    这里，我们用原型对象的isPrototypeOf()方法测试了person1和person2.因为它们内部都有一个指向Person.prototype的指针，因此都返回了true。<br></p>
-
-<p><br>    ECMAScript 5增加了一个新方法，叫Object.getPrototypeOf()，在所有支持的实现中，这个方法返回[[Prototype]]的值。例如：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(Object.getPrototypeOf(person1) == Person.prototype);    // true</div><div class="line">alert(Object.getPrototypeOf(person1).name);    // &quot;Nicholas&quot;</div></pre></td></tr></table></figure>
-<p><br>    这里的第一行代码只是确定Object.getPrototypeOf()返回的对象实际就是这个对象的原型。第二行代码取得了原型对象中name属性的值，也就是“Nicholas”。使用Object.getPrototypeOf()可以方便地取得一个对象的原型，而这在利用原型实现继承的情况下是非常重要的。支持这个方法的浏览器有IE 9+、Firefox 3.5+、Safari 5+、Opera 12+和Chrome。<br></p>
-
-<p><br>    每当代码读取某个对象的某个属性时，都会执行一次搜索，目标是具有给定名字的属性。搜索首先从对象实例本身开始。如果在实例中找到了具有给定名字的属性，则返回该属性的值；如果没有找到，则继续搜索指针指向的原型对象，在原型对象中查找具有给定名字的属性。如果在原型对象中找到了这个属性，则返回该属性的值。也就是说，在我们调用person1.sayName()的时候，会先后执行两次搜索。首先，解析器会问：“实例person1有sayName属性吗？”答：“没有”。然后，它继续搜索，再问：“person1的原型有sayName属性吗？”答：“有”。于是，它就读取那个保存在原型对象中的函数。当我们调用person2.sayName()时，将会重现相同的搜索过程，得到相同的结果，而这正是多个对象实例共享原型所包存的属性和方法的基本原理。<br></p>
-
-<blockquote>
-<p>前面提到过，原型最初只包含constructor属性，而该属性也是共享的，因此可以通过对象实例访问。</p>
-</blockquote>
-<p><br>    虽然可以通过对象实例访问保存在原型中的值，但却不能通过对象实例重写原型中的值。如果我们在实例中添加了一个属性，而该属性与实例原型中的一个属性同名，那我们就在实例中创建该属性，该属性将会屏蔽原型中的那个属性。来看下面的例子。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">function Person() &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.name = &quot;Nicholas&quot;;</div><div class="line">Person.prototype.age = 29;</div><div class="line">Person.prototype.job = &quot;Software Engineer&quot;;</div><div class="line">Person.prototype.sayName = function() &#123;</div><div class="line">	alert(this.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var person1 = new Person();</div><div class="line">var person2 = new Person();</div><div class="line"></div><div class="line">person1.name = &quot;Greg&quot;;</div><div class="line">alert(person1.name);    // &quot;Greg&quot;——来自实例</div><div class="line">alert(person2.name);    // &quot;Nicholas&quot;——来自原型</div></pre></td></tr></table></figure>
-<p><br>    在这里例子中，person1的name被一个新值给屏蔽了。但无论访问person1.name还是访问person2.name都能够正常地返回值，即分别是“Greg”(来自对象实例)和“Nicholas”(来自原型)。当在alert()中访问person1.name时，需要读取它的值，因此就会在这个实例上搜索一个名为name的属性。这个属性确实存在，于是就返回它的值而不必再搜索原型了。当以同样的方式访问person2.name时，并没有在实例上发现该属性，因此就会继续搜索原型，结果在那里找到了name属性。<br></p>
-
-<p><br>    当为对象实例添加一个属性时，这个属性就会屏蔽原型对象中保存的同名属性；换句话说，添加这个属性只会阻止我们访问原型中的那个属性，但不会修改那个属性。即使将这个属性设置为null，也只会在实例中设置这个属性，而不会恢复其指向原型的连接。不过，使用delete操作符则可以完全删除实例属性，从而让我们能够重新访问原型中的属性，如下所示。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function Person() &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.name = &quot;Nicholas&quot;;</div><div class="line">Person.prototype.age = 29;</div><div class="line">Person.prototype.job = &quot;Software Engineer&quot;;</div><div class="line">Person.prototype.sayName = function() &#123;</div><div class="line">	alert(this.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var person1 = new Person();</div><div class="line">var person2 = new Person();</div><div class="line"></div><div class="line">person1.name = &quot;Greg&quot;;</div><div class="line">alert(person1.name);    // &quot;Greg&quot;——来自实例</div><div class="line">alert(person2.name);    // &quot;Nicholas&quot;——来自原型</div><div class="line"></div><div class="line">delete person1.name;</div><div class="line">alert(person1.name);    // &quot;Nicholas&quot;——来自原型</div></pre></td></tr></table></figure>
-<p><br>    在这个修改后的例子中，我们使用delete操作符删除了person1.name，之前它保存的“Greg”值屏蔽了同名的原型属性。把它删除以后，就恢复了对原型中name属性的连接。因此，接下来再调用person1.name是，返回的就是原型中name属性的值了。<br></p>
-
-<p><br>    使用hasOwnProperty()方法可以检测一个属性是存在于实例中，还是存在于原型中。这个方法(不要忘了它是从Object继承来的)只在给定属性存在于实例中时，才会返回true。来看下面这个例子。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">function Person() &#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.name = &quot;Nicholas&quot;;</div><div class="line">Person.prototype.age = 29;</div><div class="line">Person.prototype.job = &quot;Software Engineer&quot;;</div><div class="line">Person.prototype.sayName = function() &#123;</div><div class="line">	alert(this.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var person1 = new Person();</div><div class="line">var person2 = new Person();</div><div class="line"></div><div class="line">alert(person1.hasOwnProperty(&quot;name&quot;));    // false</div><div class="line"></div><div class="line">person1.name = &quot;Greg&quot;;</div><div class="line">alert(person1.name);    // &quot;Greg&quot;——来自实例</div><div class="line">alert(person1.hasOwnProperty(&quot;name&quot;));    // true</div><div class="line"></div><div class="line">alert(person2.name);    // &quot;Nicholas&quot;——来自原型</div><div class="line">alert(person2.hasOwnProperty(&quot;name&quot;));    // false</div><div class="line"></div><div class="line">delete person1.name;</div><div class="line">alert(person1.name);    // &quot;Nicholas&quot;——来自原型</div><div class="line">alert(person1.hasOwnProperty(&quot;name&quot;));    // false</div></pre></td></tr></table></figure>
-<p><br>    通过使用hasOwnProperty()方法，什么时候访问的是实例属性，什么时候访问的是原型属性就一清二楚了。调用person1.hasOwnProperty(“name”)时，只有当person1重写name属性后才会返回true，因为只有这时候name才是一个实例属性，而非原型属性。图1-2展示了上面例子在不同情况下的实现与原型的关系(为了简单起见，图中省略了与Person构造函数的关系).<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/h-6-2.png"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2557,7 +2465,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -2612,7 +2520,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

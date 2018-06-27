@@ -2969,6 +2969,7 @@ pre .javascript .function {
 }
 .main {
   padding-bottom: initial;
+  background: url(../images/style/background.jpg);
 }
 .footer {
   bottom: auto;
