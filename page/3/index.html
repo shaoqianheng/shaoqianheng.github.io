@@ -326,8 +326,15 @@
       
         
           
-            <h3 id="1-1-计时器"><a href="#1-1-计时器" class="headerlink" title="1.1 计时器"></a>1.1 计时器</h3>
+          1.1 计时器
           
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/23/window对象（2）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -445,102 +452,15 @@
       
         
           
-            <h3 id="1-1-计时器"><a href="#1-1-计时器" class="headerlink" title="1.1 计时器"></a>1.1 计时器</h3><p><br>    setTimeout()和setInterval()可以用来注册在指定的时间之后单次或重复调用的函数。它们都是客户端JavaScript中重要的全局函数，所以定义为Window对象的方法，但作为通用函数，其实不会对窗口做什么事情。<br></p>
-
-<p><br>    Window对象的setTimeout()方法用来实现一个函数在指定的毫秒数之后运行。setTimeout()返回一个值，这个值可以传递给clearTimeout()用于取消这个函数的执行。<br></p>
-
-<p><br>    setInterval()和setTimeout()一样，只不过这个函数会在指定毫秒数的间隔里重复调用：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">setInterval(updateClock, 60000);	// 每60秒调用一次updateClock()</div></pre></td></tr></table></figure>
-<p><br>    和setTimeout()一样，setInterval()也返回一个值，这个值可以传递给clearInterval()，用于取消后续函数的调用。<br></p>
-
-<p><br>    例1-1定义的应用函数会在等待指定的时间之后，开始重复调用某个函数，然后又过了一段时间之后取消函数调用。该例子演示了setTimeout()、setInterval()和clearInterval()的用法。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">例1-1：定时器应用函数</div><div class="line">/*</div><div class="line">  安排函数f()在未来的调用模式在等待了若干毫秒</div><div class="line">  之后调用f()，如果设置了interval并没有设置end</div><div class="line">  参数，则对f()调用将不会停止，如果没有设置interval</div><div class="line">  和end，只在若干毫秒后调用f()一次，只有指定了</div><div class="line">  f(),才会从start=0的时刻开始。注意，调用invoke()</div><div class="line">  不会阻塞，它会立即返回。</div><div class="line">*/</div><div class="line">function invoke(f, start, interval, end) &#123;</div><div class="line">    if (!start) start = 0;	// 默认设置为0毫秒</div><div class="line">    if (arguments.length &lt;= 2)	// 单次调用模式</div><div class="line">        setTimeout(f, start);	// 若干毫秒后的单次调用模式</div><div class="line">    else &#123;		// 多次调用模式</div><div class="line">        setTimeout(repeat, start);	// 在若干毫秒后调用repeat()</div><div class="line">        function repeat () &#123;	// 在上一行所示的setTimeout()中调用</div><div class="line">            var h = setInterval(f, interval);	// 循环调用f()</div><div class="line">            // 在end毫秒后停止调用，前提是end已经定义了</div><div class="line">            if (end) setTimeout(function () &#123; clearInterval(h); &#125;, end);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><br>    由于历史原因，setTimeout()和setInterval()的第一个参数可以作为字符串传入。如果这么做，那这个字符串会在指定的超时时间或间隔时间之后进行求值(相当于执行eval())，除前两个参数之外，HTML5规范(除IE之外的所有浏览器)还允许setTimeout()和setInterval()传入额外的参数，并在调用函数时把这些参数传递过去，然而，如果需要支持IE的话，就不要应用此特性了。<br></p>
-
-<p><br>    如果以0毫秒的超时时间来调用setTimeout(),那么指定的函数不会立刻执行。相反，会把它放到队列中，等到前面处于等待状态的事件处理程序全部执行完成后，再“立即”调用它。<br></p>
-
-<h3 id="1-2-浏览器定位和导航"><a href="#1-2-浏览器定位和导航" class="headerlink" title="1.2 浏览器定位和导航"></a>1.2 浏览器定位和导航</h3><p><br>    Window对象的location属性引用的是Location对象，它表示该窗口中当前显示的文档的URL，并定义了方法来使窗口载入新的文档。<br></p>
-
-<p><br>    Document对象的location属性也引用到Location对象：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.location === document.location 	// 总是返回true</div></pre></td></tr></table></figure>
-<p><br>    Document对象也有一个URL属性，是文档首次载入后保存该文档的URL的静态字符串。如果定位到文档中的片段标识符(如#table-of-contents),Location对象会做相应的更新，而document.URL属性却不会改变。<br></p>
-
-<h3 id="1-2-1-解析URL"><a href="#1-2-1-解析URL" class="headerlink" title="1.2.1 解析URL"></a>1.2.1 解析URL</h3><p><br>    Window对象的location属性引用的是Location对象，它表示该窗口中当前显示的文档的URL。Location对象的href属性是一个字符串，后者包含URL的完整文本。Location对象的toString()方法返回href属性的值，因此在会隐式调用toString()的情况下，可以使用location代替location.href.<br></p>
-
-<p><br>    这个对象的其他属性——protocol，host，hostname，port，pathname和search，分别表示URL的各个部分。它们称为“URL分解”属性，同时被Link对象(通过HTML文档中的<a>和<area>元素创建)支持。<br></a></p>
-
-<p><br>    Location对象的hash和search属性比较有趣。如果有的话，hash属性返回URL中的“片段标识符”部分。search属性也类似，它返回的是问好之后的URL，这部分通常是某种类型的查询字符串。一般来说，这部分内容是用来参数化URL并在其中嵌入参数的。虽然这些参数通常用于运行在服务器上的脚本，但在启用JavaScript的页面中当然也可以使用它们。例1-2展示了一个通用函数urlArgs()的定义，可以用这个函数将参数从URL的search属性中提取出来。该例子用到了decodeURIComponent(),后者是在客户端JavaScript定义的全局函数。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">例1-2：提取URL的搜索字符串中的参数</div><div class="line">/*</div><div class="line">  这个函数用来解析来自URL的查询串中的name=value参数对</div><div class="line">  它将name=value对存储在一个对象的属性中，并返回该对象</div><div class="line">  这样来使用它</div><div class="line"></div><div class="line">  var args = urlArgs();	// 从URL中解析参数</div><div class="line">  var q = args.q || &quot;&quot;;	// 如果参数定义了的话就使用参数；否则使用一个默认值</div><div class="line">  var n = args.n ? parseInt(args.n) : 10;</div><div class="line">*/</div><div class="line">function urlArgs () &#123;</div><div class="line">    var args = &#123;&#125;;		// 定义一个空对象</div><div class="line">    var query = location.search.substring(1);	// 查找到查询串，并去掉&apos;?&apos;</div><div class="line">    var pairs = query.split(&apos;&amp;&apos;);	// 根据“&amp;”符号将查询字符串分隔开</div><div class="line">    for (var i = 0; i &lt; pairs.length; i++) &#123;	// 对于每个片段</div><div class="line">        var pos = pairs[i].indexOf(&apos;=&apos;);	// 查找“name=value”</div><div class="line">        if (pos === -1) continue;	// 如果没有找到的话，就跳过</div><div class="line">        var name = pairs[i].substring(0, pos);	// 提取name</div><div class="line">        var value = pairs[i].substring(pos + 1);	// 提取value</div><div class="line">        value = decodeURIComponent(value);	// 对value进行解码</div><div class="line">        args[name] = value;		// 存储为属性</div><div class="line">    &#125;</div><div class="line">    return args;	// 返回解析后的参数</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="1-2-2-载入新的文档"><a href="#1-2-2-载入新的文档" class="headerlink" title="1.2.2 载入新的文档"></a>1.2.2 载入新的文档</h3><p><br>    Location对象的assign()方法可以使窗口载入并显示你指定的URL中的文档。replace()方法也类似，但它在载入新文档之前会从浏览历史中把当前文档删除。如果脚本无条件地载入一个新文档，replace()方法可能是比assign()方法更好的选择。否则，“后退”按钮会把浏览器带回到原始文档，而相同的脚本则会再次载入新文档。如果检测到用户的浏览器不支持某些特性来显示功能齐全的版本，可以用location.replace()来载入动态的HTML版本。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// 如果浏览器不支持XMLHttpRequest对象</div><div class="line">// 则将其重定向到一个不需要Ajax的静态页面</div><div class="line">if (!XMLHttpRequest) location.replace(&apos;staticpage.html&apos;);</div></pre></td></tr></table></figure>
-<p><br>    注意，在这个例子中传入replace()的是一个相对URL。相对URL是相对于当前页面所在的目录来解析的，就像它们用于一个超链接中。<br></p>
-
-<p><br>    除了assign()和replace()方法，location对象还定义了reload()方法，后者可以让浏览器重新载入当前文档。<br></p>
-
-<p><br>    使浏览器跳转到新页面的一种更传统的方法是直接把新的URL赋给location属性：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">location = &quot;http://www.oreilly.com&quot;;</div></pre></td></tr></table></figure>
-<p><br>    还可以把相对URL赋给location，它们会相对当前URL进行解析：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">location = &quot;page2.html&quot;;	// 载入下一个页面</div></pre></td></tr></table></figure>
-<p><br>    纯粹的片段标识符是相对URL的一种类型，它不会让浏览器载入新文档，但只会使它滚动到文档的某个位置。#top标识符是个特殊的例子：如果文档中没有元素的ID是“top”，它会让浏览器跳到文档开始处。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">location = “#top”;	// 跳转到文档的顶部</div></pre></td></tr></table></figure>
-<p><br>    Location对象的URL分解属性是可写的，对它们重新赋值会改变URL的位置，并且导致浏览器载入一个新的文档(如果改变的是hash属性，则在当前文档中进行跳转)：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">location.search = &quot;?page=&quot; + (pagenum + 1);	// 载入下一个页面</div></pre></td></tr></table></figure>
-<h3 id="1-3-浏览历史"><a href="#1-3-浏览历史" class="headerlink" title="1.3 浏览历史"></a>1.3 浏览历史</h3><p><br>    Window对象的history属性引用的是该窗口的History对象。History对象是用来把窗口的浏览历史用文档和文档状态列表的形式表示。History对象的length属性表示浏览历史列表中的元素数量，但出于安全的因素，脚本不能访问已保存的URL。(如果允许，则任意脚本都可以窥探你的浏览历史.)<br></p>
-
-<p><br>    History对象的back()和forward()方法与浏览器的“后退”和“前进”按钮一样：它们使浏览器在浏览历史中前后跳转一格。第三个方法——go()接受一个整数参数，可以在历史列表中向前(正参数)或向后(负参数)跳过任意多个页。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">history.go(-2);	// 后退两个历史记录，相当于单击“后退”按钮两次</div></pre></td></tr></table></figure>
-<p><br>    如果窗口包含多个子窗口(比如iframe元素)，子窗口的浏览历史会按时间顺序穿插在主窗口的历史中。这意味着在主窗口调用history.back()(举例)可能会导致其中一个子窗口往回跳转到前一个显示的文档，但主窗口保留当前状态不变。<br></p>
-
-<p><br>    现代Web应用可以不通过载入新文档而动态地改变自身内容。这么做可能希望用户能用“后退”和“前进”按钮在这些动态创建的应用状态之间进行跳转。HTML5将这种技术标准化。<br></p>
-
-<p><br>    HTML5之前的历史管理是个更复杂的难题。应用程序必须要在窗口浏览历史中创建一个新的条目来管理自身的历史记录，用历史条目关联自身的状态信息，判断什么时候用户使用了“后退”按钮来移动到不同的历史条目，联合那个条目获取状态信息，并且重新创建应用程序之前的状态。一种方式是用隐藏的iframe来保存状态信息并在浏览器的历史中创建条目。为了创建新的历史条目，需要用Document对象的open()和write()方法动态地把一个新文档写入这个隐藏的窗体。不管怎样，文档内容应该包含重新创建应用状态所需要的状态信息。当用户点击“后退”按钮，隐藏的窗体的内容会改变。在HTML5之前，没有生成事件来通知你这个改变，因此，为了检测用户是否单击了“后退”按钮，可能要用setInterval()每秒对隐藏的窗体检测两到三次，来看它是否改变了。<br></p>
-
-<h3 id="用HTML5进行历史管理"><a href="#用HTML5进行历史管理" class="headerlink" title="用HTML5进行历史管理"></a>用HTML5进行历史管理</h3><p><br>    Web浏览器会记录一个窗口中载入的所有文档，同时提供了“后退”和“前进”按钮，允许用户在这些文档之间切换浏览。这种浏览器历史记录模型最早在“文档都是被动的，所有的计算都在服务器上完成”那个时期就已经存在了。如今，Web应用通常都是动态地生成或载入页面内容，并在无须刷新页面的情况下就显示新的应用状态。如果想要提供用户能够通过浏览器的“后退”和“前进”按钮，直观的切换应用状态，像这类应用就必须自己处理应用的历史记录管理。HTML5定义了两种用于历史记录管理的机制。<br></p>
-
-<p><br>    其中比较简单的历史记录管理技术就是利用location.hash和hashchange事件。截至撰写本书时，这种技术一直也是比较广泛实现的：浏览器甚至在HTML5标准化之前就已经开始实现该技术了。在绝大多数浏览器中(IE早期版本除外)，设置location.hash属性会更新显示在地址栏中的URL，同时会在浏览器的历史记录中添加一条记录。hash属性设置URL的片段标识符，通常用于指定要滚动到的文档中某一部分的ID。但是location.hash不一定非要设置为一个元素的ID：它可以设置成任何的字符串。如果能够将应用状态编码成一个字符串，就可以使用该字符串作为片段标识符。<br></p>
-
-<p><br>    设置了location.hash属性后，接下来要实现允许用户通过“后退”和“前进”按钮来切换不同的文档状态。这个时候，应用必须要想办法检测状态变化，以便它能够读取出存储在片段标识符中的状态并相应地更新自己的状态。支持HTML5的浏览器一旦发现片段标识符发生了改变，就会在Window对象上触发一个hashchange事件。这样，在支持hashchange事件的浏览器中，就可以通过设置window.onhashchange为一个处理程序函数，使得每次由于切换历史记录导致片段标识符变化的时候，都会调用该处理程序函数。当调用该处理程序函数的时候，就可以对location.hash的值进行解析，然后使用该值包含的状态信息来重新显示应用。<br></p>
-
-<p><br>    HTML5还定义了一个相对更复杂和强健的历史记录管理方法，该方法包含history。pushState()方法和popstate事件。当一个Web应用进入一个新的状态的时候，它会调用history.pushState()方法将该状态添加到浏览器的浏览历史记录中。该方法的第一个参数是一个对象，该对象包含用于恢复当前文档状态所需的所有信息。该对象可以是任何能够通过JSON.stringify()方法转换成相应字符串形式的对象，也可以是其他类似Date和RegExp这样特定的本地类型。该方法的第二个可选参数是一个可选的标题(普通的文本字符串)，浏览器可以使用它(比如，在一个<back>菜单中)来标识浏览历史记录中保存的状态。该方法的第三个参数是一个可选的URL，表示当前状态的位置。相对的URL都是以文档的当前位置为参照，通常该URL只是简单地指定URL(诸如#state)这样的hash(或者“片段标识符”)部分。将一个URL和状态关联，可以允许用户将应用的内部状态作为书签添加到浏览器中，并当URL中包含足够信息的时候，应用可以在从书签中载入的时候就恢复它的状态。<br></back></p>
-
-<p><br>    除了pushState()方法之外，History对象还定义了replaceState()方法，该方法和pushState()方法接收同样的参数，但是不同的是，它不是将新的状态添加到浏览器的历史记录中，而是用新的状态代替当前的历史状态。<br></p>
-
-<p><br>    当用户通过“后退”和“前进”按钮浏览保存的历史状态时，浏览器会在Window对象上触发一个popstate事件。与该事件相关联的事件对象有一个state属性，该属性包含传递给pushState()方法的状态对象的副本(另一种结构性复制)。<br></p>
-
-<blockquote>
-<p>结构性复制：正如上面提到的，pushState()方法接受一个状态对象并为该对象创建一份私有副本。这是对一个对象进行深拷贝或者深复制：它会递归地复制所有嵌套对象或者数组的内容。HTML5标准将这类复制称为“结构性复制”(structured clone)。创建一个结构性复制的过程就好比是将一个对象传递给JSON.stringify()方法，然后再将结果字符串传递给JSON.parse()方法。但是JSON只支持JavaScript的基础类型和对象以及数组。在HTML5标准中提到，结构性复制算法必须还能够复制Date对象、RegExp对象、ImageData对象、FileList对象、File对象以及Blob对象。但是在结构性复制算法中会显式排除JavaScript中的函数和错误以及绝大部分诸如窗口、文档、元素等这类宿主对象。</p>
-</blockquote>
-<h3 id="1-4-浏览器和屏幕信息"><a href="#1-4-浏览器和屏幕信息" class="headerlink" title="1.4 浏览器和屏幕信息"></a>1.4 浏览器和屏幕信息</h3><blockquote>
-<p>脚本有时候需要获取和它们所在的Web浏览器或浏览器所在的桌面相关信息。将要介绍Window对象的navigator和screen属性。它们分别引用的是Navigator和Screen对象，而这些对象提供的信息允许脚本来根据环境定制自己的行为。</p>
-</blockquote>
-<h3 id="1-4-1-Navigator对象"><a href="#1-4-1-Navigator对象" class="headerlink" title="1.4.1 Navigator对象"></a>1.4.1 Navigator对象</h3><p><br>    Window对象的navigator属性引用的是包含浏览器厂商和版本信息的Navigator对象。Navigator对象的命名是为了纪念Netscape之后Navigator浏览器，不过所有其他的浏览器也支持它(IE还支持clientInformation属性，它作为navigator的厂商中立同义词。遗憾的是，其他浏览器并不支持这一更直观的属性命名)。<br></p>
-
-<p><br>    过去，Navigator对象通常被脚本用来确定它们是在IE中还是在Netscape中运行。这种浏览器嗅探方法有问题，因为它要求随着新浏览器和现有浏览器的新版本的引入而不断地调整。如今，有一种更好的功能测试方法，只需要测试所需要的功能(即，方法或属性)，而不是假设特定的浏览器版本及其功能。<br></p>
-
-<p><br>    然而，浏览器嗅探有时候仍然有价值。这样的一种情况是，当需要解决存在于某个特定的浏览器的特定版本中的特殊的bug时。Navigator对象有4个属性用于提供关于运行中的浏览器的版本信息，并且可以使用这些属性进行浏览器嗅探。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">appName</div><div class="line">    Web浏览器的全称。在IE中，这就是“Microsoft Internet Explorer”。在Firefox中，该属性就是“Netscape”。为了兼容现存的浏览器的嗅探代码，其他浏览器通常也取值为“Netscape”。</div><div class="line"></div><div class="line">appVersion</div><div class="line">    此属性通常以数字开始，并跟着包含浏览器厂商和版本信息的详细字符串。字符串前面的数字通常是4.0或5.0，表示它是第4或第5代兼容的浏览器。appVersion字符串没有标准的格式，所以，没有办法直接用它来判断浏览器的类型。</div><div class="line"></div><div class="line">userAgent</div><div class="line">    浏览器在它的USER-AGENT HTTP头部中发送的字符串。这个属性通常包含appVersion中的所有信息，并且常常也可能包含其他的细节。和appVersion一样，它也没有标准的格式。由于这个属性包含绝大部分信息，因此浏览器嗅探代码通常用它来嗅探。</div><div class="line"></div><div class="line">platform</div><div class="line">    在其上运行浏览器的操作系统(并且可能是硬件)的字符串。</div></pre></td></tr></table></figure>
-<p><br>    Navigator属性的复杂性正说明了浏览器嗅探对于处理客户端兼容性问题是没有太大帮助的。在Web的早期，人们写了大量的浏览器特定代码用于测试类似于navigator.appName的属性。在开发新浏览器的时候，浏览器厂商发现为了让现有网站显示正确，它们需要把appName设置为“Netscape”。类似的做法使得appVersion的起始数字失去了意义，而现在的浏览器嗅探代码必须要依赖于比之前复杂很多的navigator.userAgent字符串。例1-3展示了如何使用正则表达式(摘自jQuery)从navigator.userAgent中抽取浏览器名称和版本号的方法。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">例1-3：使用navigator.userAgent来进行浏览器嗅探</div><div class="line">// 为客户端嗅探定义browser.name和browser.version,这里使用了jQuery1.4.1中的代码</div><div class="line">// name和number都是字符串，对于不同的浏览器输出的结果也是不一样的，检测结果如下：</div><div class="line">//</div><div class="line">// &quot;webkit&quot;：Safari或Chrome;版本号是Webkit的版本号</div><div class="line">// &quot;opera&quot;：Opera;版本号就是软件的版本号</div><div class="line">// &quot;mozilla&quot;：Firefox或者其他基于gecko内核的浏览器;版本号是Gecko的版本</div><div class="line">// &quot;msie&quot;：IE;版本号就是软件的版本</div><div class="line">//</div><div class="line">// 比如Firefox 3.6返回：&#123; name：“mozilla”，version：“1.9.2” &#125;</div><div class="line">var browser = (function() &#123;</div><div class="line">    var s = navigator.userAgent.toLowerCase();</div><div class="line">    var match = /(webkit)[\/]([\w.]+)/.exec(s) ||</div><div class="line">	    /(opera)(?:.*version)?[\/]([\w.]+)/.exec(s) ||</div><div class="line">	    /(mise)([\w.]+)/.exec(s) ||</div><div class="line">	    !/compatible/.test(s) &amp;&amp; /(mozilla)(?:.*? rv:([\w.]+))?/.exec(s) ||</div><div class="line">	    [];</div><div class="line"></div><div class="line">    return &#123; name: match[1] || &quot;&quot;, version: match[2] || &quot;0&quot; &#125;;</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
-<p><br>    除了浏览器厂商和版本信息的属性之外，Navigator对象还包含一些杂项的属性和方法。以下是一些标准化的属性以及广泛应用但未标准化的属性：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">onLine</div><div class="line">    navigator.onLine属性(如果存在的话)表示浏览器当前是否连接到网络。应用程序可能希望在离线状态下把状态保存在本地。</div><div class="line"></div><div class="line">geolocation</div><div class="line">    Geolocation对象定义用于确定用户地理位置信息的接口。</div><div class="line"></div><div class="line">javaEnabled()</div><div class="line">    一个非标准的方法，当浏览器可以运行Java小程序时返回true。</div><div class="line">    </div><div class="line">cookieEnable()</div><div class="line">    非标准的方法，如果浏览器可以保存永久的cookie时，返回true。当cookie配置为“视具体情况而定”时可能会返回不正确的值。</div></pre></td></tr></table></figure>
-<h3 id="1-4-2-Screen对象"><a href="#1-4-2-Screen对象" class="headerlink" title="1.4.2 Screen对象"></a>1.4.2 Screen对象</h3><p><br>    Window对象的screen属性引用的是Screen对象。它提供有关窗口显示的大小和可用的颜色数量的信息。属性width和height指定的是以像素为单位的窗口大小。属性availWidth和availHeight指定的实际可用的显示大小，它们排除了像桌面任务栏这样的特性所占用的空间。属性colorDepth指定的是显示BPP(bits-per-pixel)值,典型的值有16、24和32.<br></p>
-
-<p><br>    window.screen属性和它引用的Screen对象都是非标准但广泛实现的。可以用Screen对象来确定Web应用是否运行在一个小屏幕的设备上，比如上网本。如果屏幕空间有限，可能要选择用更小的字体和图片等。<br></p>
-
-          
+          1.1 计时器    setTimeout()和setInterval()可以用来注册在指定的时间之后单次或重复调用的函数。它们都是客户端JavaScript中重要的全局函数，所以定义为Window对
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/21/window对象/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -658,62 +578,17 @@
       
         
           
-            <h3 id="浮动"><a href="#浮动" class="headerlink" title="浮动"></a>浮动</h3><p><br>    最后一种定位模型是浮动模型。浮动的框可以左右移动，直到它的外边缘碰到包含框或另一个浮动框的边缘。因为浮动框不在文档的普通流中，<br></p>
+          浮动    最后一种定位模型是浮动模型。浮动的框可以左右移动，直到它的外边缘碰到包含框或另一个浮动框的边缘。因为浮动框不在文档的普通流中，
 
-<p><br>    如图1-13所示，当把框1向右浮动时，它脱离文档流并且向右移动，直到它的右边缘碰到包含框的右边缘。<br></p>
-
-<p><br>    在图1-14中，当把框1向左浮动时，它脱离文档流并且向左移动，直到它的左边缘碰到包含框的左边缘。因为它不再处于文档流中，所以它不占据空间，实际上覆盖住了框2，使框2从视图中消失。如果把3个框都向左浮动，那么框1向左浮动直到碰到包含框，另外两个框向左浮动直到碰到前一个浮动框。<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-13.png"></p>
-<div style="text-align: center;">图1-13 向右浮动的元素</div>
-
-<p><img src="https://shaoqianheng.github.io/images/1-14.png"></p>
-<div style="text-align: center;">图1-14 向左浮动的元素</div>
-
-<p><br>    如果包含块太窄，无法容纳水平排列的3个浮动元素，那么其他浮动块向下移动，直到有足够空间的地方（见图1-15）.如果浮动元素的高度不同，那么当它们向下移动时可能会被其他浮动元素“卡住”。<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-15.png"></p>
-<div style="text-align: center;">图1-15 如果没有足够的水平空间，浮动元素将向下移动，直到有足够空间的地方</div>
-
-<h3 id="行框和清理"><a href="#行框和清理" class="headerlink" title="行框和清理"></a>行框和清理</h3><p><br>    前一节指出，浮动会让元素脱离文档流，不再影响不浮动的元素。实际上，并不完全如此。如果浮动的元素后面有一个文档流中的元素，那么这个元素的框会表现得像浮动根本不存在一样。但是，框的文本内容会受到浮动元素的影响，会移动以留出空间。用技术术语来说，浮动元素旁边的行框被缩短，从而给浮动元素留出空间，因此行框围绕浮动框。实际上，创建浮动框使文本可以围绕图像（1-16）.<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-16.png"></p>
-<div style="text-align: center;">图1-16 浮动框旁边的行框被缩短</div>
-
-<p><br>    要想阻止行框围绕在浮动框的外边，需要对包含这些行框的元素应用clear属性。clear属性的值可以是left、right、both或none，它表示框的那些边不应该挨着浮动框。我以前总是认为clear属性会自动地抵消前面的浮动。但是，实际情况有意思很多。在清理元素时，浏览器在元素顶上添加足够的外边距，使元素的顶边缘垂直下降到浮动框下面（见图1-17）.<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-17.png"></p>
-<div style="text-align: center;">图1-17 清理元素的顶外边距，为前一个浮动框留出足够的垂直空间</div>
-
-<p><br>    浮动元素脱离了文档流，不影响周围的元素。但是，对元素进行清理实际上为前面的浮动元素留出了垂直空间。<br></p>
-
-<p><br>    这是一个有用的布局工具，它让周围的元素为浮动元素留出空间。这解决了前面你看到的绝对定位的问题——垂直高度的改变不影响周围的元素，从而破坏了设计。<br></p>
-
-<p><br>    我们来更详细地看看浮动和清理。假设有一个图片，你希望让它浮动到一个文本块的左边。你想将这个图片和文本包含在另一个具有背景颜色和边框的元素中。你可能会编写下面这样的代码：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">.news &#123;</div><div class="line">    background-color: gray;</div><div class="line">    border: solid 1px black;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.news img &#123;</div><div class="line">    float: left;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.news p &#123;</div><div class="line">    float: right;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&lt;div class=&quot;news&quot;&gt;</div><div class="line">    &lt;img src=&quot;/img/news-pic.jpg&quot; alt=&quot;my pic&quot; /&gt;</div><div class="line">    &lt;p&gt;Some text&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p><br>    但是，因为浮动元素脱离了文档流，所以包围图片和文本的div不占据空间。如何让包围元素在视觉上包围浮动元素呢？需要在这个元素中的某个地方应用clear（见图1-18）.可惜这个示例中没有现有的元素可以清理，所以需要在最后一个段落下面添加一个空元素并且清理它。<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-18.png"></p>
-<div style="text-align: center;">图1-18 因为浮动元素不占据空间，所以容器元素不包围它们。添加一个进行清理的空元素可以迫使容器元素包围浮动元素</div>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">.news &#123;</div><div class="line">    background-color: gray;</div><div class="line">    border: solid 1px black;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.news img &#123;</div><div class="line">    float: left;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.news p &#123;</div><div class="line">    float: right;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.clear &#123;</div><div class="line">    clear: both;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&lt;div class=&quot;news&quot;&gt;</div><div class="line">    &lt;img src=&quot;/img/news-pic.jpg&quot; alt=&quot;my pic&quot; /&gt;</div><div class="line">    &lt;p&gt;Some text&lt;/p&gt;</div><div class="line">    &lt;br class=&quot;clear&quot; /&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p><br>    这会实现我们希望的效果，但是要添加不必要的代码。常常有现成的元素可以应用clear，但是有时候不得不忍受巨大通过布局添加无意义的标记。<br></p>
-
-<p><br>    还可以不对浮动的文本和图像进行清理，而是选择浮动容器div：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">.news &#123;</div><div class="line">    background-color: gray;</div><div class="line">    border: solid 1px black;</div><div class="line">    float: left;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.news img &#123;</div><div class="line">    float: left;</div><div class="line">&#125;</div><div class="line"></div><div class="line">.news p &#123;</div><div class="line">    float: right;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&lt;div class=&quot;news&quot;&gt;</div><div class="line">    &lt;img src=&quot;/img/news-pic.jpg&quot; alt=&quot;my pic&quot; /&gt;</div><div class="line">    &lt;p&gt;Some text&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p><br>    这也会产生我们想要的结果。但是，下一个元素会受到这个浮动元素的影响。为了解决这个问题，有些人选择浮动布局中的几乎所有东西，然后使用合适的元素（常常是站点的页脚）对这些浮动元素进行清理。这有助于减少或消除不必要的标记。但是，浮动会变得复杂，而且一些老式浏览器在处理有许多浮动元素的布局时有困难。因此，许多人喜欢添加少量的额外标记。<br></p>
-
-<p><br>    overflow属性定义在包含的内容对于指定的尺寸太大的情况下元素应该怎么样。在默认情况下，内容会溢出到框外，进入相邻的空间。应用值为hidden或auto的overflow属性有一个有用的副作用，这会自动地清理包含的任何浮动元素。因此这是一种有用的元素清理方法，不需要添加额外的标记。这个方法并不适合所有情况，因为设置框的overflow属性会影响它的表现。更具体地说，这种方法在某些情况下会产生滚动条或截断内容。<br></p>
-
-<p><br>    然后，一些人使用CSS生成的内容或JavaScript对浮动元素进行清理。这两种方法的基本概念是相同的，并不直接向标记中添加进行清理的元素，而是将它动态添加到页面中。对于这两种方法，需要指定进行清理的元素应该出现在哪里，而且常常需要添加一个类名：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;news clear&quot;&gt;</div><div class="line">    &lt;img src=&quot;/img/news-pic.jpg&quot; alt=&quot;my pic&quot; /&gt;</div><div class="line">    &lt;p&gt;Some text&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p><br>    在使用CSS方法时，结合使用:after伪类和内容声明在指定的现有内容的末尾添加新的内容。在这个示例中，我添加了一个点，因为它是个非常小的不引人注意的字符。因为不希望新内容占据垂直空间或者在页面上显示，所以需要将height设置为0，将visibility设置为hidden。因为被清理的元素在它们的顶外边距上添加了空间，所以生成的内容需要将它的display属性设置为block。这样设置之后，就可以对生成的内容进行清理：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.clear:after &#123;</div><div class="line">    content: &quot;.&quot;;</div><div class="line">    height: 0;</div><div class="line">    visibility: hidden;</div><div class="line">    display: block;</div><div class="line">    clear: both;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          
+    如图1-13所示，当把框1向右浮动时，它脱离文档流
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/20/浮动概述/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -831,86 +706,15 @@
       
         
           
-            <h3 id="八、余力学文"><a href="#八、余力学文" class="headerlink" title="八、余力学文"></a>八、余力学文</h3><p><br>    【解】《弟子规》一共讲了七个方面内容，前六个方面讲孝、悌、谨、信、泛爱众、亲仁，这些都是让我们努力去落实而提升自己修养品德的，是讲力行这方面，而学文就是要学习圣贤经典，通过学习能帮助我们力行，这样力行就有了正确的方向，所以学问很重要，文不可不学。文化文化，就是要用文来化我们，学文的目的就是化自己，变化自己的气质，把文化到自己的一举手一投足，化到点点滴滴的生活中去。所以学文和力行是相辅相成、我们学到了圣贤教育，帮助指导我们去生活、工作、处事、待人、接物，这是在力行；真正力行了，对于圣贤的教诲，就会有新的悟处，就会有更深入的体验。力行是行门，学文是解门，解行要并重。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">不力行 &emsp;但学文 &emsp;涨浮华 &emsp;成何人</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不能身体力行孝、悌、谨、信、泛爱众、亲仁这些本分，一味死读书，纵然有些知识，也只是增长自己浮华不实的习气，怎能成为一个真正有用的人呢？如此读书又有何用？<br></p>
-
-<p><br>    受教育的目的首先在“做人”，做一个有道德的人。古人读书是志在圣贤，而现在人读书是志在赚钱。很多家长和老师只注重孩子的成绩分数，不注重品行教育，结果小孩越学就越傲慢。讲得头头是道，自己没做到，这样就变成伪君子了，因此品德的提升比什么都重要。孩子学能力的真正目的是什么？为什么要学本事？这个要谨慎于开始！做家长和老师的一定要有正确的引导观念才行。现代社会受西方文化的影响，教育只是传授知识技能的手段，没有道德的指导，科技知识极有可能被滥用而贻害人类。对个人而言，有才无德会给自己和他人带来极大的痛苦，这是有目共睹的事实。所以，当务之急是努力恢复中国传统伦理道德教育，使每一个人都明白先做人、后做事的道理。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">但力行 &emsp;不学文 &emsp;任己见 &emsp;昧理真</p>
-
-<p style="margin-bottom: 0;"><br>    【解】如果只是一味地做，而不去学习圣贤教诲，那就会变得自以为是，执着自己的见解，违背了真理，这也是不对的。<br></p>
-
-<p><br>    人的学问，随着你阅历的丰富、人生的历练，应该要相对提升才对。如果你裹足不前，觉得自己已经学得不错了，任凭自己的想法来做一切事情，就很可能会做出许多不合义理之事。所以有空闲时要不忘展开圣贤的典籍，从圣贤的典籍中反观自照，找出内心与圣贤的差距，随顺圣贤的教诲，依教奉行。通过不断地学习，当我们把圣贤之道真正领会了，把圣贤的教诲转化成自己对世界的认识、体悟，转变成自己处理事情的方法，当我们真正有了这样的智慧之后，在生活中出现什么问题都可以得心应手、左右逢源，什么问题都可以解决，这样我们的人生旅途就会愈来愈幸福。这是提醒、勉励所有的人，读书要有恒心。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">读书法 &emsp;有三到 &emsp;心眼口 &emsp;信皆要</p>
-
-<p style="margin-bottom: 0;"><br>    【解】读书的方法要注重三到：眼到、口到、心到。读书要专注，专注才能够深入领会文章的意思，如此方能收到事半功倍的效果。<br></p>
-
-<p><br>    有很多孩子每天读到三更半夜，可是考出来的成绩却非常差，原因就是不懂得读书的要领。读书最重要的还是在于心，如果眼睛在看，口也在读，但是心没有专注在课业上，想着其他的事情，也是白看白读。所以古人从小培养孩子的专注力，就是让他背书，这样精神就集中。现在的孩子经常看电视、玩电脑、打游戏，精神不专注，书怎么能读得好呢？<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">方读此 &emsp;勿慕彼 &emsp;此未终 &emsp;彼勿起 </p>
-
-<p style="margin-bottom: 0;"><br>    【解】研究学问要专一、专精才能深入，不能这本书才开始读没多久，又想看其他的书，或是这段还未读完、读通，就又想读另一段，这样永远也定不下心来。学东西不能一知半解，要精益求精。<br></p>
-
-<p><br>    读书重要是在掌握纲领、真正落实，最忌贪多、贪快。你太躁进，心很浮动，跟学问就不相应。学东西、求学问甚至于世间的技能都要专而不能杂。现在很多家长让孩子一学就是三、四种才艺，不见得多就一定好。所谓“样样通样样松”，因为多就会乱，杂了就学不扎实，到最后哪一样也没有学精，甚至孩子还会产生厌学的心理。所以，我们做家长的确确实实要给孩子正确的知道。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">宽为限 &emsp;紧用功 &emsp;工夫到 &emsp;滞塞通</p>
-
-<p style="margin-bottom: 0;"><br>    【解】在定读书计划的时候，不妨宽松一些，这样心里没有压力，但是工夫要用的紧，每天都要努力，不可以懈怠偷懒。日积月累功夫深了，原先窒碍不通、困顿疑惑之处，自然而然就都迎刃而解了。<br></p>
-
-<p><br>    现在一般孩子读书是为了应付考试，平时不认真学习，不知今日事今日毕，问题累积下来，到临近考试时才开始知道用功，这样就非常被动了。所以读书要有计划，要会规划安排好时间，每天按计划好的内容一定完成，这样才有真正的受用。如果父母能给孩子树立好榜样，每天把家事做完以后就看书而不是看电视，这样孩子从小自然就能养成喜欢看书学习的好习惯了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">心有疑 &emsp;随札记 &emsp;就人问 &emsp;求确义</p>
-
-<p style="margin-bottom: 0;"><br>    【解】求学当中，心里有疑问，要马上把问题记录下来，一有机会就向良师益友请教，务必确实明白它的真义，一定要得到正确的答案才可通过，这是认真学习的态度。<br></p>
-
-<p><br>    知识是学来的，也是问来的，只有在学中问，在问中学，并与观察思考结合起来，才能求得真知。我们从小就要养成勤学好问的习惯，有了问题，随时随地请教别人。只要他确实能给你启发、给你帮助，不管年长年幼、地位高低，都可以成为你的老师，古人所说的“能者为师”就是这个道理。但是，最主要还是靠自己先去探究，实在没有办法的时候，再请问别人，这样印象才会更深刻。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">房室清 &emsp;墙壁净 &emsp;几案洁 &emsp;笔砚正</p>
-
-<p style="margin-bottom: 0;"><br>    【解】书房、卧室都要保持清洁、干净，墙壁也要干净，给自己创造一个良好的读书环境。桌面上笔墨纸砚等文具要防止整齐，不得凌乱。触目所及皆是井井有条，这样才能静下心来读书。<br></p>
-
-<p><br>    现在孩子会自己整理房间书桌的非常少，几乎都是父母替他们整理。家长认为只要你学习好，什么都不用你管。这样就造成了孩子的生活自理能力非常差，从而给他以后的家庭、事业、人际关系带来许多的障碍。如果孩子是在这种教育理念下长大成人、结婚生子，婚后夫妻经常会因为家务活谁都不想承担、生活习惯不好而真吵不断，甚至结婚每两年就闹离婚。究其原因，都是家长从小舍不得让孩子学习做家事，不教他们自理，一味地照顾、迁就，最终使孩子养成了懒惰与不知感恩的心理。所以有远见的父母，一定从小就要有意识地锻炼孩子这些基本的生活能力，自己的事必须自己做，以便他们长大后能从容地面对各种挑战。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">墨磨偏 &emsp;心不端 &emsp;字不敬 &emsp;心先病</p>
-
-<p style="margin-bottom: 0;"><br>    【解】古人写字使用毛笔，写字前先要磨墨，如果心不在焉，墨就会磨偏了。写出来的字如果歪歪斜斜，就表示你浮躁不安，心定不下来。<br></p>
-
-<p><br>    汉字是传承我们中华文明的重要载体，是我华夏子孙传古颂今的宝贵财富。古人说：“意在笔先，心正则笔正”字如其人，一个人写字不认真，把字写得乱七八糟、歪七扭八，证明他的心没有专注在这个字上。这一笔写到哪里，到哪里该停，到哪里该顿，心里也没个底。同时也反映出他办事不认真、没规矩、心情浮躁。所以一定要把字写好，这样不仅继承发扬了民族的精华，还能培养自己认真严谨的作风。这些都是从我们平常的行为造作当中，看到自己的心态。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">列典籍 &emsp;有定处 &emsp;读看毕 &emsp;还原处</p>
-
-<p style="margin-bottom: 0;"><br>    【解】书籍课本应分类，排列整齐，放在固定的位置，读诵完毕须归还原处。<br></p>
-
-<p><br>    “动物归原”，这也是一个必不可少的良好习惯。无论我们用了什么东西，用完之后，要记得随手放回原位，这样不论是下次使用还是别人使用，都知道去哪里找，节省时间，提高效率。这样做事情便会有始有终，有条不紊。做父母的要做出很好的榜样来教导自己的小孩，自己看哪一本，桌上就放哪一本，不看的我们要放回原位，整整齐齐，恭恭敬敬，下一次要看时很快就可以找到。同时也要教导孩子，书要怎么排列比较整齐、好看、好拿，这才是治学的态度。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">虽有急 &emsp;卷束齐 &emsp;有缺坏 &emsp;就补之</p>
-
-<p style="margin-bottom: 0;"><br>    【解】即使在有急事的时候，看完书也要把它顺手和尚，放回书架原处，要养成这种良好的习惯。遇到书本有残缺损坏时，应立刻修补好，保持完整，这是对书的恭敬、爱护。（古人一书难求，故有修补之举。）<br></p>
-
-<p><br>    虽然今天得到书比古代容易多了，但是我们也要存着恭敬之心来爱惜这些书籍。在翻阅的时候要轻轻地翻，不要很粗鲁，以免折坏，也不要随便在书里乱画，把课本图的脏兮兮的，从小就要建立起爱护书籍的观念。如果你处处都能仔细小心，无形中就培养了你做事井井有条、少出差错、稳重安详的能力，这都是平时练出来的功夫。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">非圣书 &emsp;屏勿视 &emsp;蔽聪明 &emsp;坏心志</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不是传述圣贤道理言行的书籍以及有害身心健康的不良书刊，都应该摒弃不看。因为书里面不正当的事理会蒙蔽我们的聪明智慧，会败坏我们纯正的志向，使我们的身心受到污染，心志变得不健康。<br></p>
-
-<p><br>    当今社会是信息社会，但并不是信息知道的越多就越聪明、人生就越幸福，现在不健康的电脑网络内容画面、电影电视节目以及叫我们杀盗淫妄的小说、故事、报章杂志等一些不良的出版物，污染特别严重，要防止自己受到污染，更要防止孩子受到污染。所以身为父母，一定要经常查看你的子女是否在接触这些不健康的内容，因为这些对孩子的身心伤害的确是非常之大。不必要的信息要尽量摒弃，专心于自己应做之事，才能心情宁静。因此，孔子说：“非礼勿视，非礼勿听，非礼勿言，非礼勿动”是非常科学的。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">勿自暴 &emsp;勿自弃 &emsp;圣与贤 &emsp;可驯致</p>
-
-<p style="margin-bottom: 0;"><br>    【解】遇到困难或挫折时，不要自暴自弃，也不必愤世嫉俗，看什么都不顺眼，而应该发奋向上，努力学习，不怕挫折，把失败当做成功之母，任何美好的结局都要经过艰辛的努力才能得到。圣贤的境界虽高，循序渐进也是可以达到的。（孟子曰：“舜何人也，予何人也，有为者亦若是！”）<br></p>
-
-<p style="margin-bottom: 0;"><br>    人对自己要有信心，所谓“天生我材必有用”。人一生首先要立定志向，“学贵立志”，有了目标、方向，在通过精进不懈地努力，成圣贤不是遥不可及的事，只要有心，终有成就的一天。有道是：“天下无难事，只怕有心人。”愿我们彼此相互勉励，共同携手向圣贤之道迈进！<br></p>    
-
-<p style="margin-bottom: 0;"><br>    一个为人父母者真正的成功在哪里？当他不在的时候，孩子还是非常懂事，离开父母的时候，孩子还能够遵照父母给予的正确人生态度去做人，这才叫真正的成功。孩子如同父母的心头肉，哪有父母不爱自己孩子的？但给予孩子的爱，是帮他还是害他，的确值得我们省思。可曾想过，当有一天孩子离开父母走入社会，谁又能向父母一样疼爱顺从他呢？纵然父母愿意一辈子照顾着子女，又能呵护到几时呢？这就如同温室里的花儿，一旦搬到室外，恐怕就要枯萎了。所以，孔子说：“人无远虑，必有近忧。”<br></p>
-
-<p style="margin-bottom: 0;"><br>    所谓“至要莫若教子”，人生第一大事是要把孩子教好。假如我们的孩子没教好，你这一生会不会幸福？一个人有没有福报，一个人的人生能不能够过得自在，他的中、晚年取决于孩子懂不懂事、孝不孝顺。假如养育出来的孩子不懂事，我们后半辈子悔恨难熬！不知道孩子今天又会给我们上演哪一出戏，来让我们收拾残局？<br></p>    
-
-<p><br>    试想想，一个孩子如果没有受过《弟子规》的教育，任由自己的习气来成长，长大以后，这个习气已经变得根深蒂固了。所以，当他走入社会，在工作里面跟领导、同事的关系一定不可能处的好，结婚后跟另一半结合在一起，常常都是看别人毛病，又怎么可能有幸福快乐呢？以后如果又生了孩子，这个孩子能教得好吗？因此，要知道一个孩子的成长，如果没有这种良善的教育，吃亏的绝对不只是这一个孩子啊！他会影响身边所有的人，甚至影响到孩子的下一代。所以，一定要学习《弟子规》！<br></p>
-          
+          八、余力学文    【解】《弟子规》一共讲了七个方面内容，前六个方面讲孝、悌、谨、信、泛爱众、亲仁，这些都是让我们努力去落实而提升自己修养品德的，是讲力行这方面，而学文就是要学习圣贤经典，通过学习能帮
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/20/弟子规 （6）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1028,133 +832,15 @@
       
         
           
-            <h3 id="六、泛爱众"><a href="#六、泛爱众" class="headerlink" title="六、泛爱众"></a>六、泛爱众</h3><p><br>    【解】“泛爱众”就是以广泛的爱心对待社会大众。人类生活是以爱心为纽带，没有爱心，人类生活就太痛苦不堪了。这个爱心从哪里来的？这个爱心就是孝心。孝道，正是培养爱心的第一步，一个连父母都不爱的人决不会真心爱他人，所以只有当孩子懂得了对父母尽孝道，他才能把这份爱心继续向外延伸出来爱一切人。这样由近及远，使他的爱心和责任感日扩日大，进而推衍到爱护别人的父母和孩子，再继续扩展到爱护一切万物，包括动物、植物、矿物。因此，孝道决不是培养孩子对家庭的自私，恰恰相反，是要最终培养成孩子大公无私的品德。<br></p>
-
-<p><br>    现代很多人都是为了一己的目的在生活，他的人生追求和价值都是在为自己能够考个好大学、找个好工作、挣钱多、有小车洋房等等，追求的都是个人相关的利益，只顾自己而遗忘了整个天下国家和芸芸众生。这样的心胸是不会有真正快乐的，因为他的快乐是构建在成败得失之上的，有得失就会生忧喜，而真正的快乐是不以成败荣辱、称讥毁誉为原则的，那种乐是超乎于喜怒哀乐之上的乐。所谓“独乐乐不如众乐乐”，所以要想拥有真正的幸福快乐，就需要培养一点天下的精神，不是小我，而应该有一个大我，要能够使自己的心与天地万物同体。如果每一个人在为自己的时候都能够兼顾到他人、兼顾到国家天下，那么整个中华民族的伟大复兴、世界的和平、人类的共处都是指日可待的事情。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡是人 &emsp;皆须爱 &emsp;天同覆 &emsp;地同载</p>
-
-<p style="margin-bottom: 0;"><br>    【解】只要是人，不分族群、人种、宗教信仰，皆须相亲相爱。同是天地所生，应该不分你我、互助合作，才能维持这个共生共荣的生命共同体。<br></p>
-
-<p><br>    爱是用心去感受别人的需要。一个人不可能孤立的生活在这个世界上，衣食住行各个方面都离不开他人的辛勤劳动，大家彼此相互依存才构成了我们赖以生存的社会。作为社会的一分子，我们应该心存感激，密切关注社会上的一切人和事，随时准备伸出援助之手，关怀他人，帮助他人，以尽到作为社会成员的一份责任，如此人生才更有意义、更有价值。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">行高者 &emsp;名自高 &emsp;人所重 &emsp;非貌高</p>
-
-<p style="margin-bottom: 0;"><br>    【解】德行高尚的人，他自自然就有很高的名望。人们所敬重的是他高尚的品行，而不是他的外表容貌是否出众。<br></p>
-
-<p><br>    像孔子一生，他真正是力行人道，将圣贤教会向天下人来宣扬，所以他才有这么大的名气，成为万世师表，为百姓所敬仰，这些都是因为他有真正的德行、学问。夫子有温、良、恭、俭、让的美德，他具备了人格的魅力，所以走到哪里人们都要去亲近他。要是一个人很傲慢、很孤傲或者脾气暴躁，躲之唯恐不及，谁还敢去亲近他呢？但是对温和、谦敬、有礼貌、品德高尚的人，大家不自觉地就想和他亲近，肯定都很喜欢他。群众的眼睛是雪亮的，如果你没有真正的德行，人们不可能对你生起真正的敬仰之心，所以我们要懂得修养自己真实的道德学问。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">才大者 &emsp;望自大 &emsp;人所服 &emsp;非言大</p>
-
-<p style="margin-bottom: 0;"><br>    【解】有才能的人，处理事情的能力卓越，声望自然不凡。人们之所以欣赏佩服，是因为它有真才实学，而不是因为他很会说大话。<br></p>
-
-<p><br>    这个“才”，必须要建立在德行的基础上。一个有德行的人，他所学的才华一定是从利益家庭、利益社会、利益大众这个目的出发，取之于社会，用之于社会，他的才华一定会让人觉悟、让人受益，大家自然会对他很敬重、佩服。假如一个人有才无德，为了一己之力而忘记了道义，那就不可能赢得他人的尊重。一个没有优秀品格和素养的人，要想成才是很难的，即使日后学成，也不能成为“一个高尚的人，一个纯粹的人，一个脱离了低级趣味的人，一个有益于人民的人”。所以真正的人才标准是“德才兼备”，而且必须是德为先，才为后。中国人深知有才无德的人是小人，小人对社会的危害极大，现代社会受西方文化的影响，只知才能而不知道德，故世局日乱。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">己有能 &emsp;勿自私 &emsp;人所能 &emsp;勿轻訾</p>
-
-<p style="margin-bottom: 0;"><br>    【解】一个人有才能和本事，不要自私保守、舍不得付出，要时刻想着服务大众、回报社会。看到别人有才华，应当学习欣赏赞叹，而不是批评、嫉妒、毁谤，不要因为嫉妒而贬低别人。<br></p>
-
-<p><br>    嫉妒心强的人，看到别人才华高、名望大了，心里不服，于是千方百计地来刁难他、侮辱他，这种行为一定会导致自己身败名裂，最后是自食其果。一个真正有德有才的人，不会因为我们的嫉妒而使他的德行、才华降低，对他的伤害并不大，而对自己的伤害却是非常的严重。所以看到别人有优秀的地方，我们应该懂得赞叹，向他学习，为他高兴，这叫随喜。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">勿谄富 &emsp;勿骄贫 &emsp;勿厌故 &emsp;勿喜新</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不要去讨好巴结富有的人，也不要在穷人面前骄傲自大或者轻视他们。不要喜新厌旧，对于老朋友要珍惜，不要贪恋新朋友或新事物。<br></p>
-
-<p><br>    谚云：“贫贱之交不可忘，糟糠之妻不下堂。”夫妻两人有缘走到一起，是多么难得的缘分，在日复一日、年复一年中，彼此互相关怀、照顾，一同孝敬父母、教育子女，携手走过多少风风雨雨，又一起尝过多少的酸甜苦辣，为这个家都逝去了青春年华。然而在共同经过患难之后，是否能够共甘甜？当我们事业有成之时，如果还能对对方依然如故，不离不弃，彼此尊敬、爱护，同心同德，有情有义，那么这才是夫妻之间的真情真爱。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">人不闲 &emsp;勿事搅 &emsp;人不安 &emsp;勿话扰</p>
-
-<p style="margin-bottom: 0;"><br>    【解】别人很忙没空时，不要去打扰他。当别人心情不好、身心欠安的时候，我们不要闲言碎语去干扰他，增加他的烦恼与不安。<br></p> 
-
-<p><br>    与人相处，我们应随时随地注重自己的言行不要影响到别人的正常生活与工作，这是一种做人的美德。如果我们总是以自我为中心来考虑问题，不能替对方着想，譬如说我们要找人帮忙（办事或谈话），不看对方是不是方便就贸然打扰，虽然对方往往碍于情面，不好意思跟你决绝，但是在心里已经对你形成很不好的印象了，在以后的相处中就会对你敬而远之。所以我们要在平时的生活点滴中学会察言观色，不等别人说，我们就要能看出他需要什么、不需要什么。纵使是再近的亲人，进退之间，我们也要站在对方的感受上设想，这样大家自然就可以相处得很融洽了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">人有短 &emsp;切莫揭 &emsp;人有私 &emsp;切莫说</p>
-
-<p style="margin-bottom: 0;"><br>    【解】别人的缺点、短处，不要去揭穿。别人有秘密不想让人知道，我们就不要说出来。对于他人的隐私，切忌去张扬，否则很可能为我们自己招来灾祸，这种缺德事是不可以做的。<br></p>
-
-<p><br>    每个人都有自尊，我们自己不想自尊、面子受到侮辱，那我们也不能够这样对待别人。如果把别人的短处、隐私揭露出来，这样做就跟人家结怨了，自己也把德行败坏了，伤和气又伤厚道，有智慧的人怎么会去干这种傻事呢？我们也不要把别人的短处放在心里，把自己的心当成装别人短处的垃圾桶。把别人的那些垃圾、缺点全都装在自己的心里，这也是对不起自己啊！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">道人善 &emsp;即是善 &emsp;人知之 &emsp;愈思勉</p>
-
-<p style="margin-bottom: 0;"><br>    【解】赞美别人的善行就是行善，当对方听到你的称赞之后，必定会更加勉励行善，进一步把善行提升。<br></p>
-
-<p><br>    如果是其他人也同时听到你的赞叹，他们也会效法这个善人，所以对所有人都是好事。因此，能够常常称赞他人的优点、长处、善行，这本身就是行善，这是对大众的勉励，希望大众见贤思齐。现在有一部分人连什么是善都不甚了解，更不要说去道人善了，主要原因就是近百年来中国的传统文化、圣贤教育被严重破坏了，所以现在要恢复，如果能够把传统文化教育复兴起来，这就是最大的善，叫善中之善。它能够帮助人认识本善，修学恢复本善，这真是叫功德无量啊！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">扬人恶 &emsp;即是恶 &emsp;疾之甚 &emsp;祸且作</p>
-
-<p style="margin-bottom: 0;"><br>    【解】到处宣扬他人的过失或缺点，这是最坏最恶的一件事，这是最大的过失。如果指责批评太过分了，还会给自己招来灾祸。<br></p>
-
-<p><br>    古人讲：“口为祸福之门。”常常讲人家的过失、张扬人家恶事的这种行为，最开始可能是因为一念私心，要把别人贬低、打倒，久而久之习惯了，动不动就说人家的过失，可能说的时候就在谈笑之间，自己都没有觉察到是在造恶，就跟很多人结了怨，最后等别人报复的时候，自己都不知道是怎么回事。所以古人以“静坐常思己过，闲谈莫论人非”来惕励自己，实因口过之患、扬恶之害足以酿成滔天大祸，不可不慎！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">善相劝 &emsp;德皆建 &emsp;过不规 &emsp;道两亏</p>
-
-<p style="margin-bottom: 0;"><br>    【解】朋友之间要懂得互相规过劝善，共同建立良好的品德修养。如果有错不能互相规劝，那么两个人的品德都会有亏损。<br></p>
-
-<p><br>    规劝朋友，一定是在两个人的时候，其他人在场绝对不能讲，这是尊重对方，这样朋友会感恩你，规劝的效果也比较好。因为我们规劝的目的是为了朋友改过、为朋友好，所以这个方式一定要注意。如果方法不对，可能就达不到规劝的效果，弄不好他不但不肯改，甚至还会抵制、逆反的心理，而且可能会怀恨在心，这样我们不就适得其反了吗？所以跟人交往这些分寸、态度都是非常重要的，不可不慎重啊！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡取与 &emsp;贵分晓 &emsp;与宜多 &emsp;取宜少</p>
-
-<p style="margin-bottom: 0;"><br>    【解】财物的取得和给予，一定要分辨清楚明白，不可含糊。宁可多给别人，自己少拿一些，才能广结善缘。<br></p>
-
-<p><br>    古人讲：“登天难，求人更难。”所以最好不要向人索取、不要求人。所谓“人到无求品自高”，人的品格修养从哪里来分辨呢？就是看他有没有“求”的心。如果一个人真正能做到与人无争、于世无求，这种人就得大自在了。真正的君子淡泊名利，他所求的是道，不是世间的功名富贵。君子忧道不忧贫，谋道不谋食，他所忧得是自己的道德学问不能够增长、不能够为社会奉献、不能够帮助社会推广圣贤教育来达到安定和谐。所谓“无欲则刚”，他欲望少，因此他就刚强，不管是什么样的曲折、困难、诱惑自然拦不倒他，都不能够阻碍他的志向。所以无求、无取的这种境界，是我们每一个学习圣贤教育的人都应该立志去证得的。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">将加人 &emsp;先问己 &emsp;己不欲 &emsp;即速己</p>
-
-<p style="margin-bottom: 0;"><br>    【解】当我们要对人说话或让人做事的时候，必须要先问问自己，别人如果这样对我们，我们能接受吗？喜欢吗？如果我们不希望别人这样对自己，那我们就不应该这样对待别人。<br></p>
-
-<p><br>    这就是《论语》当中所说的“己所不欲，勿施于人”，这是待人之道，待人就要用这种原则。这是世界上所有宗教、文化乃至联合国都认同的一个原则，在世界上被称为“黄金法则”：你不愿意别人怎样对待你，你就不该怎样对待别人。如果你用这种存心去和你周围的人相处，自然就能得到大家的欢迎。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">恩欲报 &emsp;怨欲忘 &emsp;报怨短 &emsp;报恩长</p>
-
-<p style="margin-bottom: 0;"><br>    【解】受人恩惠要常常记在心里，时时想着报答。别人有对不起自己的事情，应该宽大为怀把它忘掉。如果不小心和人结了怨仇，应请求他人的谅解。怨恨不平的事不要停留太久，过去就算了，耿耿于怀这是对不起自己、自己糟蹋自己，何苦呢？至于别人对我们的恩德，要感恩在心、常记不忘个、常思报答，生活在感恩的世界里，我们的心情多舒服啊！<br></p>
-
-<p><br>    古人云：“受人滴水之恩，当以涌泉相报。”这一生有恩于我们的，不知凡几，想想父母养育之恩、国家赋予我们安定之恩、师长教诲之恩、众生努力生产之恩，这四种恩义，究竟我们感恩、回馈过多少呢？人与人相处难免会发生冲突，如果我们把别人的过失每天都放在心上，那可不好受，这样长此以往下去，只能给自己带来无穷的烦恼和病苦。常言道“可恶之人必有可怜之处”，他也是没有学过做人做事的道理，才会做出没有道义的事情来，我们应该对它生起怜悯心和慈悲心，而当我们肯原谅别人的同时，其实也就是原谅了自己。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">待婢仆 &emsp;身贵端 &emsp;虽贵端 &emsp;慈而宽</p>
-
-<p style="margin-bottom: 0;"><br>    【解】对待家中的婢女和仆人（现代社会包括下属、下级在内），要注重自己的品行端正、庄重，并且以身作则，不可轻浮随便。虽然品行端正很重要，但是仁慈宽厚更可贵。<br></p>
-
-<p><br>    这是讲对待下属知道。孔子说：“其身正，不令而行。其身不正，虽令不从。”这是说在上位的领导、长官自身做事正当，不用命令，底下的人自然会照做。可是如果自身做事不正当，即便你发号施令，下属也是不会服从的。现代社会许多人推崇西方管理思想，强调机制、信息、网络化管理等，而不知管理最根本处在“人”，以人为本，能以德性来引导人，使其工作自动自发，就是最高级的管理方法。做领导的若能体会下属之劳苦，常常勉励关怀，必能得其忠心。领导与部属的关系，应当建立在彼此信任与相互尊重的基础上，惟有如此才能和睦共事，成就永续的事业。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">势服人 &emsp;心不然 &emsp;理服人 &emsp;方无言</p>
-
-<p style="margin-bottom: 0;"><br>    【解】如果对待下属是用权势强逼来压人，强迫对方屈服听你的话，虽然对方表面上不敢反抗，心中难免口服心不服、不以为然，而唯有以理服人，才能让人心悦诚服、没有怨言。<br></p>
-
-<p><br>    人在拥有权势之后，很容易迷失方向，沉沦威权中仗恃优越，浑浑噩噩不知努力而虚度此生！如果对待下属再太过刻薄，他们就会阳奉阴违，暗地里给你捅纰漏，这就得不偿失。当知权势用之不当足以造作无边罪业，可不慎乎！以势服人非真服，以理服人方无言。要让大众都服你，你就要有公理、有道义存在，这样彼此之间才没有言语的纷争，你的公司、你的团体才有办法和谐。<br></p>
-
-<h3 id="七、亲仁"><a href="#七、亲仁" class="headerlink" title="七、亲仁"></a>七、亲仁</h3><p><br>    【解】“亲仁”，亲是亲近、学习的意思，亲近那些有道德、有学问、有人生境界、有情操的人，这是讲择师。一个人的学问要有成就，有两个先决要素：一个是好老师，一个是好同学。好老师帮我们指路，把很重要的教会告诉我们，使我们的人生少走很多弯路；好同学能够彼此互相提携、互相提醒。只有这样，我们一生才能够得到幸福的人生、成功的事业乃至敬德修业成就圣贤的人品。<br></p>
-
-<p><br>    我们时时亲近仁德之人，就能够提升自己的道德学问，所谓“入芝兰之室，久而不闻其香”，你每天接触的都是善人，我们无形当中德行都会提升。但是“入鲍鱼之肆，久而不闻其臭”，假如每天身旁都是狐群狗党，自己的言语、行为就会变得愈来愈粗俗、低级、下流。“学如逆水行舟，不进则退”，在学习的道路上，必须要有良师益友的提携。只有亲近仁德之人才能增长我们的智慧，人生有智慧才会下对抉择，人生才会愈走愈轻松，假如没有做对抉择，那人生会愈走愈沉重，所以“亲仁”非常重要。中国古人说：“天地君亲师。”这是因为人伦大道，必靠师而传承，无师则人道衰，故师的作用等同于天地。友以辅仁，亲近良师益友，才能学有所成。人应当有博爱之心，爱一切人，但首先是亲近有仁德的人。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">同是人 &emsp;类不齐 &emsp;流俗众 &emsp;仁者希</p>
-
-<p style="margin-bottom: 0;"><br>    【解】同样是人，品行高低、善恶邪正却是良莠不齐。跟着潮流走的凡夫俗子很多，而真正仁慈博爱的君子却很稀少。<br></p>
-
-<p><br>    一般凡夫俗子心无大志，每天都为着自己的衣食、饮食男女、自私自利而活着。仁者存心仁厚、处处谦卑，能够以身作则，他把一切人、一切众生看成是自己，处处能替人设想，没有私心，是真正大公无私的人。那么我们现在想想，自己是仁者还是流俗众呢？如果自己还是自私自利，一天到晚为自己打算，那就是流俗众啊！想当仁者就要放下错误的观念和知见，常常提起圣贤的教训，这是正念。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">果仁者 &emsp;人多畏 &emsp;言不讳 &emsp;色不媚</p>
-
-<p style="margin-bottom: 0;"><br>    【解】如果有一位仁德的人出现，大家自然敬畏他，因为他说话公正无私，没有隐瞒，又不讨好他人，所以大家才会起敬畏之心。<br></p>
-
-<p><br>    仁者他心地清净，与人无争，于世无求，所以他就不会有巴结人的念头，他所说的都是利益大众的话。利益大众的话不一定是好听话，所以一般人跟仁者在一起都觉得很难相处，对仁者也就敬而远之了。古人讲：“忠言逆耳利于行。”真正忠言可能不是好听的，但是听了之后能够接受、照做就有好处，因此我们要知道，别人不敢亲近仁者，他就不能提升，我们必须要亲近仁者，这样我们的品德学问才能够提升。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">能亲仁 &emsp;无限好 &emsp;德日进 &emsp;过日少</p>
-
-<p style="margin-bottom: 0;"><br>    【解】能够亲近仁德之人，向他学习，就会得到无限的好处，因为他会使我们的道德学问一天天地进步，过失就会逐渐地减少。（在生命中，可以不间断的陪伴我们走完人生的仁者就是圣贤经典，它是最真实、最永恒的仁者！）<br></p>
-
-<p><br>    我们想要学业，道业有所成就，选择老师至关重要，一定要听其言、观其行，要用圣贤的教诲去观察他，看他是否存心仁厚、处处谦卑并且能够以身作则，看他是不是真做到了。一旦找到了我们由衷佩服的老师，就要用至诚恭敬的心去依教奉行，所谓“一分诚敬得一分利益，十分诚敬得十分利益”，恭敬心才能够受教。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">同是人 &emsp;类不齐 &emsp;流俗众 &emsp;仁者希</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不肯亲近仁人君子与圣贤教育，就会有无穷的祸害。因为不肖的小人会趁虚而入，跑来亲近我们，日积月累，我们的言行举止就会受到不良的影响，事情就会弄得一败涂地，最后导致整个人生的失败。<br></p>
-
-<p style="margin-bottom: 0;"><br>    什么是小人呢？就是追求世间名闻利养，搞自私自利，胸无大志，对圣贤教育并不想学习，小是因为他心量小，他的心量只有他自己，这叫小人。什么叫大人呢？大人是心量大，真的心怀天下，心里面装着宇宙一切的众生，他忘了自己，这是仁者。《易经》上讲：“方以类聚，物以群分”。人都是一类类的聚起来的，我们如果不肯学习圣教，跟仁者就会越来越远，自然就跟小人混在一起，最后使自己不知不觉也成为小人了。所谓“近朱者赤，近墨者黑”，《朱子治家格言》也讲到“狎昵恶少，久必受其累”，所以人对于环境的选择至关重要，在自己德行还没有相当稳固之前，对于一些比较没有德行的朋友，我们要敬而远之。<br></p>
-
-<p style="margin-bottom: 0;"><br>    《弟子规》是照妖镜也是显圣镜，只要用《弟子规》去衡量，好朋友、坏朋友一看便知道。所以家长与其担心孩子以后会交到坏朋友，不如从小就教他落实《弟子规》，把他德行的根基扎稳固。通过学习使他善恶分明，自己懂得抉择正确的朋友，这样你才能真正地高枕无忧。当一个人善恶分明，纵使遇到坏朋友，不仅不会误入歧途，并且他还会“善相劝”，把坏朋友影响过来，做到“德皆建”。因此，为人父母者要深谋远虑，引导孩子更多地接触善友。否则，即使你整日担心，也不见得有什么帮助。因为“亲附善友，如雾露中行，虽不湿衣，时时有润”，让孩子在善友的熏陶下，父母又能够谆谆教诲和以身作则，这样孩子不仅能扎好德行的根，并且还能“根深叶茂”，这样我们的人生才会幸福。<br></p>
-
-<p><br>    所以“亲仁”这一条非常重要，它告诫我们，人的内在一定要有道德作为基础，用圣贤人的这些智慧，来巩固我们内在的道德思想及修养，以增强明辨是非的能力，使自己在种种诱惑之面前能够把持住而不受干扰。如果没有得到这些熏习的话，在当今社会，一不小心把持不住，就有可能陷进去而自己都不晓得。尤其是沾上赌博、色情等一些不良的习气，可以让你一辈子堕落下去，危害相当之大。所以，我们不可一日远离良师益友，不可一日不读圣贤书。<br></p>
-
-          
+          六、泛爱众    【解】“泛爱众”就是以广泛的爱心对待社会大众。人类生活是以爱心为纽带，没有爱心，人类生活就太痛苦不堪了。这个爱心从哪里来的？这个爱心就是孝心。孝道，正是培养爱心的第一步，一个连父母都
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/20/弟子规 （5）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1272,101 +958,15 @@
       
         
           
-            <h3 id="五、信"><a href="#五、信" class="headerlink" title="五、信"></a>五、信</h3><p><br>    【解】“信”是会意字，代表人言，也就是说话要算数，说到做到。孔老夫子说：“人无信不立”。一个人假如没有信用，很难在社会上立足。当人人对你说的话、办的事都产生怀疑时，你就无法在社会、人群当中立足。因为社会是一个团体生活，假如大家都不信任你，就会离你而去，你就很难发展。所以，信用跟一个人的生命同等重要。因此，说话、做事都要以诚信为原则。特别是在生意场上，做生意最关键的就是信用，真正把诚信做到了，大家跟你合作会很欢喜，都会很愿意帮你，你的事业必定成功。所以，诚信的人可以在社会上立于不败之地。<br></p>
-
-<p><br>    “信”引申来讲还包括信念的意思，一个人、一个团体、一个国家都要有信念，就是我们讲的志向。如果人没有了信念、没有了志向，人生也就没有了方向、目标，哪怕是吃的饱、穿得暖，奢华享受，那叫作混日子，说句不好听的话，一天到晚是“饱食终日，无所用心”。孟子说：“人之异于禽兽者几希。”那样的生活，是禽兽生，不是人生，人与禽兽的区别是在道德上。所以人要立志，立志做什么呢？立志做圣贤。圣贤人的生活一定幸福、圣贤人的事业一定成功。学习《弟子规》我们也要有一个正确的信念，要学做圣贤，那么幸福成功都是自然而然的。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡出言 &emsp;信为先 &emsp;诈与妄 &emsp;奚可焉</p>
-
-<p style="margin-bottom: 0;"><br>    【解】开口说话，诚信为先，对自己讲出来的话绝对要在心上去实践、去履行。答应别人的事情一定要遵守承诺，没有能力做到的事不能随便答应，至于欺骗或花言巧语更不能使用。<br></p>
-
-<p><br>    言语行为当中能守信，就已经奠定了一个人今后在社会上好的发展基础。假如我们不守信，还要找一些借口，赖掩饰自己的失信，那你的名声就会愈来愈差。假如有特殊原因让你是在无法实现诺言，这时就要坦诚布公，当他真正了解你的情况、了解你的诚意后，他也会退一步。但是你如果继续掩盖，他就会愈来愈愤怒，到时候就很难收拾了。所以，与别人的信诺绝不可以拖延，愈拖愈难解决。<br></p>
-
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">话说多 &emsp;不如少 &emsp;惟其是 &emsp;勿佞巧</p>
-
-<p style="margin-bottom: 0;"><br>    【解】话说多了，大部分都是废话，不如少讲几句，避免过失。说话要恰到好处，谈话内容要实事求是，不着边际、没有根据的谎话，终有被识破的时候。<br></p>
-
-<p><br>    所谓“言多必失”，如果你滔滔不绝，很多话还没有思考清楚就说出去了，结果就收不回来了。谚云：“是非只为多开口，烦恼皆因强出头。”人与人接触会有是非产生，就是因为话多，所以处事要少言、慎行。在讲话之前，我们首先要想一想，讲这句话自己能不能做到、能不能够对这个话负责。如果我们说的话能够做到、能够负起责任，这才能够说，如果说了话之后不能负责任，我们在他人心目中的信用就会慢慢地减少了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">奸巧语 &emsp;秽污词 &emsp;市井气 &emsp;切戒之</p>
-
-<p style="margin-bottom: 0;"><br>    【解】奸诈取巧的语言、下流肮脏的话以及街头无赖粗俗的口气，都要避免，不去沾染。如果已经被污染，就要下定决心切实戒除掉。<br></p>
-
-<p><br>    说话时要戒掉一些不良的语言，言谈如果能够非常文雅，无形当中都会提升一个人的气质修养。当我们内心充满了对圣贤人的憧憬、向往，立志要成圣成贤的时候，我们的言语、行为自然就会效仿圣贤人的存心。凡是圣贤人不说不做的事情，我们绝对也不说不做。久而久之，自己那种圣贤的风范就会慢慢表露出来了，人们看到一定也会敬重你。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见未真 &emsp;勿轻言 &emsp;知未的 &emsp;勿轻传</p>
-
-<p style="margin-bottom: 0;"><br>    【解】任何事情在没有看到真相之前，不要轻易发表意见，对事情了解得不够清楚明白时，不可以任意传播，以免造成不良后果。<br></p>
-
-<p><br>    即使你看到的是事情真相，也不要轻易地讲出来，因为与人相处会有纠纷及不愉快的事情发生，追根究底都是从口舌是非开始的，所以我们在讲话之前一定要想一想，这句话讲了之后它有没有后遗症？会不会破坏别人的声誉？它到底有没有利害关系？会不会破坏整个团体的和谐？千万不可以看到什么就讲什么。有些人随便听到一句闲话，再加上自己的妄想，就可以编出一件新闻。这种无根的谣言，常常惹出许多的是非，传出去后很容易跟人结怨，把自己的德行也败坏了。所谓“谣言止于智者”，我们不要被谣言所利用，聪明人碰到这些是是非非的事情，绝对不会跟着传，因为智者的心在道上，对于那些风吹草动、流言蜚语，统统都能够置之不理。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事非宜 &emsp;勿轻诺 &emsp;苟轻诺 &emsp;进退错</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不合义理的事，不要轻易答应。如果意气用事、轻率表态，事到临头才发现不合理，做也不是，不做也不是，那就太被动了。<br></p>
-
-<p><br>    面对一件事情，首先要看应不应该去做，如果是不符合道义甚至是非法的，那就绝对不可以答应。假如我们轻易承诺以后就会进退两难，不做就是没有信用，做了又违背良心道德，这样会让自己陷入烦恼之中而无法解脱。因为有时我们与人方便，别人却变成了随便，所以在答应之前一定要详细查看内容是什么，不要先答应之后再后悔，那就来不及了。古人讲：“一言可以兴邦，一言可以丧邦。”如果我们讲话不谨慎而又事关重大，很可能会带来不堪设想的后果，尤其是在高位的领导人更要慎重。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡道字 &emsp;重且舒 &emsp;勿急疾 &emsp;勿模糊</p>
-
-<p style="margin-bottom: 0;"><br>    【解】我们讲话吐字要清楚而有力，缓缓道来，要讲得很舒畅、放松。说话不可以太急，每个字都要吐得清清楚楚、不模糊，听的人也就听得很清楚、很舒服，这也避免了让人错意而造成没必要的误会。<br></p>
-
-<p><br>    如果别人讲话太快，你又没有听清楚，正好又是要处理的事情，这时我们要养成一个习惯，不管是谁交代我们事情，到最后都要再给他复述一遍，这样才会万无一失。不然你似懂非懂，到时候出了偏差，就不能怪别人讲得太快，只能怪你没把话听清楚、听明白。所以我们不要怕麻烦，一定要把讲话内容确认清楚，不可马虎大意。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">彼说长 &emsp;此说短 &emsp;不关己 &emsp;莫闲管</p>
-
-<p style="margin-bottom: 0;"><br>    【解】遇到他人来说是非好坏时，听听就算了，要有智慧判断，不要受影响，不要介入是非。如果与己无关，就不要多管闲事（来说是非者，便是是非人。）<br></p>
-
-<p><br>    多管闲事会让自己增加很多烦恼，还会引来不愉快，跟人结怨。谚云：“利刃割体痕易合，恶语伤人恨难消。”讲人的是非、隐私，这个对人的伤害比利刃伤人更严重，引起的怨恨也更大，到时候你再怎么说对不起，也不见得能回到原来的那种关系了。所以古德说：“莫说他人短与长，说来说去自遭殃，若能闭口深藏舌，便是修行第一方。”劝导我们不说是非长短，要修养自己的厚德。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见人善 &emsp;即思齐 &emsp;纵去远 &emsp;以渐跻</p>
-
-<p style="margin-bottom: 0;"><br>    【解】见到人家的优点，我们要马上见贤思齐，向人学习。即使跟他差距很远，我们也要慢慢努力地去追赶，希望有朝一日能跟他看齐，这是一种好学的精神。<br></p>
-
-<p><br>    古人云：“尺有所短，寸有所长。”看待事物和与他人相处，我们如果能多看别人的长处，不但和自己相处的人愉悦欢喜，而且最大的受益者就是自己。因为每个人在某个方面肯定都会有比我们做得好的地方，如果我们能带着谦卑的心去寻找他人的闪光点，那么即使和有很多缺点的人相处，也能从他人身上受益。与此相反，如果我们带着傲慢的心，仗恃自己的一点学识、观点，用评判和挑衅的眼光来看待周遭的一切，那么即使是圣贤大德的教诲，我们也能找到一些“疏漏”和“失误”，最终也无法受益。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见人恶 &emsp;即内省 &emsp;有则改 &emsp;无加警</p>
-
-<p style="margin-bottom: 0;"><br>    【解】看到别人的缺点或不良的行为，要先反观自己有没有犯同样的错。假如有，要赶快修正，假如没有，要警惕自己将来不要犯。（子曰：“三人行，必有我师焉，择其善者而从之，其不善者而改之。”）<br></p>
-
-<p><br>    人生百态犹如一面镜子，见人过失易，不责人过失难，虽然镜子里的一切清清楚楚、明明白白，但智者可以借之反思警戒，而愚者却入中看戏而沉迷不悟！重要的是自己有无反省的功夫。一个人如果能处处看到自己的本分，他就不会把时间浪费在指责别人的不是上了。如果把别人的缺点、过失放在心上，那等于是把自己的心当成了垃圾桶，这样做是最傻的。做父母的要引导孩子正确看待他人的缺点和不足，不以自己的长处比他人的短处，要让孩子明白“金无足赤，人无完人”的道理。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">唯德学 &emsp;唯才艺 &emsp;不如人 &emsp;当自砺</p>
-
-<p style="margin-bottom: 0;"><br>    【解】每一个人都应当重视自己的品德、学问和才能技艺的培养，如果感觉到有不如人的地方，应当自我惕励，奋发图强，努力赶上。<br></p>
-
-<p><br>    《中庸》上讲：“好学近乎智，力行近乎仁，知耻近乎勇。”一个人他真能对德学才艺努力踏实去学习，这叫近乎智慧了；学到之后，关键是要力行，如何把孔夫子的温、良、恭、俭、让做出来，把孝、悌、忠、信、礼、义、廉、耻落实到生活当中，对父母如何行孝，对祖国如何尽忠，这叫力行，所以真正的仁，要有力行啊！知道自己有过失了，就叫知耻，知耻的人会勇猛改过，他必定是一步一步向着圣贤迈进。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">若衣服 &emsp;若饮食 &emsp;不如人 &emsp;勿生戚</p>
-
-<p style="margin-bottom: 0;"><br>    【解】至于外表穿着或者饮食方面不如他人，心里不必难过，更没有必要忧虑自卑。物质上的这些享受够用就好，知足才是真正的富。<br></p>
-
-<p><br>    如果一味追求物质享受，跟人攀比，看人穿名牌、时尚的衣服也要去赶时髦，看别人开名车、买大的别墅，心里又坐不住了，把大部分的时间、精力都花在逛街购物上，看到喜欢的款式就买，得到后很快又厌倦了。每天这样生活在患得患失之中，把人生短暂的时间、有限的精力、辛苦赚来的金钱都用在了这些奢侈、浪费、享受上，这样子生活很累，烦恼痛苦都是自己找的啊！所谓“欲是深渊，欲不可纵”，假如让自己的欲望无限制地膨胀下去，就会带给你很大的痛苦，当你入不敷出的时候，想回头都相当困难，因为“由俭入奢易，由奢入俭难”。所以明智的父母一定要防微杜渐，把孩子不健康的思想因素消灭在萌芽之中，一切都要谨慎于开始。父母同时也要以身作则，为孩子树立一个勤俭治家的好榜样，这样就会给孩子潜移默化的影响。当我们这样去引导孩子，让他懂得知足，他这一生才不会成为物质的奴隶，才不会崇尚虚华。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">闻过怒 &emsp;闻誉乐 &emsp;损友来 &emsp;益友却</p>
-
-<p style="margin-bottom: 0;"><br>    【解】如果听到别人说自己的过错就一副不高兴的样子，听到别人称赞自己就欢喜的不得了，很快那些说好听话的、替你掩饰过失的、教你吃喝玩乐的损害你的朋友就会接近你，让你堕落，而真正的良朋益友反而远离你了，因为你根本听不进去好话，何必跟你结怨呢？<br></p>
-
-<p><br>    人往往看不到自己的过失，因此这就需要善友的时时提醒。人一生中除了父母和老师之外，能有几个可以真心批评、指正我们的人呢？真心批评、指正我们的人，那真的是我们的善友，没有他们的批评、指正，我们还真的看不到自己的问题所在，所以感恩都来不及，怎么可以闻过之后发怒呢？古人将朋友也列为五伦之一，就是因为朋友可以帮助我们共同实践人生大道。曾子说：“君子以文会友，以友辅仁。”真正的朋友是以道义为准绳的，而不是以功利为纽带的世道教。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">闻誉恐 &emsp;闻过欣 &emsp;直谅士 &emsp;渐相亲</p>
-
-<p style="margin-bottom: 0;"><br>    【解】听到别人赞叹我们，心中感到很惶恐，深怕别人言过其实，觉得自己根本没有那么好，应该要更加努力才对，听到别人说自己的过失，能够感到很欢喜，那么自然就有正直、诚实、讲信用的益友跟我们走在一起了，这对我们的学业、事业、道业都有莫大的帮助啊！<br></p>
-
-<p><br>    要知道我们的才华、成就，绝不是个人能力所能达到的，都是父母长辈们养育、教育、指导、关怀以及众人付出的结果。所以我们每一件事情的成就，首先要感谢他们，这样我们才不会自视甚高，一个真正有所作为的人，必定是一个有大的涵养和度量、善于听取别人劝谏、欢喜改过的人。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">无心非 &emsp;名为错 &emsp;有心非 &emsp;名为恶</p>
-
-<p style="margin-bottom: 0;"><br>    【解】无心犯的过失，这种过失称为错。假如已经知道这件事是错的，但是还要去做，那就是作恶。<br></p>
-
-<p><br>    “人非圣贤，孰能无过”，圣贤之所以能成为圣贤，就是因为他能够天天改过啊！我们过去没有学习过圣贤教育，不懂得孝、悌、忠、信、礼、义、廉、耻，不知道怎么做人，做了很多错事，心里很后悔，现在回头重新来学习《弟子规》，发心做一个好人、做一个有德的君子乃至于要做圣贤。如果我们学了以后还是我行我素，明知做错了也不肯改过，那我们就是恶人了。过去做了错事还有个借口“没学过”，现在没有借口了，不能不改了！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">过能改 &emsp;归于无 &emsp;倘掩饰 &emsp;增一辜</p>
-
-<p style="margin-bottom: 0;"><br>    【解】知错能改是勇者的行为，错误自然慢慢地减少消失。如果为了面子，死不认错，还要替自己开脱、掩饰，那就是错上加错，反而又增加一项掩饰的罪过了。<br></p>
-
-<p><br>    世上没有完美无缺的人，每个人都是在不断纠正自己的错误中得到进步和发展的。一个人改正错误到最后实际就是超越自己，这需要极大的勇气与毅力，而要改错首先是知错、认识错误，还要有承认错误的勇气，最后才是改正错误的毅力。知过能改，善莫大焉！有过失没关系，能承认、能改过那就是好人。《菜根谭》上告诉我们：“弥天罪过，都当不得一个悔字。”天大的过失，只要能够忏悔改过，他就有救，因为当善心生起的时候，过去的罪恶都烟消云散了。如果我们不肯改，甚至还要为自己找借口来掩饰，那就会让人家从此瞧不起你、不信任你，这就叫作自暴自弃、自甘堕落啊！所以对于改过要痛下决心，这样人生才能走得坦坦荡荡。<br></p>
-          
+          五、信    【解】“信”是会意字，代表人言，也就是说话要算数，说到做到。孔老夫子说：“人无信不立”。一个人假如没有信用，很难在社会上立足。当人人对你说的话、办的事都产生怀疑时，你就无法在社会、人群当
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/19/弟子规 （4）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1484,114 +1084,15 @@
       
         
           
-            <h3 id="四、谨"><a href="#四、谨" class="headerlink" title="四、谨"></a>四、谨</h3><p><br>    【解】所谓“谨”，就是一种生活态度，我们做人要谨慎小心才不至于犯错误。“谨”这部分的教诲可以培养一个人三方面的能力：第一是自制力，第二是独立生活的能力，第三是做事的能力。现在孩子大部分都缺乏这三方面的能力，也就是《论语》中所说的“洒扫、应对、进退”这种生活规范教育。可不要小看这六个字，它既是生活教育也是人品教育，这是中国文化教育一贯的传统。现在孩子大部分都是娇生惯养，从小就饭来张口、衣来伸手，家长都不肯让小孩去吃苦。这样就连最基本的洒扫庭除都不会，试想今后他们将如何面对生活呢？要知道“责任的承担是成长的开始”，一个孩子有责任心，他才能有所担当。所以，如果爱你的孩子，一定要让他们多承担一些家务。所谓“习劳知感恩”，只有通过亲身实践，他们才能真正体会到父母的辛劳、人生的艰苦，才会懂得尊重别人的劳动成果。这样他们自然也就养成了忍让、克己吃苦耐劳和善解人意的品格。培养出了坚强的意志力，长大以后才能经受住人生的艰难困苦，才能在逆境中奋起，才能挑重任、成大器。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">朝起早 &emsp;夜眠迟 &emsp;老易至 &emsp;惜此时</p>
-
-<p style="margin-bottom: 0;"><br>    【解】为人子应早起，把握光阴及时努力，若经常晚睡甚至熬夜，不但对身体健康不好，也影响白天正常的作息。因为人生的岁月很有限，不要等到年纪老了，才悔恨自己浪费了宝贵的青春时光。<br></p>
-
-<p><br>    “为中华之崛起而读书”是我们敬爱的周总理12岁那年立下的鸿鹄之志，为实现自己的崇高理想，他艰苦奋斗、努力拼搏，用坚强的意志，一生来实践自己所发的誓言，并使之成真，正是因为周总理少年立大志、立长志，才使他的人生如此灿烂辉煌。所以王阳明先生说：“志不立，无以成事。”一个人没有立志，这一生不可能把事情做好。所以要珍惜时间，首先要先立定人生的志向。人生很短暂，我们利用这个短暂的生命，要对得起父母的养育之恩，要对得起兄弟姐妹的关照，要对得起成长过程中诸多长者的提携，要对得起国家对我们的诸多照顾。所以，当一个人念念都是念着这些恩德，想着要去完成他人生的本分、使命，他一定是尽心尽力孝顺父母、友爱兄弟，进一步去奉献社会，没有人去推他，他也会快步向前。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">晨必盥 &emsp;兼漱口 &emsp;便溺回 &emsp;辄净手</p>
-
-<p style="margin-bottom: 0;"><br>    【解】早晨起床后，务必洗脸、刷牙、漱口，使精神清爽，有一个好的开始。大小便后，一定要洗手，养成良好的卫生习惯，才能确保身体健康。（防止肠病毒，要学会洗手，手心、手背、指缝间均要仔细搓洗。）<br></p>
-
-<p><br>    人与人每天彼此间的交谈很多，假如你不刷牙又有口臭，那别人还没有跟你交往，就已经对你有所轻视、排斥而不愿意靠近你了。所以，当别人有意躲着我们时，先不要责怪别人，要先反观自照，看看自己是不是这些礼节当中有所缺失，才造成别人对我们的反感。培养良好的卫生习惯是件平凡而细致的工作，孩子良好习惯和正确认识的养成，离不开日常具体事务中对其行为的约束和训练，都不是靠短时间内的说教便能奏效的，因此要持之以恒、坚持一贯地要求孩子，通过不断地训练和巩固，使之习惯成自然。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">冠必正 &emsp;纽必结 &emsp;袜与履 &emsp;俱紧切</p>
-
-<p style="margin-bottom: 0;"><br>    【解】要注重服装仪容的整齐清洁，帽子要戴端正，衣服拉链、扣子要扣好，袜子穿平整，鞋带应系紧，否则容易被绊倒。注重生活细节，不仅有助于形成自身的威仪，还能逐渐养成做事严谨的习惯。<br></p>
-
-<p><br>    一个人的穿戴表示了他的身份和地位，展示出他的气质和修养，反映了他的爱好和追求。穿戴整洁、优美、高雅还是脏污、丑陋、庸俗，可不是一件小事，一个人的仪容仪表不仅关系自身的形象，有时还关系到工作前途，同时也关系到对他人的尊重。很多大学生去应聘时，穿着邋遢不修边幅，随随便便，看起来很没有精神，这样常常不会被录取。纵使有好的才华，假如衣着不当，很可能就已经把这个机会挡在门外了。所以不能忽视孩子的仪表，它对孩子的心理变化和发展有很大的影响。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">置冠服 &emsp;有定位 &emsp;勿乱顿 &emsp;致污秽</p>
-
-<p style="margin-bottom: 0;"><br>    【解】回家后脱下来的衣、帽、鞋、袜都要放置在固定的位置，以免弄皱弄脏，要找的时候又要找半天。<br></p>
-
-<p><br>    当东西都有固定的位置，生活就会有条不紊，做起事来就能够循规蹈矩。我们从生活起居里面，就可以看出一个人真正的修养品德，这些素质要从小就开始培养，就在整理房间、衣物的时候，培养这颗恭敬、谨慎之心。虽然这些物品没有生命，但是你善待它，它也会用得愈久，所谓“爱人者人恒爱之，爱物者物恒爱之”。所以我们希望这一生能成功，现在就要把这些根基打好，大处着眼，小处着手，养成良好的生活习惯是成功的一半。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">衣贵洁 &emsp;不贵华 &emsp;上循分 &emsp;下称家</p>
-
-<p style="margin-bottom: 0;"><br>    【解】穿衣服须注重整洁，不必讲究昂贵、名牌、华丽。穿着应考量自己的身份及场合，更要衡量家中的经济状况，才是持家之道。不要为了面子，更不要让虚荣心做主，无谓的开销就是浪费。<br></p>
-
-<p><br>    爱美之心，人皆有之，服饰之美在于内在气质与外在形式的和谐统一。如果只追求外表光鲜靓丽，忽视内在修养，不仅浪费大量的金钱和精力，时间久了，也会因金玉其外、败絮其中而失去真正的魅力。况且一味追求名牌或奇装异服，强迫家长购买力所不能及的服装，这样不仅有损自己的形象，更是增加了父母的经济负担。父母养育我们已够辛苦，懂事的孩子只盼望自己能早一天为父母分忧解难，怎么能忍心再给父母添烦恼呢？其实穿衣服最重要的目的是保暖、遮羞，可是我们在买的过程当中，已经忘记了它本来的目的，反而沾上了虚荣的习性，仔细想一想实在是不应该呀！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">对饮食 &emsp;勿拣择 &emsp;食适可 &emsp;勿过则</p>
-
-<p style="margin-bottom: 0;"><br>    【解】日常饮食要注意营养均衡，多吃蔬菜水果，少吃肉，不要挑食，不可以偏食，三餐常吃八分饱，避免过量，以免增加身体的负担，危害健康。<br></p>
-
-<p><br>    一个人真正活得怎么样、生命的质量如何，都与生活有没有常态紧密联系，暴饮暴食，夜不睡、晨不起，这都是生活没有规律的表现。老子说：“圣人为腹不为目。”饮食是为了吃饱肚子，而不是为了满足口目。当今社会的文明病，例如：癌症、糖尿病……等等，很多都是因为营养过剩与营养失衡所造成，要注意那些过分加工和太精致的食品，大都还有化学添加物，有害健康，不宜食用。<br></p>
-
-<p><br>    世界卫生组织公布的全球十大垃圾食品：油炸类食品、腌制类食品、加工类肉食品（肉干、肉松、香肠等）、饼干类食品（不含低温烘烤和全麦饼干）、汽水可乐类食品、方便类食品（主要指方便面和膨化食品）、罐头类食品（包括鱼肉类和水果类）、话梅蜜饯类食品（果脯）、冷冻甜品类食品（冰淇淋、冰棒和各种雪糕）、烧烤类食品。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">年方少 &emsp;勿饮酒 &emsp;饮酒醉 &emsp;最为丑</p>
-
-<p style="margin-bottom: 0;"><br>    【解】饮酒有害健康，要守法，青少年未成年不可以饮酒，成年人饮酒也不要过量。试看醉汉疯言疯语，丑态毕露，最容易表现出不当的言行，惹出多少是非？<br></p>
-
-<p><br>    酒后无德、酒后乱性，人在这种不清醒的状态下，会说错话、做错事，往往做出很多丧失理智的事情，造成不可收拾的后果，所以从小就不要饮酒。这个酒也包括所有让我们沉迷的东西，像现在流行的游戏机、电脑游戏、赌博、酒吧、KTV，还包括更不好的抽烟、吸毒等，这些东西让人玩物丧志、沉迷不醒，要坚决把它戒除，一旦养成，后果不堪设想。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">步从容 &emsp;立端正 &emsp;揖深圆 &emsp;拜恭敬</p>
-
-<p style="margin-bottom: 0;"><br>    【解】走路时步伐应当从容，要稳重大方、不慌不忙、不急不缓。站立时要端正、有站相，须抬头挺胸、精神饱满，不可以弯腰驼背、垂头丧气，所谓“立如松，行如风，坐如钟，卧如弓”。问候他人时，不论鞠躬或拱手作揖都要真诚恭敬，不能敷衍了事。<br></p>
-
-<p><br>    一个人外在行为表现是他修养和素质的具体反映。走路稳重，站立端正，说明他具有沉稳、正直、不慌乱、不毛躁的性格；行礼时恭敬、谦和，说明他从内心深处尊重对方使受礼者感到被尊重，产生好感，很容易形成融洽和谐的气氛，所以不能轻视这些行为。《了凡四训》里面讲：“大都吉凶之兆，萌乎心而动乎体。其过于厚者常获福，过于薄者常近祸。”这是告诉我们一个人的吉凶祸福，通过这些身体的礼节、行为就可以预测他的将来如何。如果一个人的行为非常恭敬、厚道，那么他必定有福报；如果是轻薄、傲慢、懒惰，那么这种人必定会招惹祸患的。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">勿践阈 &emsp;勿跛倚 &emsp;勿箕踞 &emsp;勿摇髀</p>
-
-<p style="margin-bottom: 0;"><br>    【解】进门时脚不要踩在门槛上，站立时身体不要歪道斜靠在墙边，这样看起来很不庄重。坐的时候不可以两条腿像畚箕一样，更不可以养成抖脚的坏习惯。有些人一坐下来腿就拼命地摇，这些都是心很浮躁、不安定、轻浮、傲慢、非常不雅观的举动。<br></p>
-
-<p><br>    俗话说：“男抖穷，女抖贱。”做父母的看到子女有这些不好的举动要特别注意，一定要从小予以纠正，不然等他习惯养成，长大以后就会有很大的负面影响，人家看你一副轻浮的样子，一定得不到别人的喜欢和尊重。所谓“教儿教女先教己”，做父母的更应该首先以身作则，去除这些坏毛病。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">缓揭帘 &emsp;勿有声 &emsp;宽转弯 &emsp;勿触棱</p>
-
-<p style="margin-bottom: 0;"><br>    【解】在古代房门口都会有布帘或竹帘，就等于我们现在的门一样，这是教我们开关门时，动作要轻，太大声有时会吓到人，而且我们的动作如果太大，有时帘子或门会打到后面的人。在走路转弯时，要与物品的棱角保持较宽的距离，除了避免使自己受伤外，也不会把东西弄乱或弄坏。<br></p>
-
-<p><br>    这是告诉我们，做任何事情动作都要细腻、轻柔，不可以很粗鲁，要缓缓地做，不能够急躁，急于求成往往容易败事。特别是大事当前，更要心里安定，这样考虑问题就能够周详，做事就容易成功。一个人是否有学问，在哪里看？我们说替人着想是第一等学问，替人着想可不是嘴巴说的，而是要点点滴滴落实在生活之中。我们除了走路声、关门声不可以太大外，假如你吃饭的时候很大声，同样也会让人觉得很不舒服。所以我们要处处提醒自己，所作所为是否考虑到了他人的感受，要懂得在日常生活这些小事上，锻炼我们的大气质。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">执虚器 &emsp;如执盈 &emsp;入虚室 &emsp;如有人</p>
-
-<p style="margin-bottom: 0;"><br>    【解】拿东西时要注意，即使是拿着空的器具，也要像里面装满东西一样小心谨慎，以防跌倒或打破。进入无人的房间，也要像有人在一样，不可以随便。<br></p>
-
-<p><br>    这种专注的精神、细心的行为从小就要养成。这句话用在求学、工作中也非常适用，事情没来的时候，对待自己要谨慎，防范过失的发生，真正有事情来了，你就有了一种豁然大度的那种风度出来。崇高的节义、真实的道德学问，都是从暗室屋漏中来，我们要教导子女在没有人看到的地方更要懂得尊敬别人、谨慎自己的内心，不要随便碰别人的东西，不要起偷盗之心及不应该起的念头，因为这些都是很不尊重别人的态度，所以“慎独”非常重要。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事勿忙 &emsp;忙多错 &emsp;勿畏难 &emsp;勿轻略</p>
-
-<p style="margin-bottom: 0;"><br>    【解】做事不要急急忙忙、慌慌张张，因为忙中容易出错，做事情不要急于求成，要稳稳当当、按部就班地进行。遇到该办的事情不要畏苦怕难而犹豫退缩，也不可以草率、随便应付了事。<br></p>
-
-<p><br>    《大学》里面讲：“物有本末，事有终始，知其先后，则近道矣。”这句话是告诉我们在处事接物当中要懂得先后顺序，要看清楚事情的轻重缓急，那些事要现在做，那些事可以暂缓一步做，哪些事并不必要去做。所以临事从容不迫，真正能够懂得事情的轻重缓急、先后顺序，那么这就是一个成功的人。当我们人生面临挫折、逆境、挑战时，要把它当成是一种锻炼，要有“责任的承担是成长的开始”的这种意识，在此境缘当中磨练我们的耐心、毅力以及处理问题的能力。所以我们要感谢挑战、感谢逆境，坚信只要不怕困难，通过努力，一定能成功。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">斗闹场 &emsp;绝勿近 &emsp;邪僻事 &emsp;绝勿问</p>
-
-<p style="margin-bottom: 0;"><br>    【解】凡是容易发生争吵打斗不健康的场所，如赌博、色情、网吧等是非之地，要勇于拒绝，不要接近，以免受到不良的影响。一些邪恶下流、荒诞不经的事也要谢绝，不听、不看，不要好奇地去追问，以免污染了善良的心性。孔夫子说：“非礼勿视，非礼勿听，非礼勿言，非礼勿动。”就是此意。<br></p>
-
-<p><br>    孩子倒不好的环境去，交到不好的朋友，根源还是在于善恶不明。假如从小就能把孩子德行的根基扎稳，善恶分明，当他接触到不善的人和环境，自然就会敬而远之。因为他心中那把做人的尺度清清楚楚、明明白白，这叫先入为主。所以，一定要在孩子还没有养成、染上这些恶习的时候就要制止，这样您的中晚年才能够高枕无忧。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">将入门 &emsp;问孰存 &emsp;将上堂 &emsp;声必扬</p>
-
-<p style="margin-bottom: 0;"><br>    【解】将要入门之前应先问：“有人在吗？”进入办公室或客厅之前，应先提高声音，让里面的人知道有人要进来了，这个除了显示行为光明正大之外，也是避免吓到别人。<br></p>
-
-<p><br>    不管你到什么样的房间，不论里面有没有人，都要养成先敲门的习惯，这是对人的尊重。假如我们问都不问，一下子贸然闯入，这就是对主人的不恭敬了。屋子里如果没人，绝对不能进去，假如人家刚好丢东西，你就百口莫辩了。所以，人一生要很注重自己的名节、信誉，不要因为自己的不谨慎而招惹没必要的麻烦。这些都是基本的礼节，要从小教导孩子。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">人问谁 &emsp;对以名 &emsp;吾与我 &emsp;不分明</p>
-
-<p style="margin-bottom: 0;"><br>    【解】现代家庭都有门铃，我们按了门铃，对方拿起听筒一定会问：“你是谁？”这个时候我们应该报出自己的姓名并表明来意，而不是说“我！我！”，让人无法分辨“我”是谁？<br></p>
-
-<p><br>    如果只回答“是我”，这种回答等于没说。我们以为对方一定记得我们、认出我们的声音，结果对方有可能根本搞不清楚你究竟是谁，反而弄得双方都很尴尬，这样就很失礼。另外，我们按门铃时不要拼命一直按，按了以后要稍微停二十秒左右，再按第二下，要给屋里人走到门口开门的时间。当这些细微之处你都能时时替对方着想，就会给人留下很好的印象，觉得你是一个有礼貌的人。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">用人物 &emsp;须明求 &emsp;倘不问 &emsp;即为偷</p>
-
-<p style="margin-bottom: 0;"><br>    【解】当我们要用别人的东西时，一定要先经过主人的同意。如果事先没有经过主人的同意就擅自动用，这种行为就叫作偷盗。<br></p>
-
-<p><br>    如果我们随便拿别人的东西来用，当主人找不到时就会生烦恼，很多的争执、冲突就是因为这些小节没注意到而引起的。还有一些人出于好奇心，经常去翻别人的抽屉、柜子等，看看有些什么东西，这种行为一旦让人知道，将来别人丢东西了，第一个就会想到你。所以，不该我们拿的或用的，连动都不要动，以免招惹没必要的嫌疑，给自己带来没必要的麻烦，我们不要因为这些小事而亏欠了德行。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">借人物 &emsp;及时还 &emsp;后有急 &emsp;借不难</p>
-
-<p style="margin-bottom: 0;"><br>    【解】借用他人的物品，要爱惜使用并准时归还。这样以后若有急用，再借就不难了（谚云：“好借好还，再借不难。”）<br></p>
-
-<p style="margin-bottom: 0;"><br>    要借别人的东西，即使是再近的亲人，都要当面向他讲清理由，有礼貌地提出请求，如果人家拒绝了，要理解人家。当人家借给我们之后要心存感恩，因为这是人家在帮助你。说好了什么时候归还，一定要及时归还而且要答谢，这是讲信用、有礼貌的表现。假如不准时归还，就太没有道义了。所以，当我们确定哪个时间要还时，一定要写在日历或记事本上，以免忘记。使用别人东西时要比对自己的东西还要爱惜，做到完璧归赵，这样人家才会信任你。万一有损坏，要向人家说明，主动提出赔偿。当你每次借人家的东西都这么谨慎时，往后借再多的东西，人家也会很欢喜地把东西借给你了。<br></p>
-
-<p><br>    有人说现代社会要敢想敢干，谨慎已经过时了，此种看法非常浅薄。做事既要有胆略，也要有谨慎，缺一不可，所谓胆大而心细，做人讲道德，更要“吾日三省吾身”，在细微处下手。社会生产生活方式常变，而人性千古不变，古人“谨”字的训导，永不过时。<br></p>
-          
+          四、谨    【解】所谓“谨”，就是一种生活态度，我们做人要谨慎小心才不至于犯错误。“谨”这部分的教诲可以培养一个人三方面的能力：第一是自制力，第二是独立生活的能力，第三是做事的能力。现在孩子大部分都
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/19/弟子规 （3）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1709,76 +1210,15 @@
       
         
           
-            <h3 id="三、出则弟"><a href="#三、出则弟" class="headerlink" title="三、出则弟"></a>三、出则弟</h3><p><br>    【解】这一篇说的是家中兄弟相处之道以及与长辈在一起的规矩，教导孩子对待长辈要有恭顺的态度和行为，要懂得尊重别人。当我们在家里已经养成了对父母、师长、兄弟的一种恭敬顺承的态度后，长大踏入社会，自然对领导、长辈及一切人也都有一种恭敬的存心，表现在外面就是以礼待人。我们要知道，很多为人处世的行为，确确实实是在家里养成的，所以为什么说家教如此重要！一个懂礼貌的人，他走到哪里都能赢得众人的喜欢、获得贵人的帮助。相反，假如没有礼貌，他不只不会遇到贵人、不会有很多助力，在言语、行为当中还会形成很多的阻力。他自己还会觉得莫名其妙，他们怎么都看我不顺眼，搞不清楚问题到底发生在哪里。所以，为人父母者果真为你的孩子前途着想，一定要慎重思考，在他成长的过程中，到底是考试分数重要还是教孩子做人做事的态度重要？既然我们都希望自己的孩子将来能遇到贵人、事业有成，那么从小就要重视这些影响孩子一辈子的重要的德行教育，这才是他人生幸福美满的根源！不然，等孩子长大以后习惯成自然，就很难改变了，这才是我们教育的当务之急！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">兄道友 &emsp;弟道恭 &emsp;兄弟睦 &emsp;孝在中</p>
-
-<p style="margin-bottom: 0;"><br>    【解】当哥哥姐姐的要有爱弟妹，做弟弟妹妹的要懂得恭敬兄姐，这样兄弟姐妹就能和睦相处而减少冲突。兄弟姐妹能和睦相处、互相尊重，父母自然欢喜，孝道就在其中了。<br></p>
-
-<p><br>    兄弟姐妹同为父母所生，情同手足，同声相应，同气相求，故能尽悌道也就是孝道。现在常在报纸上看到这样一些悲哀的现象，父母含辛茹苦地把好几个儿女养大，到父母老了需要儿女照顾时，谁都不愿意承担赡养的义务。父母过世后，儿女之间又为了互相争夺财产，告上法庭，甚至兄弟姐妹变成了仇人，全把父母的教诲忘在脑后。这是大不孝啊！想想父母在世时为我们操劳一生，走后在天之灵都无法得到安息，这是多么令父母操心、悲伤、蒙羞的事情啊！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">财物轻 &emsp;怨何生 &emsp;言语忍 &emsp;忿自泯</p>
-
-<p style="margin-bottom: 0;"><br>    【解】与人相处，不斤斤计较财物，怨恨就无从生起。讲话要谨慎，不要说过激、太伤人的话语，给对方一分尊重，不要逼人太甚，这样自然就会刺痛对方而产生怨恨。<br></p>
-
-<p><br>    言语在孔门四科里面排在第二位，这是很重要的一门学问。俗话说：“忍一时风平浪静，退一步海阔天空。”能忍让，就能化干戈怒气于无形之中。其实，在忍当中不但能扩宽自己的心量，也会唤醒对方的惭愧之心。因为，毕竟当人在发脾气的时候，往往都是比较情绪化，等他冷静下来，就会觉得自己理亏。所以，这一忍，忍出了自己的德行，也忍出了对方的惭愧，而且更保持了彼此的关系，何乐而不为呢？<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">或饮食 &emsp;或坐走 &emsp;长者先 &emsp;幼者后</p>
-
-<p style="margin-bottom: 0;"><br>    【解】不论用餐、就座或行走，都应该谦虚礼让、长幼有序，让年长者优先，年幼者在后。<br></p>
-
-<p><br>    现在家庭大多只有一个孩子，他们很多已经成为家中的小皇帝、小公主，几代人围着一个孩子转，有什么好吃的、好用的，总是首先想着孩子。这样长期下去，就增长了他自私自利的心性，以致小孩认为这是理所当然的，不知道要礼让长辈，认为自己是老大，使孩子养成了坏习惯。很难想象，一个自私自利、连自己的父母都不放在心上的人，怎么可能会为别人着想，将来怎么可能得到大家的尊重而获得真正的幸福成功呢？所以，不要因为大人的宠爱，而忽略了从小就应该培养孩子礼让的美德。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">长呼人 &emsp;即代叫 &emsp;人不在 &emsp;己即到</p>
-
-<p style="margin-bottom: 0;"><br>    【解】长辈有事呼唤人，应代为传唤。如果那个人不再，自己应该主动去询问是什么事？可以帮忙的就帮忙，不能帮忙则代为转告。<br></p>
-
-<p><br>    这是告诉我们，时时要有一颗为他人着想的心。当我们知道出处尊重长辈，常常有服务于长辈的心，长辈交代我们的事一定是立即去做，而且会把做完的情形向长辈报告，让长辈放心。当别人交代给我们的工作都能从头至尾做好，有始有终，这样我们走到哪里都会受到欢迎，别人看我们也顺眼，自然也就能得到长辈的垂爱和提携。其实，当一个孩子在落实这些礼仪的时候，他的耐性、沉着也就逐渐地培养出来了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">称尊长 &emsp;勿呼名 &emsp;对尊长 &emsp;勿见能</p>
-
-<p style="margin-bottom: 0;"><br>    【解】称呼长辈，不可以直呼姓名，这是对长辈的一种尊重。在长辈面前，要谦虚有礼，不要表现出自己很有才能，藐视长辈。<br></p>
-
-<p><br>    晚辈直呼长辈的名字是不礼貌的、没有教养的表现，因此要在称呼上从小就树立孩子长幼、尊卑的态度，这样才能培养孩子谦虚的心态。如果孩子目无尊长、爱好表现，长辈就不愿意教他们了。古人很重视韬光养晦，一个人即使有才华，也不能在大庭广众之中故意卖弄，这是相当危险的。因为锋芒太露了很容易遭人嫉妒，这对将来的前途以及立身处世都有负面的影响。真正有德有才之人，久而久之自然能获得大家的敬佩、爱戴，何必用表现自己来证明自己的才华呢？<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">路遇长 &emsp;疾趋揖 &emsp;长无言 &emsp;退恭立</p>
-
-<p style="margin-bottom: 0;"><br>    【解】路上遇到长辈，应快步向前问好。长辈没有事时，即恭敬退后站立一旁，等待长辈离去。<br></p>
-
-<p><br>    如果见到长辈，还慢吞吞、大摇大摆地走上去，这种形象就已经充满了傲慢。文明礼貌看起来是一种外在的行为变现，实际上反映了一个人的内心修养，体现出一个人自尊和尊重他人的意识。人与人之间互相观察和了解，一般都是从礼仪开始的，一个举止优雅、彬彬有礼的人，更容易交到好的朋友、找到好的工作，所以礼貌就是一张金名片。而父母良好的行为举止是对孩子最生动、最有效的礼貌教育，事项一个满口脏话的家长，想要自己的孩子语言文明也是不大可能的。因此，家长应严格要求自己，给孩子做出一个好的榜样。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">骑下马 &emsp;乘下车 &emsp;过犹待 &emsp;百步余</p>
-
-<p style="margin-bottom: 0;"><br>    【解】古礼：不论骑马或乘车，路上遇见长辈均应下马或下车问候。长辈离开以后，应该站在原地，目送长辈离开百步之遥，我们才可以离开。<br></p>
-
-<p><br>    这都是体现出一种对长辈的恭敬之心。礼节作为人与人之间行为规范的一种规定，可以说是人与人之间所保持的最优美的距离，这种自然的秩序如果我们遵守的话，相处起来就感觉非常舒服、和谐，不会觉得唐突。假如这个礼你觉得繁琐，要把它废除掉，往往就会产生很多的不愉快跟误会。要知道正是这些繁琐的礼节，才能培养出一个人的耐心、细心、恭敬之心。这样久久养成习惯之后，这个人自然就有一个雍容大度之气，即使是在事情很忙乱的时候，他的礼节都分寸不乱，这才是真正大德之人。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">长者立 &emsp;幼勿坐 &emsp;长者坐 &emsp;命乃坐</p>
-
-<p style="margin-bottom: 0;"><br>    【解】长辈如果站着，我们绝对不可以坐，因为这是非常无礼的。即使是长辈不坐，我们也不能坐。当长辈坐下来了，吩咐我们也一起坐时，我们才可以坐下来。如果长辈没有让我们坐，那我们就要侍奉在长辈旁边，服务于长辈。<br></p>
-
-<p><br>    这是一项非常重要的社交礼节。我们参加聚会时，大家都有这样的感受，譬如说有家长带孩子来时，一群孩子遇到一起，如果小孩没有受到约束，往往就会在屋子里毫无顾忌地东跑西跑、大声喊叫，非常没有礼貌，给人的感觉是很没有家教。这是什么原因造成的呢？就是从小父母没有教过他这些应对进退的基本礼节。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">尊长前 &emsp;声要低 &emsp;低不闻 &emsp;却非宜</p>
-
-<p style="margin-bottom: 0;"><br>    【解】在长辈面前讲话，声音要柔和适中，但回答的音量太小让人听不清楚，也是不恰当的，和颜悦色、柔和清楚最好。<br></p>
-
-<p><br>    这是提醒我们时时要注意别人的感受。在长辈面前讲话，声音太大、很刺耳，讲起话来还滔滔不绝，旁边坐的长辈心里一定会觉得很难受、不舒服。所以，从小我们就要有意识地训练孩子，在长辈面前言谈举止要落落大方，要有一种柔和的气质。家里如果有长辈来，我们一定要让子女出来跟他问候，并注意在旁边观察他的礼貌、应对情形。如果发觉孩子有哪些过失及表现不妥的地方，当下就要知道他应该如何做才是最好的。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">进必趋 &emsp;退必迟 &emsp;问起对 &emsp;视勿移</p>
-
-<p style="margin-bottom: 0;"><br>    【解】有事要到长辈面前，应快步向前，等到告退时，必须稍微慢一些才合乎礼节。当长辈问话时，应当专注聆听，眼睛不可以东张西望、左顾右盼。<br></p>
-
-<p><br>    孩子对人讲话时眼睛不专注，代表他的心没有恭敬，心不在焉，很浮躁。现在孩子为什么这么焦躁？就是太缺乏礼节的教育，久而久之我行我素惯了。所以这些小细节，都需要我们为人长者好好用耐性去教导，慢慢让他能循规蹈矩，处处替人着想。加入与人相处都能遵守这些基本的礼节，回馈给我们的就是所有人都愿意帮助你、喜欢你。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事诸父 &emsp;如事父 &emsp;事诸兄 &emsp;如事兄</p>
-
-<p style="margin-bottom: 0;"><br>    【解】对待叔叔、伯伯等尊长，要如同对待自己的父亲一般孝顺恭敬，对待同族兄长（堂兄姊、表兄姊），要如同对待自己的兄长一样友爱尊敬。<br></p>
-
-<p style="margin-bottom: 0;"><br>    我们回想一下，这些长辈在我们小时候不知曾经抱过我们多少次，在心里祝福我们健康成长，对我们有很多的提携、关怀，这一份情我们要时时存在心里。当他们有需要的时候，我们一定要尽心尽力去帮忙，俗话说，“受人点滴”要“涌泉相报”。我们再把这种心扩展到社会，对待任何人的父母、兄弟姐妹也都要关心、爱护。当我们有了这样的态度，心胸就会非常开阔，量大福也就大，人生才会充满快乐。<br></p>
-
-<p><br>    有人认为现代社会独生子女无兄弟姐妹，故不需有悌道，这种看法是狭隘的、短浅的。“兄弟”一伦也叫“长幼”，孩子长大成人进入社会，知有前辈晚辈，有年长于己而有才德者即视之如兄，就是悌道。晚辈能虚心向学，前辈能教而无倦，人类文化方能传承不绝，故曰：“四海之内皆兄弟也。”<br></p>
-          
+          三、出则弟    【解】这一篇说的是家中兄弟相处之道以及与长辈在一起的规矩，教导孩子对待长辈要有恭顺的态度和行为，要懂得尊重别人。当我们在家里已经养成了对父母、师长、兄弟的一种恭敬顺承的态度后，长大踏
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/19/弟子规 （2）/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1896,109 +1336,16 @@
       
         
           
-            <blockquote>
-<p>以弟子规作为我学习传统文化的基础，首先树立良好的道德及情操，再去深入经藏，以期与古人神交。之前谈到《弟子规》总是不屑一顾，那都是小孩学的，我一个20多岁的人，是否太幼稚了。可是偶然的机会让我初识它，读到里面的经句。都会扪心自问到底有没有做到呢？（以一个成年人的姿态），这在古时候可是蒙童养正的书籍，是针对儿童的呀！念此私自愧，尽日不能忘！可是弟子规最后一句说到“勿自暴、勿自弃；圣与贤、可驯致”，故以此勉励自己，任何时候都不晚。发心领悟其中的深刻义理，把它落实到生活中。</p>
-</blockquote>
-<h3 id="一、总叙"><a href="#一、总叙" class="headerlink" title="一、总叙"></a>一、总叙</h3><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">弟子规 &emsp;圣人训 &emsp;首孝弟 &emsp;次谨信</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">泛爱众 &emsp;而亲仁 &emsp;有余力 &emsp;则学文</p>
-
-<p style="margin-bottom: 0;"><br>    【解】《弟子规》这本书，是依据至圣先师孔子的教诲而编成的生活规范。它教导我们：首先在日常生活中要做到孝顺父母、友爱兄弟姐妹；其次在一切日常言语、行为中，要小心谨慎，要讲信用；与大众相处时要平等博爱，并且亲近有仁德的人，向他学习，这些都是很重要非做不可的事；如果还有多余的时间、精力，就应该好好学习六艺等其他有益的学问。<br></p>
-
-<p style="margin-bottom: 0;"><br>    孔子教学，讲四门教育：德行、言语、政事、文学。四门教育首重教育，而《弟子规》是最好的德行教育课本，这个教育注重的是家庭教育，家教是最重要的扎根教育。家庭教育对一个人的性格、意志、品质、情操、爱好乃至人生观、世界观都起着根本作用。没有家教的小孩，即使学校教育再优秀，一生都不会有大成就。小孩在三岁以前离不开母亲，母亲的一言一行，小孩都在模仿与记忆，以母亲的一百哦作为自己的行为规范，这叫母仪母教。如果父母自己不自尊、不严格要求自己，你的小孩将向你学习什么呢？所以真正要让家庭教育有很好的进展，必须从家长开始提升。<br></p><br><p style="margin-bottom: 0;"><br>    《易经》里有一句话“蒙以养正，圣功也”，意思是孩子小时候就要给他培植正确处事待人的态度，养他的浩然正气，让他奠定德行的根基。你把小孩教好了，这个功德最神圣。为什么呢？因为祖国的未来就在孩子的手里，如果孩子没有德行，那么将来必定会影响社会和谐稳定，孩子如果是有才无德那是危险品、毒品。《三字经》说：“人之初、性本善。性相近，习相远，苟不教，性乃迁。”人的本性都是一样的，而习性就不一样了。因为人受的教育不同、受的熏染不同，在社会里受不良风气的熏染，他就变成坏人了，如果受到良好的教育，他就变成好人了。所以，我们要坚信品学兼优的孩子是教出来的。<br></p><br><p style="margin-bottom: 0;"><br>    有见识的有智慧的父母，一定是以圣贤之道来作为教育孩子的指导方针，通过学习、落实圣贤的教诲，让小孩能在一生获得幸福成功的人生乃至于成圣成贤。<br></p>
-
-<h3 id="二、入则孝"><a href="#二、入则孝" class="headerlink" title="二、入则孝"></a>二、入则孝</h3><p><br>    【解】这一篇讲的是为人子之道，子女的本分就是一个孝字。古人云：“百善孝为先。”孝敬父母是中华民族的道德准则，人人皆知父母养育儿女之辛苦，要尽我所能来回报双亲，但这种良善的天性如不及时施以正确的教导，则此种感恩的心情很快会泯灭掉。不知不觉中，习惯了衣来伸手、饭来张口，就会认为父母疼我爱我乃天经地义之事；至于我也要疼爱父母，因无人教无人提醒，乃渐渐遗忘于脑后。没有使孝顺父母成为孩子的自觉行为，长大后埋怨孩子不懂孝道、对他人没有爱心，后悔已迟。所以，从小就要培养孩子的孝道精神。当他在家知道孝敬父母后，在外面才知道尊敬老师、长辈，他才能进一步把这份爱心扩展扩展到周边的一切人。所以，圣人提倡以孝治理天下，以孝治天下必定能得到和睦家庭、和谐社会、和谐世界。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">父母呼 &emsp;应勿缓 &emsp;父母命 &emsp;行勿懒</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母叫我们，要马上答应，不能够迟缓。父母有事要我们去做，要立刻行动，不可拖延或推辞偷懒，这是对父母的一种尊敬<br></p>
-
-<p><br>     孩子对父母讲话的态度，对小孩一生影响很深远。当他在与父母应答之间所形成的是孝心、恭敬心时，就为他以后的发展奠定了良好的基础。如果父母叫我们时拖拖拉拉，那就是一种傲慢，恭敬心就没有了。子游问孔子：以很丰厚的生活奉养父母，这个算不算是尽孝呢？孔子说：“至于犬马，皆能有养。不敬，何以别乎？”如果对父母没有恭敬心，那么养父母跟养狗、养马有什么区别呢？哪能叫尽孝呢？所以孝第一要培养的是敬，一切人伦之道都是以爱敬心为基础的，孝必定要跟恭敬心联系起来。当一个人在家里养成了这种对父母温和柔顺的态度与恭敬的存心后，踏入社会，他的这种修养一定会引起大家对他的重视和尊敬，这种恭敬的存心就是他幸福成功的源泉。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">父母教 &emsp;须敬听 &emsp;父母责 &emsp;须顺承</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母教导我们做人处事的道理，是为了我们好，应该恭敬地聆听。做错了事，父母责备教诫时，应当虚心接受，不可强词夺理，使父母生气、伤心。父母的责备大部分都是出自于爱心，所以即使是父母说错了，我们心里明白，也不必跟父母顶嘴，有则改之，无则加勉。<br></p>
-
-<p><br>    我们要深深感念父母不厌其烦地教导和成就我们的苦心，所谓“爱之深，责之切”，而为人子女者，却很少能体会父母这至深至爱之情。犯了错，不但不能接受父母的教诲，反而阳奉阴违，甚至起厌烦心说出冒犯父母的话，让父母伤心至极。故孔夫子说：“色难。”侍奉父母，难在永远保持和颜悦色。仔细想想，我们是否父母说一句而顶了很多句呢？深信每个人都希望能做一个孝子，因为自古以来孝子是最有福的人，那么就让我们先从事亲、悦亲、让父母心生欢喜开始吧！<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">冬则温 &emsp;夏则凊 &emsp;晨则省 &emsp;昏则定</p>
-
-<p style="margin-bottom: 0;"><br>    【解】为人子女，对父母要时时关心、处处留意。二十四孝的黄香，为了让父亲安心睡眠，夏天睡前会帮父亲把床铺扇凉，冬天寒冷时会为父亲温暖被窝，实在值得我们学习。早晨起来要向父母请安问好，下午回家之后，要将今天在外的情形告诉父母，向父母报平安，使老人家放心。<br></p>
-
-<p><br>    这些行为虽然都是小事，但出处都表现出一个孝子的那种纯孝之心、知恩报恩的心。我们要知道，从孩子有了生命那天开始，父母就对子女百般呵护，衣食住行照顾得无微不至。作为感恩，子女关注留意父母的冷暖，这是天经地义的，况且子女给予父母的关爱比起父母的付出，万分之一也不及。而当一个人爱护父母养成了习惯后，他待人、处事、接物都有那种温、良、恭、俭、让的态度，这种人自然能得到大家的尊敬、爱戴。这样的人生虽是平凡，确是现今社会中的不凡之人了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">出必告 &emsp;反必面 &emsp;居有常 &emsp;业无变</p>
-
-<p style="margin-bottom: 0;"><br>    【解】外出离家时，须告诉父母要到哪里去，父母批准了我们才可以去。回家后还要当面禀报父母回来了，让父母安心，这些都是必要的礼貌。平时起居作息（生活习惯）要保持正常有规律，不要任意改变。长大以后，应居有定所、事业专注、切勿荒废、空过一生，让父母为我们担忧。<br></p>
-
-<p><br>    这些行为都体现出一个孝子心里常常存着父母，因为心里存着父母，所以他必然就“出必告，反必面”。如果心里面把父母忘了，很可能这些细节他也忽略了。我们要体会到，它主要告诉我们对父母要常常惦记在心，常常有安慰父母、让父母安心的这个意念。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事虽小 &emsp;勿擅为 &emsp;苟擅为 &emsp;子道亏</p>
-
-<p style="margin-bottom: 0;"><br>    【解】纵然是小事，也不要擅自做主而不向父母禀告。如果任性而为，容易出错，也有损为人子女的本分，因此而让父母担心，是不孝的行为。<br></p>
-
-<p><br>    孩子第一次犯错，做父母的千万不可以含糊过去，一定要给予正确的纠正，不能迁就和纵容孩子，不能满足孩子的无理要求，不许任性，要让他懂得哭闹毫无意义，做任何事情必须讲道理，这样他会终身记住，不会再犯。所谓“慎于始”，一切都要谨慎于开始，而等他一错再错，再来纠正就不容易了。每个孩子都会犯错，如果我们对孩子的缺点和错误，在仔细分析的基础上给予批评，并心平气和地把道理给他讲清楚，再教他正确的做法，使孩子接受起来口服心服。这种处理孩子不良行为的方法既充满关爱，又不失威严，并且能够加深母子之间的感情。当我们有了这些正确的做法时，孩子犯错，自然而然机会意识到，这正是教育他的最佳时机，就不会因为乱发脾气，而把教育的机会点错过了。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">物虽小 &emsp;勿私藏 &emsp;苟私藏 &emsp;亲心伤</p>
-
-<p style="margin-bottom: 0;"><br>    【解】东西虽然很小，也不要背着父母，偷偷地私藏起来。一旦被发现，父母心里一定十分伤心生气。<br></p>
-
-<p><br>    即使小到一颗糖果，如果没有经过主人同意，就私自把它隐藏起来，那就等于是小偷。这种行为会让父母蒙羞，感到是一种羞耻。所以，我们为人父母要在这些方面特别谨慎注意，应该经常查看孩子的书包、口袋，看是否有来路不明的东西，是不是多出了一些文具或用品。如果有的话，可能孩子的手已经犯了不干净的行为。谚云：“小时偷针，大时偷金。”如不及时制止，发展下去就会对品德造成很大的伤害，这很可能就因此而毁了他一生的前途。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲所好 &emsp;力为具 &emsp;亲所恶 &emsp;谨为去</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母亲所喜好的东西，当子女的应该尽力去准备齐全，父母亲所厌恶的事情，要小心谨慎地去除掉（包含自己的坏习惯）。<br></p>
-
-<p style="margin-bottom: 0;"><br>    在日常生活中我们要处处留心、时时在意，一言一行都要以父母作为主要考虑。要从衣食住上细心观察，使父母的口福不缺，按四季更换衣服，卧宿使其安适，行动有人扶持；父母所爱植物，我必爱之，父母所爱之人，我当敬之，父母所愿意的事，我当奉行之，要时时顺着父母的心意，使其心生欢喜。读懂父母的心声、父母的需求，这才是真正的孝道。相反，当我们起一个坏的念头，比如说起了贪心、起了跟人家争斗的心以及不好学进取、种种不善的念头，这都是对不起父母啊！这些我们都要小心地把它去除掉，所以这个孝必要从这点点滴滴去养成。<br></p>
-
-<p><br>    这让我不禁想到孝经中的一句话“身体发肤，受之父母，不敢损伤，孝之始也；立身行道，扬名于后世，以显父母，孝之终也。”<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">身有伤 &emsp;贻亲羞 &emsp;德有伤 &emsp;贻亲羞</p>
-
-<p style="margin-bottom: 0;"><br>    【解】要爱护自己的身体，不要使身体受到伤害，让父母忧虑。更要注重自己的品德修养，不可以做出伤风败德的事，使父母亲蒙受耻辱。<br></p>
-
-<p><br>    有人抱怨说：父母怎么管我这么多？实在是因为你不能让父母放心啊！假如你知道照顾好自己的身体，生活起居饮食有规律，进而让自己更懂事，这样父母就放心了。现在不健康的网络、影视、杂志媒体太发达，人与人之间交流很频繁，假如你没有判断力，又没有理智，就会收到邪恶思想的污染而堕落。到时候不但父母家人蒙羞，甚至连下一代也有可能蒙羞，这是大不孝，所以从小就要学会自尊自爱，保持身心的清净健康很重要。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲爱我 &emsp;孝何难 &emsp;亲憎我 &emsp;孝方贤</p>
-
-<p style="margin-bottom: 0;"><br>    【解】当父母喜爱我们时，孝顺是很容易地事情。当父母不喜欢我们或者管教过于严厉时，我们一样孝顺，还能够自己反省检点，体会父母的良苦用心，努力改过并且做得更好，这种孝顺的行为最是难能可贵。<br></p>
-
-<p><br>    父母即使不慈，也不应该称为自己不尽孝的理由。因为父母给予生命并将自己抚育成人，这个恩德太大，做儿女的用任何方法都是无法回报的。但是父母身上可能会有缺点，作为儿女也应该感父母养育之恩而加以包容，不可以以此作为自己不孝的理由，这是功利观，而非道义观。人伦之道的关键是先尽自己一方的责任，而不能以他人尽责与否作为我们是否尽责的前提条件。我们与人相处要记住一个原则，“不管别人对不对，自己一定要做对”，无论是父母还是身边所有的人，纵使他们用不对的态度对我，我依然要用对的态度去面对他们，不然我也是跟他一般见识了，根本没有资格去说别人的错。以怨报怨，结果会造成更加严重的对立矛盾。我们要相信“精诚所至，金石为开”，这样才能上演人生一出又一出的好戏。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲有过 &emsp;谏使更 &emsp;怡吾色 &emsp;柔吾声</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母有过失，当子女的应小心劝导改过向善。态度一定要诚恳，声音必须柔和，应做到和颜悦色地把道理讲清楚、讲明白。<br></p>
-
-<p><br>    孝顺并不是一定要对父母百依百顺，人与人之间所有的行为都要以“道义”为准则，父母子女之间也不例外。人无完人，父母也难免有过错，子女如果对此听之任之、不闻不问，也是一种不孝的表现。因为父母的过错会给自己和家庭带来损失、伤害，作为子女，爱父母，就有劝导帮助父母的责任，而劝导帮助的关键是你的态度和方式、方法。因此，我们在劝谏时绝对不可板着面孔，一派指责的言语，好似在教训父母一样，这样父母肯定是没有办法接受的。而应当见机行事，以虔敬的心、善巧的言语，或请适当的长者来帮忙，这样效果才更好，也会使父母子女之间的亲情更加融洽、家庭更加和睦。为人父母者，我们读到这一条，也更应该警诫、反省自己有无过失及不良的习惯，如果有，就要及时把它改正过来，这样才能做好榜样让子女效法。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">谏不入 &emsp;悦复谏 &emsp;号泣随 &emsp;挞无怨</p>
-
-<p style="margin-bottom: 0;"><br>    【解】如果父母不听规劝，要耐心等待，一有适当时机，例如父母情绪好转或是高兴的时候，再继续劝导。如果父母仍固执不听，甚至生气，此时我们虽然难过得痛哭流涕，也要恳求父母改过。因为，有孝心的人是不忍心陷父母于不义的。纵然遭到责打，我们也无怨无悔，不能使父母一错再错、铸成大错。<br></p>
-
-<p><br>    不论我们规劝谁，都要建立在对方对我们有很深信任的基础上，而这个信任绝对不是凭空而来的，你必须要在长期的相处中，时时观察对方的需求，然后真心地去关怀与付出，才能赢得别人的信任。进而再去适当的时机进行规劝，才会有效果。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲有疾 &emsp;药先尝 &emsp;昼夜侍 &emsp;不离床</p>
-
-<p style="margin-bottom: 0;"><br>    【解】父母亲生病时，子女应当尽心尽力地照顾，古人熬制中药，在给父母服用之前都会先尝一下，看看温度凉热是否适宜。昼夜侍奉在父母的床前，这是一种孝心的流露。<br></p>
-
-<p><br>    想一想当子女生病时，做父母的恨不得自己去替孩子生病，那心血的付出是世上少有的。如今父母生病了，最需要自己的子女在身边陪伴照顾起居，我们岂能因为工作太忙或没有时间，就放弃这种尽孝的机会呢？所谓“树欲静而风不止，子欲养而亲不待”，故行孝当及时，错过机会，将是终身的遗憾！等父母过世后，才想到要奉养父母，那时就悔之晚矣！孝亲不是难事，只要我们肯承担，只要我们真正生起对父母的报恩之心，就没有做不到的事情。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">丧三年 &emsp;常悲咽 &emsp;居处变 &emsp;酒肉绝</p>
-
-<p style="margin-bottom: 0;"><br>    【解】当父母亲不幸去世，守孝期间（古礼三年），要常常追思、感怀父母教养的恩德，因而经常悲伤哭泣。自己的生活起居必须调整改变，不能贪图享受，应该戒绝酒肉（请参考《地藏菩萨本愿经》，孝子应如何给往生者修福）。<br></p>
-
-<p><br>    一个孝子他很难接受父母离去的现实，自然而然就会有这样的情绪：当想到父母一把屎一把尿，用尽心力，累到耳聋眼花，牙也掉了，腿疼腰弯，行动不便，一生辛苦地把我们培育成人；想到父母待我之慈爱真心，而自己尚未报父母之恩于万一；想到以往跟父母在一起的种种情形，眼泪就忍不住掉下来。这种感怀之情，是一个孝子发自内心自然做出来的。父母都离去了，他还会吃好的、穿好的、用好的，去花天酒地吗？不可能的，自然而然对那些挥霍、酒肉就不想。这都是对父母一种哀悼的表现。<br></p>
-
-<p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">丧尽礼 &emsp;祭尽诚 &emsp;事死者 &emsp;如事生</p>
-
-<p style="margin-bottom: 0;"><br>    【解】办理父母亲的丧事要哀戚合乎礼节，不可草率马虎，也不要为了面子铺张浪费，才是真孝顺。祭拜时应诚心诚意，对待已经去世的父母，要如同生前一样恭敬。《论语》云：“慎终追远，民德归厚矣。”中国古礼特重葬礼，而重视丧葬之根本目的是在教化活人，以此来培养人们的道德品性和反哺报恩的观念。人与人之间的感情很容易夹杂势利的因素而不纯粹，唯有对死者，没有欲望，只有真情。现在当然可以改革葬礼仪式，不必厚葬，但一定要有对父母的真情，切不可流于形式。<br></p>
-
-<p style="margin-bottom: 0;"><br>    父母过世以后（父母的祭日、清明节、冬至节）祭祀父母、祭祀祖先，这是一种缅怀父母祖先恩德的活动。父母在生的时候，我们要爱敬自己的父母，父母不在了，我们对父母的那种怀念，也是一生不改啊！特别是要更加努力地来做人、行义，不可以做出亏欠父母、让父母蒙羞的事情，要对得起父母的在天之灵，这也是对父母尽孝啊！<br></p>
-
-<p style="margin-bottom: 0;"><br>    人生在世，父母与我们最亲，给我们的恩情也最重。所以，人一生最重要的就是对得起自己的父母。努力学习侍奉父母的礼节，把孝养父母当成人生中最重要的一件大事业，用心努力来完成，做到仰不愧于天、俯不怍于地，心胸坦荡地立足于天地之间。千万不要上演“树欲静而风不止，子欲养而亲不待”的人生悲剧，这种心痛一定会缠绕我们一生……使我们的内心经常会在自责与后悔的阴影下痛苦地煎熬着，无法得到安宁。切记，切记！如果生前不尽心奉养，让父母寒心而去，死的时候花一大把钱，那就是太颠倒了，这是大不孝啊！<br></p>
-
-<p style="margin-bottom: 0;"><br>    所以，我们要把孝深深地根植于我们的心中，尊重、感恩、顶礼我们的父母，是他们给了我们生命，仅此一恩已经足矣，更不用说难以报答的养育之恩。莫论父母的是是非非、恩恩怨怨，他们也是人，岂能事事明理、处处正确？无论如何，当他们老了，糊涂了，脾气古怪了，不通情理了，我们要把他们当孩子疼、当孩子爱。原谅宽容每一位天下的老人，珍惜老人的好心情，哪个不是我们的白发亲人，我们哪个不是会变成别人的白发亲人？<br></p>
-
-<p><br>    《孝经》云：“立身行道，扬名于后世，以显父母，孝之终也。”孝到了终极，是要立身行道啊！要让父母成为圣贤人的父母，这是大孝啊！大孝的人，要以身济世，救济这个世间，正如古人所讲的“为天地立心，为生民立命，为往圣继绝学，为万世开太平”。<br></p>
           
+以弟子规作为我学习传统文化的基础，首先树立良好的道德及情操，再去深入经藏，以期与古人神交。之前谈到《弟子规》总是不屑一顾，那都是小孩学的，我一个20多岁的人，是否太幼稚了。可是偶然的机会让我初识它，
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/18/弟子规-总叙/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2116,70 +1463,18 @@
       
         
           
-            <blockquote>
-<p>既然已经熟悉了盒模型，就来看看可视化格式模型和定位模型。理解这两个模型的细微差异是非常重要的，因为它们一起控制着如何在页面上布置每个元素。</p>
-</blockquote>
-<h3 id="一、可视化模型"><a href="#一、可视化模型" class="headerlink" title="一、可视化模型"></a>一、可视化模型</h3><p><br>    p、h1或div等元素常常被称为块级元素。这意味着这些元素显示为一块内容，即“块框”。与之相反，strong和span等元素称为行内元素，因为它们的内容显示在行中，即“行内框”。<br></p>
-
-<p><br>    可以使用display属性改变生成的框的类型。这意味着，通过将display属性设置为block，可以让行内元素（比如锚）表现得像块级元素一样。还可以通过将display属性设置为none，让生成的元素根本没有框。<br>    这样，这个框及其所有内容就不再显示，不占用文档中的空间。<br></p>
-
-<p><br>    CSS中有3种基本的定位机制：普通流、浮动和绝对定位。除非专门指定，否则所有框都在普通流中定位。顾名思义，普通流中元素框的位置由元素在HTML中的位置决定。<br></p>
-
-<p><br>    块级框从上到下一个接一个地垂直排列，框之间的垂直距离由框的垂直外边距计算出来。<br></p>
-
-<p><br>    行内框在一行中水平排列。可以使用水平内边距、边框和外边距调整它们的水平间距（图1-9）。但是，垂直内边距、边框和外边距不影响行内框的高度。同样，在行内框上设置显式的高度或宽度也没有影响。<br>    由一行形成的水平框称为行框，行内框的高度总是足以容纳它包含的所有行内框。但是，设置行高可以增加这个框的高度。因此，修改行内框尺寸的唯一方法是修改行高或者水平边框、内边距或外边距。<br></p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-9.png"></p>
-<div style="text-align: center;">图1-9 行框中的行内元素</div>
-
-<p><br>    好在CSS2.1允许把元素的display属性设置为inline-block。顾名思义，这个声明让元素像行内元素一样水平地依次排列。但是，框的内容仍然符合块级框的行为，例如能够显式地设置高度、宽度、垂直外边距和<br>    内边距。过去，浏览器对这个属性的支持很差，所以很少使用它。现在，Firefox3.0及更高版本、IE8以及Safari和Opera的最新版本支持inline-block。<br></p>
-
-<p><br>    框可以按照HTML元素的嵌套方式包含其他框。大多数框由显式定义的元素形成。但是，在一种情况下，即使没有进行显式定义，也会创建块级元素。这种情况发生在将一些文本添加到一个块级元素（比如div）的开头时。即使没有把这些文本定义为块级元素，它也会被当成块级元素对待：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div&gt;</div><div class="line">	some text</div><div class="line">	&lt;p&gt;Some more text&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p><br>    在这种情况下，这个框称为匿名块框，因为它不与专门定义的元素相关联。<br></p>
-
-<p><br>    块级元素内的文本行也会发生类似的情况。假设有一个包含3行文本的段落。每行文本形成一个匿名行框。无法直接对匿名块或行框应用样式，除非使用不常用的：first-line伪元素。但是，这有助于理解在屏幕上看到的所有东西都形成某种框。<br></p>
-
-
-<h3 id="二、相对定位"><a href="#二、相对定位" class="headerlink" title="二、相对定位"></a>二、相对定位</h3><p><br>    相对定位是一个非常容易掌握的概念。如果对一个元素进行相对定位，它将出现在它所在的位置上。然后，可以通过设置垂直或水平位置，让这个元素“相对于”它的起点移动。如果将top设置为20像素，那么框将出现在原位置顶部下面20像素的地方。如果将left设置为20像素，那么会在元素左边创建20像素的空间，也就是将元素向右移动（图1-10）。<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#myBox &#123;</div><div class="line">	position: relative;</div><div class="line">	left: 20px;</div><div class="line">	top: 20px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><img src="https://shaoqianheng.github.io/images/1-10.png"></p>
-<div style="text-align: center;">图1-10 对元素进行相对定位</div>
-
-<p><br>    在使用相对定位时，无论是否移动，元素仍然占据原来的空间。因此，移动元素会导致它覆盖其他框。<br></p>
-
-<h3 id="三、绝对定位"><a href="#三、绝对定位" class="headerlink" title="三、绝对定位"></a>三、绝对定位</h3><p><br>    相对定位实际上被看做普通流定位模型的一部分，因为元素的位置是相对于它的普通流中的位置的。与之相反，绝对定位使元素与文档流无关，因此不占据空间。普通文档流中其他元素的布局就像绝对定位的元素不存在时一样。（图1-11）<br></p>
-
-
-<p><img src="https://shaoqianheng.github.io/images/1-11.png"></p>
-<div style="text-align: center;">图1-11 对元素进行绝对定位</div>
-
-<p><br>    绝对定位的元素的位置是相对于距离它最近的那个已定位的祖先元素确定的。如果元素没有已定位的祖先元素，那么它的位置是相对于初始包含块的。根据用户代理的不同，初始包含块可能是画布或HTML元素。<br></p>
-
-<p><br>    与相对定位的框一样，绝对定位的框可以从它的包含块向上、下、左、右移动。这提供了很大的灵活性，你可以直接将元素定位在页面上的任何位置。<br></p>
-
-<blockquote>
-<p>对于定位的主要问题是要记住每种定位的意义。相对定位是“相对于”元素在文档流中的初始位置，而绝对定位是“相对于”距离它最近的已定位的祖先元素，如果不存在已定位的祖先元素，那么相对于初始包含块。</p>
-</blockquote>
-<p><br>    因为绝对定位的框与文档流无关，所以它们可以覆盖页面上的其他元素。可以通过设置z-index属性来控制这些框的叠放次序。z-index值越高，框在栈中的位置就越高。<br></p>
-
-<p><br>    相对于最近的已定位祖先元素来定位绝对定位的元素，能够实现一些非常有意思的效果。例如，假设希望让一个文本段落对准一个大框的右下角，只需对包含框进行相对定位，然后相对于这个框对段落进行绝对定位：<br></p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#branding &#123;</div><div class="line">	width: 70em;</div><div class="line">	height: 10em;</div><div class="line">	position: relative;</div><div class="line">&#125;</div><div class="line"></div><div class="line">#branding .tel &#123;</div><div class="line">	position: absolute;</div><div class="line">	right: 1em;</div><div class="line">	bottom: 1em;</div><div class="line">	text-align: right;</div><div class="line">&#125;</div><div class="line"></div><div class="line">&lt;div id=&quot;branding&quot;&gt;</div><div class="line">	&lt;p class=&quot;tel&quot;&gt;Tel: 0845 838 6163&lt;/p&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p><br>    在进行页面布局时，绝对定位是非常有用的，尤其是在使用相对定位的祖先元素的情况下。你完全可能只使用绝对定位就创建出整个设计。为此，这些元素需要具有固定尺寸，这样就能够将它们定位在任何地方而不会有重叠的风险。<br></p>
-
-<p><br>    因为绝对定位的元素与文档流无关，所以它们不影响普通流中的框。如果扩大绝对定位的框（例如，通过增加字号），周围的框不会重新定位。因此，尺寸的任何改变都会导致绝对定位的框产生重叠，从而破坏精心调整过的布局。<br></p>
-
-<h3 id="3-2-固定定位"><a href="#3-2-固定定位" class="headerlink" title="3.2 固定定位"></a>3.2 固定定位</h3><p><br>    固定定位是绝对定位的一种。差异在于固定元素的包含块是视口(viewport)。这使我们能够创建总是出现在窗口中相同位置的浮动元素。<br></p>
-
-
-<blockquote>
-<p>不过，IE6和更低版本不支持固定定位。IE 7部分支持这个属性，但是实现中有许多bug。</p>
-</blockquote>
-
           
+既然已经熟悉了盒模型，就来看看可视化格式模型和定位模型。理解这两个模型的细微差异是非常重要的，因为它们一起控制着如何在页面上布置每个元素。
+
+一、可视化模型    p、h1或div等元素常常被称为块
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/18/定位概述/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>

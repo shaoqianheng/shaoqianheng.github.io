@@ -326,64 +326,17 @@
       
         
           
-            <h3 id="1-1-盒模型"><a href="#1-1-盒模型" class="headerlink" title="1.1 盒模型"></a>1.1 盒模型</h3><p><span style="color: #000; font-weight: bold;">盒模型</span>是CSS的基石之一，它指定元素如何显示以及（在某种程度上）如何相互交互。<span style="color: #000; font-weight: bold;">页面上的每个元素被看做一个矩形框，这个框由元素的内容、内边距、边框和外边距组成。</span>（如图1-1）。</p>
+          1.1 盒模型盒模型是CSS的基石之一，它指定元素如何显示以及（在某种程度上）如何相互交互。页面上的每个元素被看做一个矩形框，这个框由元素的内容、内边距、边框和外边距组成。（如图1-1）。
 
-<p>内边距出现在内容区域的周围。如果在元素上添加背景，那么背景会应用于由内容和内边距组成的区域。因此，我们常常使用内边距在内容周围创建一个隔离带，使内容不会与背景混在一起。添加边框会在内边距的区域外边加一条线。这些线可以有很多样式，比如实线、虚线或电线。在边框外边的是外边距。<span style="color: #000; font-weight: bold;">外边距是透明的。</span>一般使用它来控制元素之间的间隔。</p><p><br><br><img src="https://shaoqianheng.github.io/images/1-1.png"><br><div style="text-align: center;">图1-1 盒模型示意图</div><br><br></p><p><span style="color: #000; font-weight: bold;">内边距、边框和外边距都是可选的，默认值为零。</span>但是，许多元素将由用户代理样式表设置外边距和内边距。可以通过将元素的margin或padding设置为零来覆盖这些浏览器样式。这可以分别进行，也可以使用通用选择器对所有元素进行设置：</p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">* &#123;</div><div class="line">    margin: 0;</div><div class="line">    padding: 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><span style="color: #000; font-weight: bold;">请记住，这种技术不区分元素，所以它对option等元素有不利影响。因此，使用全局reset把内边距和外边距显式地设置为零可能更安全。</span></p>
-
-<p><span style="color: #000; font-weight: bold;">在CSS中，width和height指的是内容区域的宽度和高度。</span>增加内边距、边框和外边距不会影响内容区域的尺寸，但是会增加元素的总尺寸。假设框的每个边上有10像素的外边距和5像素的内边距，如果希望这个框达到100像素宽，就需要将内容的宽度设置为70像素。（图1-2）</p>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#myBox &#123;</div><div class="line">    margin: 10px;</div><div class="line">    padding: 5px;</div><div class="line">    width: 70px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><span style="color: #000; font-weight: bold;">内边距、边框和外边距可以应用于一个元素的所有边，也可以应用于单独的边。外边距还可以是负值，这可以用在多种技术中。</span></p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-2.png"></p>
-<div style="text-align: center;">图1-2 正确的盒模型</div>
-
-<hr>
-<h3 id="1-2-IE和盒模型"><a href="#1-2-IE和盒模型" class="headerlink" title="1.2 IE和盒模型"></a>1.2 IE和盒模型</h3><p> 令人遗憾的是，IE的早期版本，包括IE6，<span style="color: #000; font-weight: bold;">在混杂模式中使用自己的非标准盒模型。这些浏览器的width属性不是内容的宽度，而是内容、内边距和边框的宽度总和。</span>这实际上很有道理，因为在现实世界中框具有固定的尺寸，而且内边距是放在框里面的。添加的内边距越多，给内容留下的空间就越少。尽管符合逻辑，但是这些IE版本不符合规范，这会造成严重的问题。例如，在前面的示例中，在IE 5.x中框的总宽度只有90像素。这是因为IE 5.x认为每个边上5像素的内边距是70像素的宽度的一部分，而不是宽度之外附加的（图1-3）</p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-3.png"></p>
-<div style="text-align: center;">图1-3 IE专有的盒模型使元素比预期的小</div>
-
-<p> 幸运的是，有几个方法可以解决这个问题，这些方法在以后会介绍到。但是，目前最好的解决方案是回避这个问题。也就是，不要给元素添加具有指定宽度的内边距，而是尝试将内边距或外边距添加到元素的父元素或子元素。</p>
-
-<hr>
-<h3 id="1-3-外边距叠加"><a href="#1-3-外边距叠加" class="headerlink" title="1.3 外边距叠加"></a>1.3 外边距叠加</h3><p> 外边距叠加是一个相当简单的概念。但是，在实践中对网页进行布局时，它会造成许多混淆。<span style="color: #000; font-weight: bold;">简单地说，当两个或更多垂直外边距相遇时，它们将形成一个外边距。这个外边距的高度等于两个发生叠加的外边距的高度中的较大者。</span></p>
-
-<p><span style="color: #000; font-weight: bold;">当一个元素出现在另一个元素上面时，第一个元素的底外边距与第二个元素的顶外边距发生叠加。</span>（图1-4）</p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-4.png"></p>
-<div style="text-align: center;">图1-4 元素的顶外边距与前面元素的底外边距发生叠加</div>
-
-<p><span style="color: #000; font-weight: bold;">当一个元素包含在另一个元素中时（假设没有内边距或边框将外边距分隔开），它们的顶和或底外边距也会发生叠加。</span>（图1-5）</p>
-
-<p>尽管初看上去有点儿奇怪，但是外边距甚至可以与本身发生叠加。假设有一个空元素，它有外边距，但是没有边框或内边距。在这种情况下，顶外边距与底外边距就碰到了一起，它们会发生叠加。（图1-6）</p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-5（1）.png"></p>
-<div style="text-align: center;">图1-5 元素的顶外边距与父元素的顶外边距发生叠加</div>
-
-
-<p><img src="https://shaoqianheng.github.io/images/1-6.png"></p>
-<div style="text-align: center;">图1-6 元素的顶外边距与底外边距发生叠加</div>
-
-<p><span style="color: #000; font-weight: bold;">如果这个外边距碰到另一个元素的外边距，它还会发生叠加</span>（图1-7）</p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-7.png"></p>
-<div style="text-align: center;">图1-7 空元素中已经叠加的外边距与另一个空元素的外边距发生叠加</div>
-
-
-<p><span style="color: #000; font-weight: bold;">这就是一系列空的段落元素占用的空间非常小的原因，因为它们的所有外边距都叠加到一起，形成一个小的外边距。</span></p>
-
-<p> 外边距叠加初看上去可能有点儿奇怪，但是它实际上有<span style="color: #000; font-weight: bold;">重要的意义</span>。<span style="color: #000; font-weight: bold;">以由几个段落组成的典型文本页面为例（1-8）。第一个段落上面的空间等于段落的顶外边距。如果没有发生外边距叠加，后续所有段落之间的空间将是相邻顶外边距的和。这意味着段落之间的空间是页面顶部的两倍。如果发生外边距叠加，段落之间的顶外边距和底外边距就叠加在一起，这样各处的距离就一致了。</span></p>
-
-
-<p><span style="color: #000; font-weight: bold;">只有普通文档流中块框的垂直外边距才会发生外边距叠加。行内框、浮动框或绝对定位框之间的外边距不会叠加。</span></p>
-
-<p><img src="https://shaoqianheng.github.io/images/1-8.png"></p>
-<div style="text-align: center;">图1-8 外边距叠加在元素之间维持了一致的距离</div>
-          
+内边距出
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/18/盒模型概述/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -501,8 +454,15 @@
       
         
           
-            <p style="text-align: center;font-size: 16px;font-weight: bold; margin-bottom: 0;">总叙</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">弟子规 &emsp;圣人训 &emsp;首孝弟 &emsp;次谨信</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">泛爱众 &emsp;而亲仁 &emsp;有余力 &emsp;则学文</p><p style="text-align: center;font-size: 16px;font-weight: bold; margin-bottom: 0;">入则孝</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">父母呼 &emsp;应勿缓 &emsp;父母命 &emsp;行勿懒</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">父母教 &emsp;须敬听 &emsp;父母责 &emsp;需顺承</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">冬则温 &emsp;夏则凊 &emsp;晨则省 &emsp;昏则定</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">出必告 &emsp;反必面 &emsp;居有常 &emsp;业无变</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事虽小 &emsp;勿擅为 &emsp;苟擅为 &emsp;子道亏</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">物虽小 &emsp;勿私藏 &emsp;苟私藏 &emsp;亲心伤</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲所好 &emsp;力为具 &emsp;亲所恶 &emsp;谨为去</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">身有伤 &emsp;贻亲忧 &emsp;德有伤 &emsp;贻亲羞</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲爱我 &emsp;孝何难 &emsp;亲憎我 &emsp;孝方贤</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲有过 &emsp;谏使更 &emsp;怡吾色 &emsp;柔吾声</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">谏不入 &emsp;悦复谏 &emsp;号泣随 &emsp;挞无怨</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">亲有疾 &emsp;药先尝 &emsp;昼夜侍 &emsp;不离床</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">丧三年 &emsp;常悲咽 &emsp;居处变 &emsp;酒肉绝</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">丧尽礼 &emsp;祭尽诚 &emsp;事死者 &emsp;如事生</p><p style="text-align: center;font-size: 16px;font-weight: bold; margin-bottom: 0;">出则弟</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">兄道友 &emsp;弟道恭 &emsp;兄弟睦 &emsp;孝在中</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">财物轻 &emsp;怨何生 &emsp;言语忍 &emsp;忿自泯</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">或饮食 &emsp;或坐走 &emsp;长者先 &emsp;幼者后</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">长呼人 &emsp;即代叫 &emsp;人不在 &emsp;己即到</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">称尊长 &emsp;勿呼名 &emsp;对尊长 &emsp;勿见能</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">路遇长 &emsp;疾趋揖 &emsp;长无言 &emsp;退恭立</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">骑下马 &emsp;乘下车 &emsp;过犹待 &emsp;百步余</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">长者立 &emsp;幼勿坐 &emsp;长者坐 &emsp;命乃坐</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">尊长前 &emsp;声要低 &emsp;低不闻 &emsp;却非宜</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">进必趋 &emsp;退必迟 &emsp;问起对 &emsp;视勿移</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事诸父 &emsp;如事父 &emsp;事诸兄 &emsp;如事兄</p><p style="text-align: center;font-size: 16px;font-weight: bold; margin-bottom: 0;">谨</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">朝起早 &emsp;夜眠迟 &emsp;老易至 &emsp;惜此时</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">晨必盥 &emsp;兼漱口 &emsp;便溺回 &emsp;辄净手</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">冠必正 &emsp;纽必结 &emsp;袜与履 &emsp;俱紧切</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">置冠服 &emsp;有定位 &emsp;勿乱顿 &emsp;致污秽</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">衣贵洁 &emsp;不贵华 &emsp;上循分 &emsp;下称家</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">对饮食 &emsp;勿拣择 &emsp;食适可 &emsp;勿过则</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">年方少 &emsp;勿饮酒 &emsp;饮酒醉 &emsp;最为丑</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">步从容 &emsp;立端正 &emsp;揖深圆 &emsp;拜恭敬</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">勿践阈 &emsp;勿跛倚 &emsp;勿箕踞 &emsp;勿摇髀</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">缓揭帘 &emsp;勿有声 &emsp;宽转弯 &emsp;勿触棱</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">执虚器 &emsp;如执盈 &emsp;入虚室 &emsp;如有人</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事勿忙 &emsp;忙多错 &emsp;勿畏难 &emsp;勿轻略</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">斗闹场 &emsp;绝勿近 &emsp;邪僻事 &emsp;绝勿问</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">将入门 &emsp;问孰存 &emsp;将上堂 &emsp;声必扬</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">人问谁 &emsp;对以名 &emsp;吾与我 &emsp;不分明</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">用人物 &emsp;须明求 &emsp;倘不问 &emsp;即为偷</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">借人物 &emsp;及时还 &emsp;后有急 &emsp;借不难</p><p style="text-align: center;font-size: 16px;font-weight: bold; margin-bottom: 0;">信</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡出言 &emsp;信为先 &emsp;诈与妄 &emsp;奚可焉</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">话说多 &emsp;不如少 &emsp;惟其是 &emsp;勿佞巧</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">奸巧语 &emsp;秽污词 &emsp;市井气 &emsp;切戒之</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见未真 &emsp;勿轻言 &emsp;知未的 &emsp;勿轻传</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">事非宜 &emsp;勿轻诺 &emsp;苟轻诺 &emsp;进退错</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡道字 &emsp;重且舒 &emsp;勿急疾 &emsp;勿模糊</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">彼说长 &emsp;此说短 &emsp;不关己 &emsp;莫闲管</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见人善 &emsp;即思齐 &emsp;纵去远 &emsp;以渐跻</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">见人恶 &emsp;即内省 &emsp;有则改 &emsp;无加警</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">唯德学 &emsp;唯才艺 &emsp;不如人 &emsp;当自砺</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">若衣服 &emsp;若饮食 &emsp;不如人 &emsp;勿生戚</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">闻过怒 &emsp;闻誉乐 &emsp;损友来 &emsp;益友却</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">闻誉恐 &emsp;闻过欣 &emsp;直谅士 &emsp;渐相亲</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">无心非 &emsp;名为错 &emsp;有心非 &emsp;名为恶</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">过能改 &emsp;归于无 &emsp;倘掩饰 &emsp;增一辜</p><p style="text-align: center;font-size: 16px;font-weight: bold; margin-bottom: 0;">泛爱众</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡是人 &emsp;皆须爱 &emsp;天同覆 &emsp;地同载</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">行高者 &emsp;名自高 &emsp;人所重 &emsp;非貌高</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">才大者 &emsp;望自大 &emsp;人所服 &emsp;非言大</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">己有能 &emsp;勿自私 &emsp;人所能 &emsp;勿轻訾</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">勿谄富 &emsp;勿骄贫 &emsp;勿厌故 &emsp;勿喜新</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">人不闲 &emsp;勿事搅 &emsp;人不安 &emsp;勿话扰</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">人有短 &emsp;切莫揭 &emsp;人有私 &emsp;切莫说</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">道人善 &emsp;即是善 &emsp;人知之 &emsp;愈思勉</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">扬人恶 &emsp;即是恶 &emsp;疾之甚 &emsp;祸且作</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">善相劝 &emsp;德皆建 &emsp;过不规 &emsp;道两亏</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">凡取与 &emsp;贵分晓 &emsp;与宜多 &emsp;取宜少</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">将加人 &emsp;先问己 &emsp;己不欲 &emsp;即速已</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">恩欲报 &emsp;怨欲忘 &emsp;报怨短 &emsp;报恩长</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">待婢仆 &emsp;身贵端 &emsp;虽贵端 &emsp;慈而宽</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">势服人 &emsp;心不然 &emsp;理服人 &emsp;方无言</p><p style="text-align: center;font-size: 16px;font-weight: bold; margin-bottom: 0;">亲仁</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">同是人 &emsp;类不齐 &emsp;流俗众 &emsp;仁者希</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">果仁者 &emsp;人多畏 &emsp;言不讳 &emsp;色不媚</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">能亲仁 &emsp;无限好 &emsp;德日进 &emsp;过日少</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">不亲仁 &emsp;无限害 &emsp;小人进 &emsp;百事坏</p><p style="text-align: center;font-size: 16px;font-weight: bold; margin-bottom: 0;">余力学文</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">不力行 &emsp;但学文 &emsp;长浮华 &emsp;成何人</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">但力行 &emsp;不学文 &emsp;任己见 &emsp;昧理真</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">读书法 &emsp;有三到 &emsp;心眼口 &emsp;信皆要</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">方读此 &emsp;勿慕彼 &emsp;此未终 &emsp;彼勿起</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">宽为限 &emsp;紧用功 &emsp;工夫到 &emsp;滞塞通</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">心有疑 &emsp;随札记 &emsp;就人问 &emsp;求确义</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">房室清 &emsp;墙壁净 &emsp;几案洁 &emsp;笔砚正</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">墨磨偏 &emsp;心不端 &emsp;字不敬 &emsp;心先病</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">列典籍 &emsp;有定处 &emsp;读看毕 &emsp;还原处</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">虽有急 &emsp;卷束齐 &emsp;有缺坏 &emsp;就补之</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">非圣书 &emsp;屏勿视 &emsp;蔽聪明 &emsp;坏心志</p><p style="text-align: center;font-size: 14px;font-weight: bold; margin-bottom: 0;">勿自暴 &emsp;勿自弃 &emsp;圣与贤 &emsp;可驯致</p>
-          
+          总叙弟子规 &emsp;圣人训 &emsp;首孝弟 &emsp;次谨信泛爱众 &emsp;而亲仁 &emsp;有余力 &emsp;则学文入则孝父母呼 &emsp;应勿缓 &emsp;父母命 &emsp
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/08/17/弟子规/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
